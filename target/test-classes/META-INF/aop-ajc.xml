@@ -1,0 +1,29 @@
+<aspectj>
+<aspects>
+<aspect name="edu.ndnu.capstone.domain.EmergencyIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyStatusIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyStatusIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.LocationIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.ndnu.capstone.domain.EvacuationDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.UserTypeDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.ndnu.capstone.domain.LocationDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.ndnu.capstone.domain.LocationIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.UserTypeIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyTypeDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.ndnu.capstone.domain.UserTypeIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EvacuationIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyTypeIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="edu.ndnu.capstone.domain.LocationDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyTypeIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyTypeDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyStatusDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="edu.ndnu.capstone.domain.UserTypeDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EmergencyStatusDataOnDemand_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EvacuationIntegrationTest_Roo_Configurable"/>
+<aspect name="edu.ndnu.capstone.domain.EvacuationDataOnDemand_Roo_DataOnDemand"/>
+</aspects>
+</aspectj>
+

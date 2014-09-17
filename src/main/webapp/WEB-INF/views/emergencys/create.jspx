@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_edu_ndnu_capstone_domain_Emergency" modelAttribute="emergency" path="/emergencys" render="${empty dependencies}" z="LZRLqOi2bzE6kgQB5bqjvqkgNME=">
+        <field:input field="userId" id="c_edu_ndnu_capstone_domain_Emergency_userId" required="true" validationMessageCode="field_invalid_integer" z="kiVBvXekzGHTWjSo0t7k9Xso/qU="/>
+        <field:input field="locationId" id="c_edu_ndnu_capstone_domain_Emergency_locationId" required="true" validationMessageCode="field_invalid_integer" z="r0jZG/goQdKzAZ2mHYALxOHSA2Y="/>
+        <field:input field="typeId" id="c_edu_ndnu_capstone_domain_Emergency_typeId" required="true" validationMessageCode="field_invalid_integer" z="dLAFNfYnxwU2y9ESoqEkaDzgGeA="/>
+        <field:input field="statusId" id="c_edu_ndnu_capstone_domain_Emergency_statusId" required="true" validationMessageCode="field_invalid_integer" z="g5xem+tZtuWXciPO9JAQW4iwKjE="/>
+        <field:input field="description" id="c_edu_ndnu_capstone_domain_Emergency_description" z="2OmzBfXUgF16bMismunQ36ASnUk="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_edu_ndnu_capstone_domain_Emergency" render="${not empty dependencies}" z="k52ilGAo77kiTrZicZQFSeplBio="/>
+</div>

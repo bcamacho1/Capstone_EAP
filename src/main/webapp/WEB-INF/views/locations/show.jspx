@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_ndnu_capstone_domain_Location" object="${location}" path="/locations" z="8QtyC+b3O82NH9rjYyfH5CkXSOE=">
+        <field:display field="name" id="s_edu_ndnu_capstone_domain_Location_name" object="${location}" z="B5KJUzfqXOGptU33wOiOvJ6nGXs="/>
+        <field:display field="address" id="s_edu_ndnu_capstone_domain_Location_address" object="${location}" z="LRy5+LMZizhfqLCyrjifd9FYhRk="/>
+        <field:display field="city" id="s_edu_ndnu_capstone_domain_Location_city" object="${location}" z="Zgpwj79eiZq/NwMNUHnriULahxc="/>
+        <field:display field="state" id="s_edu_ndnu_capstone_domain_Location_state" object="${location}" z="9WblYT8XiVTe+O3789pIFiA+HGE="/>
+        <field:display field="zipcode" id="s_edu_ndnu_capstone_domain_Location_zipcode" object="${location}" z="TLP2xYWMxyo9FVT8nsx8wGyiEqA="/>
+        <field:display field="evacuationArea" id="s_edu_ndnu_capstone_domain_Location_evacuationArea" object="${location}" z="iAKDxn0GIj3UmuzGyMKNW8vH+TI="/>
+        <field:display field="latitude" id="s_edu_ndnu_capstone_domain_Location_latitude" object="${location}" z="VdsBXzBYViHUh9gZEQ8YK3IImiQ="/>
+        <field:display field="longitude" id="s_edu_ndnu_capstone_domain_Location_longitude" object="${location}" z="BaRpGEojE2eLB4Bs7MCA0ELW8fc="/>
+        <field:display field="description" id="s_edu_ndnu_capstone_domain_Location_description" object="${location}" z="xuGo3Ah97Co5Bpbm9OPu3iF81v4="/>
+    </page:show>
+</div>

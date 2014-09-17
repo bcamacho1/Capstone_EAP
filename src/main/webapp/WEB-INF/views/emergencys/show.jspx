@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_ndnu_capstone_domain_Emergency" object="${emergency}" path="/emergencys" z="BwEnmp4bea19qh/n8apofKYS1cE=">
+        <field:display field="userId" id="s_edu_ndnu_capstone_domain_Emergency_userId" object="${emergency}" z="ZvWK3Ql3nFVs/e265EU0XStwX8g="/>
+        <field:display field="locationId" id="s_edu_ndnu_capstone_domain_Emergency_locationId" object="${emergency}" z="N0lc9pLJ89FBBmwMRTCSCNO+Eww="/>
+        <field:display field="typeId" id="s_edu_ndnu_capstone_domain_Emergency_typeId" object="${emergency}" z="8c51eGczwZeVHY6kTTHuHZ6XI00="/>
+        <field:display field="statusId" id="s_edu_ndnu_capstone_domain_Emergency_statusId" object="${emergency}" z="Qu5Cj5zWwY9RUYcVsW9zk6E1aQM="/>
+        <field:display calendar="true" dateTimePattern="${emergency_created_date_format}" field="created" id="s_edu_ndnu_capstone_domain_Emergency_created" object="${emergency}" z="cLOWuwQ98fnhgoidWbjHLrhdxiI="/>
+        <field:display field="description" id="s_edu_ndnu_capstone_domain_Emergency_description" object="${emergency}" z="g08CPnvP4nif4yj02Ae/ctUZswo="/>
+    </page:show>
+</div>

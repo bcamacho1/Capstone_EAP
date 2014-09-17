@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_edu_ndnu_capstone_domain_Location" items="${locations}" z="OPhDEoVs+/5K7tQaG3qkb30aN1Q=">
+        <table:table data="${locations}" id="l_edu_ndnu_capstone_domain_Location" path="/locations" z="TTjPp7K/u92ypHyOJ5u2DayHKg4=">
+            <table:column id="c_edu_ndnu_capstone_domain_Location_name" property="name" z="Dc31mlQR/yvd92oz4B1zSeW2LYo="/>
+            <table:column id="c_edu_ndnu_capstone_domain_Location_address" property="address" z="SwJVS2kgp0YOQYLVxW13uXEd1wc="/>
+            <table:column id="c_edu_ndnu_capstone_domain_Location_city" property="city" z="/9EQP/dO0WXk3bqNQzpf7zxJsB8="/>
+            <table:column id="c_edu_ndnu_capstone_domain_Location_state" property="state" z="8JRlAKsj+DttV0TRW2ML7O1YgEM="/>
+            <table:column id="c_edu_ndnu_capstone_domain_Location_zipcode" property="zipcode" z="jfe47qf7GlXHLwOk6N+ZPHxGgh0="/>
+            <table:column id="c_edu_ndnu_capstone_domain_Location_evacuationArea" property="evacuationArea" z="M5LoWtDjFZ5Xn3K9N+rrp3esPeM="/>
+        </table:table>
+    </page:list>
+</div>
