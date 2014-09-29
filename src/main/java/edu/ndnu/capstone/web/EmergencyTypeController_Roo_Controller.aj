@@ -3,6 +3,7 @@
 
 package edu.ndnu.capstone.web;
 
+import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.EmergencyType;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
 import edu.ndnu.capstone.web.EmergencyTypeController;
@@ -23,6 +24,9 @@ privileged aspect EmergencyTypeController_Roo_Controller {
     
     @Autowired
     EmergencyTypeService EmergencyTypeController.emergencyTypeService;
+    
+    @Autowired
+    EmergencyService EmergencyTypeController.emergencyService;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String EmergencyTypeController.create(@Valid EmergencyType emergencyType, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -91,6 +95,7 @@ privileged aspect EmergencyTypeController_Roo_Controller {
     
     void EmergencyTypeController.populateEditForm(Model uiModel, EmergencyType emergencyType) {
         uiModel.addAttribute("emergencyType", emergencyType);
+        uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
     }
     
     String EmergencyTypeController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

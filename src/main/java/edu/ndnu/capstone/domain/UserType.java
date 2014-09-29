@@ -5,8 +5,8 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
-@RooToString
 @RooJpaActiveRecord(versionField = "", table = "user_type")
 @RooDbManaged(automaticallyDelete = true)
+@RooToString(excludeFields = { "users" })
 public class UserType {
 }

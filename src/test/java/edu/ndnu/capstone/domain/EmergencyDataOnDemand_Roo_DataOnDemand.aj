@@ -6,6 +6,14 @@ package edu.ndnu.capstone.domain;
 import edu.ndnu.capstone.domain.Emergency;
 import edu.ndnu.capstone.domain.EmergencyDataOnDemand;
 import edu.ndnu.capstone.domain.EmergencyService;
+import edu.ndnu.capstone.domain.EmergencyStatus;
+import edu.ndnu.capstone.domain.EmergencyStatusDataOnDemand;
+import edu.ndnu.capstone.domain.EmergencyType;
+import edu.ndnu.capstone.domain.EmergencyTypeDataOnDemand;
+import edu.ndnu.capstone.domain.Location;
+import edu.ndnu.capstone.domain.LocationDataOnDemand;
+import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.UserDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +33,18 @@ privileged aspect EmergencyDataOnDemand_Roo_DataOnDemand {
     private Random EmergencyDataOnDemand.rnd = new SecureRandom();
     
     private List<Emergency> EmergencyDataOnDemand.data;
+    
+    @Autowired
+    LocationDataOnDemand EmergencyDataOnDemand.locationDataOnDemand;
+    
+    @Autowired
+    EmergencyStatusDataOnDemand EmergencyDataOnDemand.emergencyStatusDataOnDemand;
+    
+    @Autowired
+    EmergencyTypeDataOnDemand EmergencyDataOnDemand.emergencyTypeDataOnDemand;
+    
+    @Autowired
+    UserDataOnDemand EmergencyDataOnDemand.userDataOnDemand;
     
     @Autowired
     EmergencyService EmergencyDataOnDemand.emergencyService;
@@ -54,22 +74,22 @@ privileged aspect EmergencyDataOnDemand_Roo_DataOnDemand {
     }
     
     public void EmergencyDataOnDemand.setLocationId(Emergency obj, int index) {
-        Integer locationId = new Integer(index);
+        Location locationId = locationDataOnDemand.getRandomLocation();
         obj.setLocationId(locationId);
     }
     
     public void EmergencyDataOnDemand.setStatusId(Emergency obj, int index) {
-        Integer statusId = new Integer(index);
+        EmergencyStatus statusId = emergencyStatusDataOnDemand.getRandomEmergencyStatus();
         obj.setStatusId(statusId);
     }
     
     public void EmergencyDataOnDemand.setTypeId(Emergency obj, int index) {
-        Integer typeId = new Integer(index);
+        EmergencyType typeId = emergencyTypeDataOnDemand.getRandomEmergencyType();
         obj.setTypeId(typeId);
     }
     
     public void EmergencyDataOnDemand.setUserId(Emergency obj, int index) {
-        Integer userId = new Integer(index);
+        User userId = userDataOnDemand.getRandomUser();
         obj.setUserId(userId);
     }
     

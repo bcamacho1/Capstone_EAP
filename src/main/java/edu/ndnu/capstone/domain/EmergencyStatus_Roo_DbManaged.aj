@@ -3,15 +3,29 @@
 
 package edu.ndnu.capstone.domain;
 
+import edu.ndnu.capstone.domain.Emergency;
 import edu.ndnu.capstone.domain.EmergencyStatus;
+import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 privileged aspect EmergencyStatus_Roo_DbManaged {
     
+    @OneToMany(mappedBy = "statusId")
+    private Set<Emergency> EmergencyStatus.emergencies;
+    
     @Column(name = "name", length = 256)
     @NotNull
     private String EmergencyStatus.name;
+    
+    public Set<Emergency> EmergencyStatus.getEmergencies() {
+        return emergencies;
+    }
+    
+    public void EmergencyStatus.setEmergencies(Set<Emergency> emergencies) {
+        this.emergencies = emergencies;
+    }
     
     public String EmergencyStatus.getName() {
         return name;

@@ -5,8 +5,8 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
-@RooToString
 @RooJpaActiveRecord(versionField = "", table = "emergency")
 @RooDbManaged(automaticallyDelete = true)
+@RooToString(excludeFields = { "userId", "locationId", "typeId", "statusId" })
 public class Emergency {
 }

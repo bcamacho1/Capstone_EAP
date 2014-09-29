@@ -3,6 +3,7 @@
 
 package edu.ndnu.capstone.web;
 
+import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.UserType;
 import edu.ndnu.capstone.domain.UserTypeService;
 import edu.ndnu.capstone.web.UserTypeController;
@@ -23,6 +24,9 @@ privileged aspect UserTypeController_Roo_Controller {
     
     @Autowired
     UserTypeService UserTypeController.userTypeService;
+    
+    @Autowired
+    UserService UserTypeController.userService;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String UserTypeController.create(@Valid UserType userType, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -91,6 +95,7 @@ privileged aspect UserTypeController_Roo_Controller {
     
     void UserTypeController.populateEditForm(Model uiModel, UserType userType) {
         uiModel.addAttribute("userType", userType);
+        uiModel.addAttribute("users", userService.findAllUsers());
     }
     
     String UserTypeController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

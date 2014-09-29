@@ -9,7 +9,6 @@
             <table:column id="c_edu_ndnu_capstone_domain_Location_city" property="city" z="/9EQP/dO0WXk3bqNQzpf7zxJsB8="/>
             <table:column id="c_edu_ndnu_capstone_domain_Location_state" property="state" z="8JRlAKsj+DttV0TRW2ML7O1YgEM="/>
             <table:column id="c_edu_ndnu_capstone_domain_Location_zipcode" property="zipcode" z="jfe47qf7GlXHLwOk6N+ZPHxGgh0="/>
-            <table:column id="c_edu_ndnu_capstone_domain_Location_evacuationArea" property="evacuationArea" z="M5LoWtDjFZ5Xn3K9N+rrp3esPeM="/>
         </table:table>
     </page:list>
 </div>

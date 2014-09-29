@@ -3,15 +3,29 @@
 
 package edu.ndnu.capstone.domain;
 
+import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserType;
+import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 privileged aspect UserType_Roo_DbManaged {
     
+    @OneToMany(mappedBy = "typeId")
+    private Set<User> UserType.users;
+    
     @Column(name = "name", length = 256)
     @NotNull
     private String UserType.name;
+    
+    public Set<User> UserType.getUsers() {
+        return users;
+    }
+    
+    public void UserType.setUsers(Set<User> users) {
+        this.users = users;
+    }
     
     public String UserType.getName() {
         return name;

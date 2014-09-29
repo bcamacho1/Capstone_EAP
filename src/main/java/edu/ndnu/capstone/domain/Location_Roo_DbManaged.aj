@@ -3,11 +3,17 @@
 
 package edu.ndnu.capstone.domain;
 
+import edu.ndnu.capstone.domain.Emergency;
 import edu.ndnu.capstone.domain.Location;
+import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 privileged aspect Location_Roo_DbManaged {
+    
+    @OneToMany(mappedBy = "locationId")
+    private Set<Emergency> Location.emergencies;
     
     @Column(name = "name", length = 256)
     @NotNull
@@ -40,6 +46,14 @@ privileged aspect Location_Roo_DbManaged {
     
     @Column(name = "description", length = 1024)
     private String Location.description;
+    
+    public Set<Emergency> Location.getEmergencies() {
+        return emergencies;
+    }
+    
+    public void Location.setEmergencies(Set<Emergency> emergencies) {
+        this.emergencies = emergencies;
+    }
     
     public String Location.getName() {
         return name;

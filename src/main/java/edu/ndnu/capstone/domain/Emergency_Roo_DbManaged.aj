@@ -4,8 +4,14 @@
 package edu.ndnu.capstone.domain;
 
 import edu.ndnu.capstone.domain.Emergency;
+import edu.ndnu.capstone.domain.EmergencyStatus;
+import edu.ndnu.capstone.domain.EmergencyType;
+import edu.ndnu.capstone.domain.Location;
+import edu.ndnu.capstone.domain.User;
 import java.util.Calendar;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -13,21 +19,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 privileged aspect Emergency_Roo_DbManaged {
     
-    @Column(name = "user_id")
-    @NotNull
-    private Integer Emergency.userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User Emergency.userId;
     
-    @Column(name = "location_id")
-    @NotNull
-    private Integer Emergency.locationId;
+    @ManyToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = false)
+    private Location Emergency.locationId;
     
-    @Column(name = "type_id")
-    @NotNull
-    private Integer Emergency.typeId;
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
+    private EmergencyType Emergency.typeId;
     
-    @Column(name = "status_id")
-    @NotNull
-    private Integer Emergency.statusId;
+    @ManyToOne
+    @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
+    private EmergencyStatus Emergency.statusId;
     
     @Column(name = "created", updatable = false)
     @NotNull
@@ -38,35 +44,35 @@ privileged aspect Emergency_Roo_DbManaged {
     @Column(name = "description", length = 1024)
     private String Emergency.description;
     
-    public Integer Emergency.getUserId() {
+    public User Emergency.getUserId() {
         return userId;
     }
     
-    public void Emergency.setUserId(Integer userId) {
+    public void Emergency.setUserId(User userId) {
         this.userId = userId;
     }
     
-    public Integer Emergency.getLocationId() {
+    public Location Emergency.getLocationId() {
         return locationId;
     }
     
-    public void Emergency.setLocationId(Integer locationId) {
+    public void Emergency.setLocationId(Location locationId) {
         this.locationId = locationId;
     }
     
-    public Integer Emergency.getTypeId() {
+    public EmergencyType Emergency.getTypeId() {
         return typeId;
     }
     
-    public void Emergency.setTypeId(Integer typeId) {
+    public void Emergency.setTypeId(EmergencyType typeId) {
         this.typeId = typeId;
     }
     
-    public Integer Emergency.getStatusId() {
+    public EmergencyStatus Emergency.getStatusId() {
         return statusId;
     }
     
-    public void Emergency.setStatusId(Integer statusId) {
+    public void Emergency.setStatusId(EmergencyStatus statusId) {
         this.statusId = statusId;
     }
     

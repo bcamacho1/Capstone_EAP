@@ -5,6 +5,10 @@ package edu.ndnu.capstone.web;
 
 import edu.ndnu.capstone.domain.Emergency;
 import edu.ndnu.capstone.domain.EmergencyService;
+import edu.ndnu.capstone.domain.EmergencyStatusService;
+import edu.ndnu.capstone.domain.EmergencyTypeService;
+import edu.ndnu.capstone.domain.LocationService;
+import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.web.EmergencyController;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +29,18 @@ privileged aspect EmergencyController_Roo_Controller {
     
     @Autowired
     EmergencyService EmergencyController.emergencyService;
+    
+    @Autowired
+    EmergencyStatusService EmergencyController.emergencyStatusService;
+    
+    @Autowired
+    EmergencyTypeService EmergencyController.emergencyTypeService;
+    
+    @Autowired
+    LocationService EmergencyController.locationService;
+    
+    @Autowired
+    UserService EmergencyController.userService;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String EmergencyController.create(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -100,6 +116,10 @@ privileged aspect EmergencyController_Roo_Controller {
     void EmergencyController.populateEditForm(Model uiModel, Emergency emergency) {
         uiModel.addAttribute("emergency", emergency);
         addDateTimeFormatPatterns(uiModel);
+        uiModel.addAttribute("emergencystatuses", emergencyStatusService.findAllEmergencyStatuses());
+        uiModel.addAttribute("emergencytypes", emergencyTypeService.findAllEmergencyTypes());
+        uiModel.addAttribute("locations", locationService.findAllLocations());
+        uiModel.addAttribute("users", userService.findAllUsers());
     }
     
     String EmergencyController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

@@ -3,6 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_edu_ndnu_capstone_domain_EmergencyStatus" modelAttribute="emergencyStatus" path="/emergencystatuses" render="${empty dependencies}" z="rCt8QrY5KxTGx9Up3/N+HAfujDc=">
+        <field:simple field="emergencies" id="c_edu_ndnu_capstone_domain_EmergencyStatus_emergencies" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency" z="6yActH+25Y2FwJCQWcZk4XtRyec="/>
         <field:input field="name" id="c_edu_ndnu_capstone_domain_EmergencyStatus_name" required="true" z="NRn71QFjNAuKcyBj+/wp8CsdUJQ="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_ndnu_capstone_domain_EmergencyStatus" render="${not empty dependencies}" z="Tf5/Sqj/1Q24j7cltm5sInnTPz0="/>

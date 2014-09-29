@@ -13,6 +13,8 @@ import edu.ndnu.capstone.domain.Evacuation;
 import edu.ndnu.capstone.domain.EvacuationService;
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
+import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.UserType;
 import edu.ndnu.capstone.domain.UserTypeService;
 import edu.ndnu.capstone.web.ApplicationConversionServiceFactoryBean;
@@ -41,12 +43,15 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     LocationService ApplicationConversionServiceFactoryBean.locationService;
     
     @Autowired
+    UserService ApplicationConversionServiceFactoryBean.userService;
+    
+    @Autowired
     UserTypeService ApplicationConversionServiceFactoryBean.userTypeService;
     
     public Converter<Emergency, String> ApplicationConversionServiceFactoryBean.getEmergencyToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Emergency, java.lang.String>() {
             public String convert(Emergency emergency) {
-                return new StringBuilder().append(emergency.getUserId()).append(' ').append(emergency.getLocationId()).append(' ').append(emergency.getTypeId()).append(' ').append(emergency.getStatusId()).toString();
+                return new StringBuilder().append(emergency.getCreated()).append(' ').append(emergency.getDescription()).toString();
             }
         };
     }
@@ -163,6 +168,30 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         };
     }
     
+    public Converter<User, String> ApplicationConversionServiceFactoryBean.getUserToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.User, java.lang.String>() {
+            public String convert(User user) {
+                return new StringBuilder().append(user.getName()).append(' ').append(user.getEmail()).append(' ').append(user.getUsername()).append(' ').append(user.getPassword()).toString();
+            }
+        };
+    }
+    
+    public Converter<Integer, User> ApplicationConversionServiceFactoryBean.getIdToUserConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.User>() {
+            public edu.ndnu.capstone.domain.User convert(java.lang.Integer id) {
+                return userService.findUser(id);
+            }
+        };
+    }
+    
+    public Converter<String, User> ApplicationConversionServiceFactoryBean.getStringToUserConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.User>() {
+            public edu.ndnu.capstone.domain.User convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), User.class);
+            }
+        };
+    }
+    
     public Converter<UserType, String> ApplicationConversionServiceFactoryBean.getUserTypeToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.UserType, java.lang.String>() {
             public String convert(UserType userType) {
@@ -203,6 +232,9 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         registry.addConverter(getLocationToStringConverter());
         registry.addConverter(getIdToLocationConverter());
         registry.addConverter(getStringToLocationConverter());
+        registry.addConverter(getUserToStringConverter());
+        registry.addConverter(getIdToUserConverter());
+        registry.addConverter(getStringToUserConverter());
         registry.addConverter(getUserTypeToStringConverter());
         registry.addConverter(getIdToUserTypeConverter());
         registry.addConverter(getStringToUserTypeConverter());

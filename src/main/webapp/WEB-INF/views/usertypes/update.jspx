@@ -3,6 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_UserType" modelAttribute="userType" path="/usertypes" versionField="none" z="ppfyihw9MLqfTrs6VSWZES6B5Pk=">
+        <field:simple field="users" id="c_edu_ndnu_capstone_domain_UserType_users" messageCode="entity_reference_not_managed" messageCodeAttribute="User" z="k5dtVoRxr9L0Udkvtoa+RtXYY7A="/>
         <field:input field="name" id="c_edu_ndnu_capstone_domain_UserType_name" required="true" z="s2Eh7YOUV3OYbvkzikKOBiTr7Ps="/>
     </form:update>
 </div>

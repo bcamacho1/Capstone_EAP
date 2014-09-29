@@ -3,6 +3,7 @@
 
 package edu.ndnu.capstone.web;
 
+import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.web.LocationController;
@@ -23,6 +24,9 @@ privileged aspect LocationController_Roo_Controller {
     
     @Autowired
     LocationService LocationController.locationService;
+    
+    @Autowired
+    EmergencyService LocationController.emergencyService;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String LocationController.create(@Valid Location location, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -91,6 +95,7 @@ privileged aspect LocationController_Roo_Controller {
     
     void LocationController.populateEditForm(Model uiModel, Location location) {
         uiModel.addAttribute("location", location);
+        uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
     }
     
     String LocationController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
