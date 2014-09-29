@@ -13,7 +13,6 @@ import edu.ndnu.capstone.domain.EmergencyTypeDataOnDemand;
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationDataOnDemand;
 import edu.ndnu.capstone.domain.User;
-import edu.ndnu.capstone.domain.UserDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,9 +41,6 @@ privileged aspect EmergencyDataOnDemand_Roo_DataOnDemand {
     
     @Autowired
     EmergencyTypeDataOnDemand EmergencyDataOnDemand.emergencyTypeDataOnDemand;
-    
-    @Autowired
-    UserDataOnDemand EmergencyDataOnDemand.userDataOnDemand;
     
     @Autowired
     EmergencyService EmergencyDataOnDemand.emergencyService;
@@ -89,7 +85,7 @@ privileged aspect EmergencyDataOnDemand_Roo_DataOnDemand {
     }
     
     public void EmergencyDataOnDemand.setUserId(Emergency obj, int index) {
-        User userId = userDataOnDemand.getRandomUser();
+        User userId = null;
         obj.setUserId(userId);
     }
     
