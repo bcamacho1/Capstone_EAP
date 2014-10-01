@@ -68,15 +68,15 @@ privileged aspect EmergencyController_Roo_Controller {
     }
     
     @RequestMapping(produces = "text/html")
-    public String EmergencyController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
+    public String EmergencyController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("emergencys", Emergency.findEmergencyEntries(firstResult, sizeNo, sortFieldName, sortOrder));
+            uiModel.addAttribute("emergencys", emergencyService.findEmergencyEntries(firstResult, sizeNo));
             float nrOfPages = (float) emergencyService.countAllEmergencys() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("emergencys", Emergency.findAllEmergencys(sortFieldName, sortOrder));
+            uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
         }
         addDateTimeFormatPatterns(uiModel);
         return "emergencys/list";
