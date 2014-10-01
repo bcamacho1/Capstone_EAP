@@ -8,7 +8,11 @@
     
     <!-- Turns on support for mapping requests to Spring MVC @Controller methods
          Also registers default Formatters and Validators for use across all @Controllers -->
-    <mvc:annotation-driven conversion-service="applicationConversionService"/>
+    <mvc:annotation-driven conversion-service="applicationConversionService">
+        <mvc:argument-resolvers>
+            <bean class="com.github.dandelion.datatables.extras.spring3.ajax.DatatablesCriteriasResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
     
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources -->
@@ -25,6 +29,7 @@
     </mvc:interceptors>
 
     <!-- Selects a static view for rendering without the need for an explicit controller -->
+    <mvc:view-controller path="/login"/>
     <mvc:view-controller path="/" view-name="index"/>
     <mvc:view-controller path="/uncaughtException"/>
     <mvc:view-controller path="/resourceNotFound"/>

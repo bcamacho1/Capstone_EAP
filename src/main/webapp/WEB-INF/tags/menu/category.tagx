@@ -11,12 +11,21 @@
 		<c:if test="${empty label}">
 			<spring:message code="menu_category_${fn:toLowerCase(fn:substringAfter(id,'_'))}_label" var="label" htmlEscape="false"/>
 		</c:if>
-		
-		<li id="${fn:escapeXml(id)}">
-			<h2>
-				<c:out value="${label}" />
-			</h2>
-			<ul>
+
+		<li class="dropdown" id="${fn:escapeXml(id)}">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<!-- with icon -->
+				<!-- <span class="glyphicon glyphicon-picture">&#160;</span>  -->
+				<c:out value="${label}" />&#160;<b class="caret">&#160;</b>
+			</a>
+
+			<!-- nav sidebar -->
+			<!-- <ul class="nav">
+				<jsp:doBody />
+			</ul> -->
+
+			<!-- navbar dropdown -->
+			<ul class="dropdown-menu">
 				<jsp:doBody />
 			</ul>
 		</li>
