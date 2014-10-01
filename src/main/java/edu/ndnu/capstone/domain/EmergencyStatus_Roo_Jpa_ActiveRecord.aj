@@ -14,6 +14,8 @@ privileged aspect EmergencyStatus_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager EmergencyStatus.entityManager;
     
+    public static final List<String> EmergencyStatus.fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    
     public static final EntityManager EmergencyStatus.entityManager() {
         EntityManager em = new EmergencyStatus().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect EmergencyStatus_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM EmergencyStatus o", EmergencyStatus.class).getResultList();
     }
     
+    public static List<EmergencyStatus> EmergencyStatus.findAllEmergencyStatuses(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM EmergencyStatus o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, EmergencyStatus.class).getResultList();
+    }
+    
     public static EmergencyStatus EmergencyStatus.findEmergencyStatus(Integer id) {
         if (id == null) return null;
         return entityManager().find(EmergencyStatus.class, id);
@@ -35,6 +48,17 @@ privileged aspect EmergencyStatus_Roo_Jpa_ActiveRecord {
     
     public static List<EmergencyStatus> EmergencyStatus.findEmergencyStatusEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyStatus o", EmergencyStatus.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<EmergencyStatus> EmergencyStatus.findEmergencyStatusEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM EmergencyStatus o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, EmergencyStatus.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional
