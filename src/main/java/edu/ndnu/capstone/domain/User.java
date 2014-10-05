@@ -29,30 +29,32 @@ public class User
 	@PreUpdate
 	public void encryptPassword() 
 	{
-		String password = this.getPassword();
-        if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
-        {
-        	MessageDigest md;
-			try {
-				md = MessageDigest.getInstance("SHA-256");
-			
-        	md.update(password.getBytes());
-        	byte[] shaDig = md.digest();
-        	String hashedPassword = convertByteArrayToHexString(shaDig);
-	        
-			this.setPassword(hashedPassword);
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	    String password = this.getPassword();
+	    if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
+	    {
+	        MessageDigest md;
+	        try 
+	        {
+	            md = MessageDigest.getInstance("SHA-256");
+	            md.update(password.getBytes());
+	            byte[] shaDig = md.digest();
+	            String hashedPassword = convertByteArrayToHexString(shaDig);
+	            this.setPassword(hashedPassword);
+	        } 
+	        catch (NoSuchAlgorithmException e) 
+	        {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
 	    }
 	}
 	
-	private String convertByteArrayToHexString(byte[] arrayBytes) {
+	private String convertByteArrayToHexString(byte[] arrayBytes)
+	{
 	    StringBuffer stringBuffer = new StringBuffer();
-	    for (int i = 0; i < arrayBytes.length; i++) {
-	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16)
-	                .substring(1));
+	    for (int i = 0; i < arrayBytes.length; i++)
+	    {
+	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(1));
 	    }
 	    return stringBuffer.toString();
 	}
