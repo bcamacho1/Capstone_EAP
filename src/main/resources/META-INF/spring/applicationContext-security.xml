@@ -12,12 +12,25 @@
         <intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/member/**" access="isAuthenticated()" />
         <intercept-url pattern="/resources/**" access="permitAll" />
+        <intercept-url pattern="/locations/**" access="permitAll" />
+        <intercept-url pattern="/emergencys/**" access="permitAll" />
         <intercept-url pattern="/login/**" access="permitAll" />
-        <intercept-url pattern="/**" access="isAuthenticated()" />
+    
+    	<!-- For now, we are allowing access to all pages because everyone's database will need sha256 passwords in it -->
+    	<!-- I'm just restricting access to the UserTypes section to test login/logout capabilities -->
+    	<intercept-url pattern="/usertypes/**" access="isAuthenticated()" />
+    	<intercept-url pattern="/**" access="permitAll" />
+    
+        <!-- By default, lock down the pages, the permitAll urls above are open to the public -->
+        <!-- <intercept-url pattern="/**" access="isAuthenticated()" /> -->
+    
     </http>
     <!-- Configure Authentication mechanism -->
     <authentication-manager alias="authenticationManager">
         <!-- SHA-256 values can be produced using 'echo -n your_desired_password | sha256sum' (using normal *nix environments) -->
+        <!--
+        Be sure to execute the following mySQL statement to create the default admin user:
+        insert into user (name,email,username,password,phone,type_id,active,created) values ('Scott Mantegani','smantegani@student.ndnu.edu','admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','111-1111',3,1,'2014-10-02 23:48:00');
         <authentication-provider>
             <password-encoder hash="sha-256" />
             <user-service>
@@ -25,5 +38,13 @@
                 <user name="user" password="04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
+        -->
+        <!-- Pull the login credentials from the database -->
+        <authentication-provider>
+		  <password-encoder hash="sha-256" />
+		    <jdbc-user-service data-source-ref="dataSource"
+		      users-by-username-query="SELECT U.username AS username, U.password as password, U.active as enabled FROM user U where U.username=?"
+		      authorities-by-username-query="SELECT U.username as username, R.name as authority FROM user U left join user_type R on R.id = U.type_id WHERE U.username=?" />
+		</authentication-provider>
     </authentication-manager>
 </beans:beans>
