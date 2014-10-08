@@ -8,7 +8,6 @@
             <table:column id="c_edu_ndnu_capstone_domain_User_name" property="name" z="mK9kvNv/6pWAoU7Oz++8bh7w83E="/>
             <table:column id="c_edu_ndnu_capstone_domain_User_email" property="email" z="TQ1jb5vxGUiReXi3Hn0D7gyQFQg="/>
             <table:column id="c_edu_ndnu_capstone_domain_User_username" property="username" z="/7NYKcJP7eqHZ3V+U6WphQ22Yes="/>
-            <table:column id="c_edu_ndnu_capstone_domain_User_password" property="password" z="rNL+G2Vw4Qpxtjl9fNlaSkwWmmM="/>
         </table:table>
     </page:list>
 </div>
