@@ -6,34 +6,53 @@
 }
 
 /* Custom theme Bootstrap for gvNIX by DISID */
+#ndnu_logo {
+	padding-top: 10px;
+	padding-bottom: 15px;
+	padding-right: 40px;
+}
+
+#hr_header {
+    border: 0;
+    border-top: 10px solid #e5bd17;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav {
+    font-size: 20px;
+}
 
 .bs-docs-nav {
-	background-color: #608224;
-	border-color: #527711;
+	background-color: #000271;
+	border-color: #000271;
 }
 .bs-docs-nav .navbar-toggle {
-	border-color: #608224;
+	border-color: #000271;
 }
 .bs-docs-nav .navbar-toggle:hover {
-	background-color: #608224;
-	border-color: #43600E;
+	background-color: #000271;
+	border-color: #000271;
 }
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus,
 .bs-docs-nav .navbar-nav > .active > a, .bs-docs-nav .navbar-nav > .active > a:hover {
-	color: #fff;
-	background-color: #43600E;
+	color: #e5bd17;
+	background-color: #000271;
 }
 .bs-docs-nav .navbar-nav > li > a {
-color: #acc47f;
+    color: #fff;
+}
+.bs-docs-nav .navbar-nav > li > a:hover {
+    color: #e5bd17;
 }
 @media (max-width: 767px){
 	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-		color: #acc47f;
+		color: #e5bd17;
 	}
 }
 
 body {
-  padding-top: 70px;
+  padding-top: 96px;
   padding-bottom: 30px;
 }
 	@media (min-width: 768px) and (max-width: 1020px){

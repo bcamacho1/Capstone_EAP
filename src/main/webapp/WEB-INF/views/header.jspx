@@ -6,21 +6,10 @@
 	<jsp:output omit-xml-declaration="yes" />
 
 	<!-- <spring:url var="banner" value="/resources/images/banner-graphic.png" /> -->
-	<spring:url var="logo_roo" value="/resources/images/logo_roo.png" />
-	<spring:url var="logo_spring" value="/resources/images/logo_spring.png" />
+	<spring:url var="logo_ndnu" value="/resources/images/NDNU_logo.png" />
 
 	<div class="pull-left hidden-xs">
-		<img src="${logo_roo}" />&#160; <img src="${logo_spring}" />&#160;
-	</div>
-
-	<div class="pull-right">
-		<spring:url var="home" value="/" />
-		<spring:message code="button_home" var="home_label" htmlEscape="false" />
-		<spring:message code="application_name" var="project_name"
-			htmlEscape="false" />
-		<a class="navbar-brand nav navbar-nav navbar-right" href="${home}"
-			name="${fn:escapeXml(home_label)}"
-			title="${fn:escapeXml(home_label)}">${fn:escapeXml(project_name)}</a>
+		<img src="${logo_ndnu}" id="ndnu_logo" />
 	</div>
 </div>
 
