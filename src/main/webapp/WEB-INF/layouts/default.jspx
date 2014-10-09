@@ -39,9 +39,7 @@
 
 			<div class="navbar-collapse collapse">
 				<tiles:insertAttribute ignore="true" name="header" />
-				<div class="pull-right" style="padding-top:15px;padding-right:200px;">
-				    <tiles:insertAttribute ignore="true" name="menu" />
-				</div>
+				<tiles:insertAttribute ignore="true" name="menu" />
 			</div>
 			<!--/.nav-collapse -->
             
