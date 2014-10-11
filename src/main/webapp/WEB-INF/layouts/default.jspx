@@ -42,10 +42,10 @@
 				<tiles:insertAttribute ignore="true" name="menu" />
 			</div>
 			<!--/.nav-collapse -->
-
+            
 		</div>
 		<!-- /container -->
-
+        <hr id="hr_header"/>
 	</header>
 
 	<div class="container">

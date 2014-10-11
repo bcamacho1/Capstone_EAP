@@ -10,7 +10,11 @@
 	    <a href="${home}">
 	      <spring:message code="button_home"/>
 	    </a>
-	  </span>
+	    <c:out value=" | "/>
+        <a href="/">Contact Us</a>
+        <c:out value=" | "/>
+        <a href="/">NDNU</a>
+      </span>
 	  <c:if test="${pageContext['request'].userPrincipal != null}">
 	    <c:out value=" | "/>
 	    <span>
@@ -20,15 +24,6 @@
 	      </a>
 	        </span>
 	  </c:if>
-
-	  <span id="language">
-	    <c:out value=" | "/>
-	    <spring:message code="global_language"/>
-	    <c:out value=": "/>
-	  <util:language label="English" locale="en"/>
-	    <util:language label="Deubuilderh" locale="de"/>
-	    <util:language label="Espanol" locale="es"/>
-	    </span>
  </div>
  <div class="col-xs-12 col-sm-3">
 	  <spring:url value="/resources/images/springsource-logo.png" var="logo"/>
