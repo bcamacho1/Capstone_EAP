@@ -9,7 +9,7 @@
         <form-login login-processing-url="/resources/j_spring_security_check" login-page="/login" authentication-failure-url="/login?login_error=t" />
         <logout logout-url="/resources/j_spring_security_logout" />
         <!-- Configure these elements to secure URIs in your application -->
-        <intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/choices/**" access="hasRole('Admin')" />
         <intercept-url pattern="/member/**" access="isAuthenticated()" />
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/locations/**" access="permitAll" />
@@ -18,7 +18,8 @@
     
     	<!-- For now, we are allowing access to all pages because everyone's database will need sha256 passwords in it -->
     	<!-- I'm just restricting access to the UserTypes section to test login/logout capabilities -->
-    	<intercept-url pattern="/usertypes/**" access="isAuthenticated()" />
+    	<!-- hasRole('Admin') checks the user type, "Admin" needs to match what is exactly in the user_type table -->
+    	<intercept-url pattern="/usertypes/**" access="hasRole('Admin')" />
     	<intercept-url pattern="/**" access="permitAll" />
     
         <!-- By default, lock down the pages, the permitAll urls above are open to the public -->
