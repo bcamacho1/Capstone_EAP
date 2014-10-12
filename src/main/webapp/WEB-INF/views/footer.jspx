@@ -14,7 +14,17 @@
         <a href="/">Contact Us</a>
         <c:out value=" | "/>
         <a href="/">NDNU</a>
+        <c:out value=" | "/>
+        <spring:url value="/users?form" var="register"/>
+        <a href="${register}">Register</a>
       </span>
+      <c:if test="${pageContext['request'].userPrincipal == null}">
+        <c:out value=" | "/>
+        <span>
+          <spring:url value="/login" var="login"/>
+          <a href="${login}">Login</a>
+            </span>
+      </c:if>
 	  <c:if test="${pageContext['request'].userPrincipal != null}">
 	    <c:out value=" | "/>
 	    <span>
