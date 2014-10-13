@@ -13,6 +13,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import edu.ndnu.capstone.domain.Emergency;
 import edu.ndnu.capstone.domain.EmergencyServiceImpl;
+import edu.ndnu.capstone.domain.Location;
+import edu.ndnu.capstone.domain.LocationServiceImpl;
 
 public class EmergencyServiceTest {
 
@@ -97,14 +99,18 @@ public class EmergencyServiceTest {
 	}
 	
 	@Test
-	public void testSaveEmergency() {
-	  
-		//todo
+	public void testSaveEmergency(Emergency emer) {
+		EmergencyServiceImpl esi = new EmergencyServiceImpl();
+	    esi.saveEmergency(emer);
+	    List <Emergency> emers = esi.findAllEmergencys();
+	    Assert.assertTrue(emers.contains(emer));
 	}
 	
 	@Test
-	public void testUpdateEmergency() {
-	  
-		//todo
+	public void testUpdateEmergency(Emergency emer) {
+		EmergencyServiceImpl esi = new EmergencyServiceImpl();
+	    esi.updateEmergency(emer);
+	    List <Emergency> emers = esi.findAllEmergencys();
+	    Assert.assertTrue(emers.contains(emer));
 	}
 }

@@ -1,12 +1,16 @@
 package test;
 
 import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 
+
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationServiceImpl;
+import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.UserServiceImpl;
 
 public class LocationServiceTest {
 
@@ -44,14 +48,18 @@ public class LocationServiceTest {
 	}
 	
 	@Test
-	public void testSaveLocation() {
-	  
-		//todo
+	public void testSaveLocation(Location local) {
+		LocationServiceImpl lsi = new LocationServiceImpl();
+	    lsi.saveLocation(local);
+	    List <Location> locals = lsi.findAllLocations();
+	    Assert.assertTrue(locals.contains(local));
 	}
 	
 	@Test
-	public void testUpdateLocation() {
-	  
-		//todo
+	public void testUpdateLocation(Location local) {
+		LocationServiceImpl lsi = new LocationServiceImpl();
+	    lsi.updateLocation(local);
+	    List <Location> locals = lsi.findAllLocations();
+	    Assert.assertTrue(locals.contains(local));
 	}
 }
