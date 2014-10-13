@@ -8,6 +8,6 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect UserType_Roo_Configurable {
     
-    declare @type: UserType: @Configurable;
+    declare @type: AUserType: @Configurable;
     
 }

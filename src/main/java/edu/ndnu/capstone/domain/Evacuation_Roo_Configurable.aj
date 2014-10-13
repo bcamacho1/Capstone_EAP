@@ -8,6 +8,6 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect Evacuation_Roo_Configurable {
     
-    declare @type: Evacuation: @Configurable;
+    declare @type: EvacuationArea: @Configurable;
     
 }

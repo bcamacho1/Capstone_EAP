@@ -13,9 +13,9 @@ import javax.persistence.Table;
 
 privileged aspect Location_Roo_Jpa_Entity {
     
-    declare @type: Location: @Entity;
+    declare @type: ALocation: @Entity;
     
-    declare @type: Location: @Table(name = "location");
+    declare @type: ALocation: @Table(name = "location");
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

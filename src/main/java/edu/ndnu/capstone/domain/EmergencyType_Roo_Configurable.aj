@@ -8,6 +8,6 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect EmergencyType_Roo_Configurable {
     
-    declare @type: EmergencyType: @Configurable;
+    declare @type: AnEmergencyType: @Configurable;
     
 }

@@ -13,9 +13,9 @@ import javax.persistence.Table;
 
 privileged aspect EmergencyStatus_Roo_Jpa_Entity {
     
-    declare @type: EmergencyStatus: @Entity;
+    declare @type: AnEmergencyStatus: @Entity;
     
-    declare @type: EmergencyStatus: @Table(name = "emergency_status");
+    declare @type: AnEmergencyStatus: @Table(name = "emergency_status");
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

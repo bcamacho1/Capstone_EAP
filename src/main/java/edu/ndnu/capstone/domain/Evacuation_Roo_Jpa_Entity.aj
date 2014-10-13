@@ -13,9 +13,9 @@ import javax.persistence.Table;
 
 privileged aspect Evacuation_Roo_Jpa_Entity {
     
-    declare @type: Evacuation: @Entity;
+    declare @type: EvacuationArea: @Entity;
     
-    declare @type: Evacuation: @Table(name = "evacuation");
+    declare @type: EvacuationArea: @Table(name = "evacuation");
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

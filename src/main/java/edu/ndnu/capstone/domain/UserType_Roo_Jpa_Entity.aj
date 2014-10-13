@@ -13,9 +13,9 @@ import javax.persistence.Table;
 
 privileged aspect UserType_Roo_Jpa_Entity {
     
-    declare @type: UserType: @Entity;
+    declare @type: AUserType: @Entity;
     
-    declare @type: UserType: @Table(name = "user_type");
+    declare @type: AUserType: @Table(name = "user_type");
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
