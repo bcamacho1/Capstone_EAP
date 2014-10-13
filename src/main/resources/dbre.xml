@@ -68,11 +68,4 @@
             <unique-column name="id"/>
         </unique>
     </table>
-    <table name="user_type">
-        <column name="id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="name" primaryKey="false" required="true" scale="0" size="256" type="12,VARCHAR"/>
-        <unique name="PRIMARY">
-            <unique-column name="id"/>
-        </unique>
-    </table>
 </database>

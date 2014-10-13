@@ -43,11 +43,11 @@ privileged aspect LocationIntegrationTest_Roo_IntegrationTest {
     public void LocationIntegrationTest.testFindLocation() {
         Location obj = dod.getRandomLocation();
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", obj);
-        Integer id = obj.getId();
+        Integer id = obj.getId_();
         Assert.assertNotNull("Data on demand for 'Location' failed to provide an identifier", id);
         obj = locationService.findLocation(id);
         Assert.assertNotNull("Find method for 'Location' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'Location' returned the incorrect identifier", id, obj.getId());
+        Assert.assertEquals("Find method for 'Location' returned the incorrect identifier", id, obj.getId_());
     }
     
     @Test
@@ -77,7 +77,7 @@ privileged aspect LocationIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", dod.getRandomLocation());
         Location obj = dod.getNewTransientLocation(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'Location' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'Location' identifier to be null", obj.getId());
+        Assert.assertNull("Expected 'Location' identifier to be null", obj.getId_());
         try {
             locationService.saveLocation(obj);
         } catch (final ConstraintViolationException e) {
@@ -89,14 +89,14 @@ privileged aspect LocationIntegrationTest_Roo_IntegrationTest {
             throw new IllegalStateException(msg.toString(), e);
         }
         obj.flush();
-        Assert.assertNotNull("Expected 'Location' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'Location' identifier to no longer be null", obj.getId_());
     }
     
     @Test
     public void LocationIntegrationTest.testDeleteLocation() {
         Location obj = dod.getRandomLocation();
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", obj);
-        Integer id = obj.getId();
+        Integer id = obj.getId_();
         Assert.assertNotNull("Data on demand for 'Location' failed to provide an identifier", id);
         obj = locationService.findLocation(id);
         locationService.deleteLocation(obj);

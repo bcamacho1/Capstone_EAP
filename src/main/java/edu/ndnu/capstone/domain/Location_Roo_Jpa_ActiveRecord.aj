@@ -14,7 +14,7 @@ privileged aspect Location_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager Location.entityManager;
     
-    public static final List<String> Location.fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> Location.fieldNames4OrderClauseFilter = java.util.Arrays.asList("id", "name", "evacuation_area", "latitude", "longitude", "description");
     
     public static final EntityManager Location.entityManager() {
         EntityManager em = new Location().entityManager;
@@ -41,9 +41,9 @@ privileged aspect Location_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery(jpaQuery, Location.class).getResultList();
     }
     
-    public static Location Location.findLocation(Integer id) {
-        if (id == null) return null;
-        return entityManager().find(Location.class, id);
+    public static Location Location.findLocation(Integer id_) {
+        if (id_ == null) return null;
+        return entityManager().find(Location.class, id_);
     }
     
     public static List<Location> Location.findLocationEntries(int firstResult, int maxResults) {
@@ -73,7 +73,7 @@ privileged aspect Location_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Location attached = Location.findLocation(this.id);
+            Location attached = Location.findLocation(this.id_);
             this.entityManager.remove(attached);
         }
     }
