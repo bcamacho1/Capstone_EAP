@@ -20,14 +20,14 @@ privileged aspect Location_Roo_Jpa_Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer Location.id_;
+    private Integer Location.id;
     
-    public Integer Location.getId_() {
-        return this.id_;
+    public Integer Location.getId() {
+        return this.id;
     }
     
-    public void Location.setId_(Integer id) {
-        this.id_ = id;
+    public void Location.setId(Integer id) {
+        this.id = id;
     }
     
 }

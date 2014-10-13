@@ -33,8 +33,6 @@ privileged aspect LocationDataOnDemand_Roo_DataOnDemand {
         setCity(obj, index);
         setDescription(obj, index);
         setEvacuationArea(obj, index);
-        setEvacuation_area(obj, index);
-        setId(obj, index);
         setLatitude(obj, index);
         setLongitude(obj, index);
         setName(obj, index);
@@ -61,6 +59,9 @@ privileged aspect LocationDataOnDemand_Roo_DataOnDemand {
     
     public void LocationDataOnDemand.setDescription(Location obj, int index) {
         String description = "description_" + index;
+        if (description.length() > 1024) {
+            description = description.substring(0, 1024);
+        }
         obj.setDescription(description);
     }
     
@@ -69,28 +70,27 @@ privileged aspect LocationDataOnDemand_Roo_DataOnDemand {
         obj.setEvacuationArea(evacuationArea);
     }
     
-    public void LocationDataOnDemand.setEvacuation_area(Location obj, int index) {
-        int evacuation_area = index;
-        obj.setEvacuation_area(evacuation_area);
-    }
-    
-    public void LocationDataOnDemand.setId(Location obj, int index) {
-        int id = index;
-        obj.setId(id);
-    }
-    
     public void LocationDataOnDemand.setLatitude(Location obj, int index) {
         String latitude = "latitude_" + index;
+        if (latitude.length() > 64) {
+            latitude = latitude.substring(0, 64);
+        }
         obj.setLatitude(latitude);
     }
     
     public void LocationDataOnDemand.setLongitude(Location obj, int index) {
         String longitude = "longitude_" + index;
+        if (longitude.length() > 64) {
+            longitude = longitude.substring(0, 64);
+        }
         obj.setLongitude(longitude);
     }
     
     public void LocationDataOnDemand.setName(Location obj, int index) {
         String name = "name_" + index;
+        if (name.length() > 256) {
+            name = name.substring(0, 256);
+        }
         obj.setName(name);
     }
     
@@ -119,14 +119,14 @@ privileged aspect LocationDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         Location obj = data.get(index);
-        Integer id = obj.getId_();
+        Integer id = obj.getId();
         return locationService.findLocation(id);
     }
     
     public Location LocationDataOnDemand.getRandomLocation() {
         init();
         Location obj = data.get(rnd.nextInt(data.size()));
-        Integer id = obj.getId_();
+        Integer id = obj.getId();
         return locationService.findLocation(id);
     }
     

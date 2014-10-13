@@ -1,22 +1,3 @@
-// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2014-09-15 15:24:36
-project --topLevelPackage edu.ndnu.capstone --projectName Capstone_Roo --java 6 --packaging JAR
-// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log closed at 2014-09-15 15:24:41
-// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2014-09-15 15:24:43
-jpa setup --database MYSQL --provider HIBERNATE --databaseName capstone --hostName localhost --userName username --password password
-osgi start --url file:C:\Users\Michael\Desktop\Capstone_REST_EAP_eclipse_project.zip\capstone_schema-20130425.sql
-osgi start --url file:C:\Users\Michael\Desktop\Capstone_REST_EAP_eclipse_project\capstone_schema-20130425.sql
-osgi start --url file:C:\Users\Michael\Desktop\Capstone_REST_EAP_eclipse_project\mysql-connector-java-5.1.24-bin.jar
-// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2014-09-17 18:12:01
-jpa setup --database MYSQL --provider HIBERNATE --databaseName
-jpa setup --database MYSQL --provider HIBERNATE --databaseName capstone --hostName localhost --userName username --password password
-jpa setup --database MYSQL --provider HIBERNATE --databaseName capstone --hostName localhost --userName username --password password
-// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log closed at 2014-09-17 19:48:28
-// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2014-09-19 20:41:59
-jpa setup --database MYSQL --provider HIBERNATE --databaseName capstone --hostName localhost --userName root --password root
-// [failed] database reverse engineer --schema no-schema-required --package ~.domain --service --testAutomatically
-// [failed] database reverse engineer --schema no-schema-required --package ~.domain --service --testAutomatically
-// [failed] database reverse engineer --schema no-schema-required --package ~.domain --service --testAutomatically
-// [failed] database reverse engineer --schema no-schema-required --package ~.domain --service --testAutomatically
-// [failed] database reverse engineer --schema no-schema-required --package ~.domain --service --testAutomatically
-database reverse engineer --schema no-schema-required --package ~.domain --service --testAutomatically
-database reverse engineer --schema no-schema-required --package ~.domain --service --testAutomatically
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2014-09-16 12:28:40
+project --topLevelPackage edu.ndnu.capstone --projectName Capston_Roo --java 7 --packaging JAR
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log closed at 2014-09-16 12:29:00

@@ -9,6 +9,10 @@ import javax.validation.constraints.NotNull;
 
 privileged aspect Location_Roo_DbManaged {
     
+    @Column(name = "name", length = 256)
+    @NotNull
+    private String Location.name;
+    
     @Column(name = "address", length = 1024)
     @NotNull
     private String Location.address;
@@ -27,6 +31,23 @@ privileged aspect Location_Roo_DbManaged {
     
     @Column(name = "evacuation_area")
     private Integer Location.evacuationArea;
+    
+    @Column(name = "latitude", length = 64)
+    private String Location.latitude;
+    
+    @Column(name = "longitude", length = 64)
+    private String Location.longitude;
+    
+    @Column(name = "description", length = 1024)
+    private String Location.description;
+    
+    public String Location.getName() {
+        return name;
+    }
+    
+    public void Location.setName(String name) {
+        this.name = name;
+    }
     
     public String Location.getAddress() {
         return address;
@@ -60,8 +81,36 @@ privileged aspect Location_Roo_DbManaged {
         this.zipcode = zipcode;
     }
     
+    public Integer Location.getEvacuationArea() {
+        return evacuationArea;
+    }
+    
     public void Location.setEvacuationArea(Integer evacuationArea) {
         this.evacuationArea = evacuationArea;
+    }
+    
+    public String Location.getLatitude() {
+        return latitude;
+    }
+    
+    public void Location.setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+    
+    public String Location.getLongitude() {
+        return longitude;
+    }
+    
+    public void Location.setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+    
+    public String Location.getDescription() {
+        return description;
+    }
+    
+    public void Location.setDescription(String description) {
+        this.description = description;
     }
     
 }
