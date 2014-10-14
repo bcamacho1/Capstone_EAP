@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.roo.addon.dbre.RooDbManaged;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -16,6 +18,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString(excludeFields = { "emergencies", "typeId" })
 public class User 
 {
+	
 	/*
 	 * The set and get methods are stored in User_Roo_DbManaged.aj
 	 * We use the two annotations below, PrePersist and PreUpdate,

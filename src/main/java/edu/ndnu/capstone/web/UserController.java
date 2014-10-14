@@ -10,4 +10,9 @@ import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
 @RooWebScaffold(path = "users", formBackingObject = User.class)
 @GvNIXWebJQuery
 public class UserController {
+	
+	
+	
+	
+	
 }

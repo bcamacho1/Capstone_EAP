@@ -34,7 +34,7 @@ privileged aspect User_Roo_DbManaged {
     @NotNull
     private String User.email;
     
-    @Column(name = "username", length = 256)
+    @Column(name = "username", length = 150, unique = true)
     @NotNull
     private String User.username;
     
@@ -42,14 +42,16 @@ privileged aspect User_Roo_DbManaged {
     @NotNull
     private String User.password;
     
-    @Column(name = "phone", length = 24)
+    @Column(name = "phone", length = 10, unique = true)
     @NotNull
     private String User.phone;
     
-    @Column(name = "year", length = 16)
+    @Column(name = "year", length = 4)
+    @NotNull
     private String User.year;
     
-    @Column(name = "active")
+    @Column(name = "active", length = 1)
+    @NotNull
     private Integer User.active;
     
     @Column(name = "created", updatable = false)
@@ -59,6 +61,7 @@ privileged aspect User_Roo_DbManaged {
     private Calendar User.created = java.util.Calendar.getInstance();
     
     @Column(name = "description", length = 1024)
+    @NotNull
     private String User.description;
     
     public Set<Emergency> User.getEmergencies() {
@@ -130,7 +133,10 @@ privileged aspect User_Roo_DbManaged {
     }
     
     public void User.setActive(Integer active) {
+    	if(active==0 || active==1)
         this.active = active;
+    	else
+    		 this.active = 2;
     }
     
     public Calendar User.getCreated() {
