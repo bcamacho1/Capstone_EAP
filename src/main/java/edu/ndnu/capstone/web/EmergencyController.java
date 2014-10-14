@@ -1,11 +1,15 @@
 package edu.ndnu.capstone.web;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.persistence.EntityManager;
 
 import edu.ndnu.capstone.domain.Emergency;
+import edu.ndnu.capstone.domain.User;
 
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
 import org.springframework.stereotype.Controller;
@@ -34,6 +38,17 @@ public class EmergencyController
         final String from = "capstone.eap.ndnu@gmail.com";
         String to = "smantegani@student.ndnu.edu";
  
+        new User();
+        EntityManager em = User.entityManager();
+        // User is the class name in the query, not lower case "user" which is the actual name of the table
+        @SuppressWarnings("unchecked")
+        List<String> rs = em.createQuery("SELECT u.email FROM User u").getResultList();
+        
+        Iterator<String> iterator = rs.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+        
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
