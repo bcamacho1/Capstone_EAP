@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/jquery/util" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <spring:message code="error_resourcenotfound_title" htmlEscape="false" var="title"/>
+
+
+<style>
+h1
+{
+color: #e08d19;
+   padding: 0;
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+h2
+{
+color: #a09f48;
+   padding: 0;
+    margin: 0;
+}
+</style>
+
+	 <br/>
+	 <h2>General Information</h2>
+	<br/>
+	 Public Safety officers are on duty 24/7. <b>Always call the Public Safety cell phone number first;</b> one of the cell phones is carried by the duty officer at all times. 
+	 Office is located in St. Mary's Hall, off the lobby.
+<br/><br/>
+
+ <h2>Who You Can Contact</h2>
+<br/>
+
+       	 <b>Emergency:</b> (police, fire, medical): 911
+	 <br/><br/>
+<b>Public Safety cell phone:</b> 650-504-0656 and 650-740-1483
+<br/><br/>
+<b>University switchboard:</b> 650-508-3500
+<br/><br/>
+<b>Public Safety office:</b> 650-508-3502
+<br/><br/>
+<b>Email:</b> security@ndnu.edu
+<br/><br/>
+<b>Daniel L. Torrez</b>, Director of Public Safety
+<br/>
+650-508-3505, dtorrez@ndnu.edu
+</div>

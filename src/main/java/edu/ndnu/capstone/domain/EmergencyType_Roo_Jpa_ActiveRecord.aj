@@ -14,6 +14,8 @@ privileged aspect EmergencyType_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager EmergencyType.entityManager;
     
+    public static final List<String> EmergencyType.fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    
     public static final EntityManager EmergencyType.entityManager() {
         EntityManager em = new EmergencyType().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect EmergencyType_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM EmergencyType o", EmergencyType.class).getResultList();
     }
     
+    public static List<EmergencyType> EmergencyType.findAllEmergencyTypes(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM EmergencyType o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, EmergencyType.class).getResultList();
+    }
+    
     public static EmergencyType EmergencyType.findEmergencyType(Integer id) {
         if (id == null) return null;
         return entityManager().find(EmergencyType.class, id);
@@ -35,6 +48,17 @@ privileged aspect EmergencyType_Roo_Jpa_ActiveRecord {
     
     public static List<EmergencyType> EmergencyType.findEmergencyTypeEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyType o", EmergencyType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<EmergencyType> EmergencyType.findEmergencyTypeEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM EmergencyType o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, EmergencyType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

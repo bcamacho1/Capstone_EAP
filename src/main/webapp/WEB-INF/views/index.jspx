@@ -14,17 +14,17 @@
         <div class="jumbotron">
             <div id = "homebody">
 <style>
-h1
+h2
 {
-color: #e08d19;
+color: #a09f48;
    padding: 0;
     margin: 0;
     padding-bottom: 10px;
 }
 
-h2
+h3
 {
-color: #a09f48;
+color: #e08d19;
    padding: 0;
     margin: 0;
 }
@@ -36,20 +36,28 @@ hr
 }
 </style>
                 <h1>EAP Home</h1>
-                <h2>Welcome</h2>
-                <hr/>
+                 <br/>
+              <h2>Welcome</h2>
+                
                 <p>This is the EAP Application for Notre Dame de Namur University. 
                 With this application, we hope that you will find any assistance needed for dealing with emergencies on NDNU's campus grounds.</p>
+               
+               <br/>
+               
                 <h2>What is Available On This Site</h2>
-                <hr/>
+              
 			    <h3>Relevant Locations</h3>
 			    We provide locations and areas that are important to know, when there is an emergency on campus.
-			    <h3>Evacuation Maps</h3>
-			    We provide maps you can have access to in order to find the safest evacuation routes on campus.
+			     <br/><br/>
+			    <h3>Campus Map</h3>
+			    We provide a link to the campus map you can have access to in order to find the safest evacuation routes.
+			     <br/><br/>
 			    <h3>Current Emergencies List</h3>
 			    We provide a list of any emergencies that are currently happening on campus that have been reported.
+			     <br/><br/>
 			    <h3>Emergency Submission Form</h3>
 			    There will be a form a user can fill out to report emergencies that happen on campus. The emergency will be posted on this app when it has been approved.
+			     <br/><br/>
 			    <h3>List of Contacts</h3>
 			    We provide a list of relevant personal you can contact that are related to dealing with NDNU emergencies.
             </div>

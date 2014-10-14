@@ -49,15 +49,15 @@ privileged aspect EvacuationController_Roo_Controller {
     }
     
     @RequestMapping(produces = "text/html")
-    public String EvacuationController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String EvacuationController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("evacuations", evacuationService.findEvacuationEntries(firstResult, sizeNo));
+            uiModel.addAttribute("evacuations", Evacuation.findEvacuationEntries(firstResult, sizeNo, sortFieldName, sortOrder));
             float nrOfPages = (float) evacuationService.countAllEvacuations() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("evacuations", evacuationService.findAllEvacuations());
+            uiModel.addAttribute("evacuations", Evacuation.findAllEvacuations(sortFieldName, sortOrder));
         }
         return "evacuations/list";
     }

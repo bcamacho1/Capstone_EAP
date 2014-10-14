@@ -6,6 +6,7 @@
         <menu:category id="c_home_menu" z="">
             <menu:item id="i_home_menu" url="/" z=""/>
             <menu:item id="i_home_map" url="/campusMap" z=""/>
+            <menu:item id="i_home_contact" url="/contactUs" z=""/>
         </menu:category>
         <menu:category id="c_location" z="RvMgx8apsPylYygCQ4tMBVfulVw=">
             <menu:item id="i_location_new" messageCode="global_menu_new" url="/locations?form" z="sW8KSnwNnd9wjssI0lLV1kzOguk="/>

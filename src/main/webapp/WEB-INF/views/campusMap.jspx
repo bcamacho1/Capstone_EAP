@@ -3,6 +3,26 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <spring:message code="error_resourcenotfound_title" htmlEscape="false" var="title"/>
+<style>
+h1
+{
+color: #e08d19;
+   padding: 0;
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+h2
+{
+color: #a09f48;
+   padding: 0;
+    margin: 0;
+}
+</style>
+
+<br/>
     <h2>NDNU Campus</h2>
-    <p>Text here.</p>
+    <br/>
+    <a href="http://www.ndnu.edu/wp-content/uploads/2013/01/ndnu-campus-map.pdf">Click Here</a>
+
 </div>
