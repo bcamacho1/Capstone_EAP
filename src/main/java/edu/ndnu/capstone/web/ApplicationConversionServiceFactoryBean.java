@@ -1,9 +1,27 @@
 package edu.ndnu.capstone.web;
 
+import edu.ndnu.capstone.domain.Emergency;
+import edu.ndnu.capstone.domain.EmergencyService;
+import edu.ndnu.capstone.domain.EmergencyStatus;
+import edu.ndnu.capstone.domain.EmergencyStatusService;
+import edu.ndnu.capstone.domain.EmergencyType;
+import edu.ndnu.capstone.domain.EmergencyTypeService;
+import edu.ndnu.capstone.domain.Evacuation;
+import edu.ndnu.capstone.domain.EvacuationService;
+import edu.ndnu.capstone.domain.Location;
+import edu.ndnu.capstone.domain.LocationService;
+import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.UserType;
+import edu.ndnu.capstone.domain.UserTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.roo.addon.web.mvc.controller.converter.RooConversionService;
 
+@Configurable
 /**
  * A central place to register application converters and formatters. 
  */
@@ -15,4 +33,222 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 		super.installFormatters(registry);
 		// Register application converters and formatters
 	}
+
+	@Autowired
+    EmergencyService emergencyService;
+
+	@Autowired
+    EmergencyStatusService emergencyStatusService;
+
+	@Autowired
+    EmergencyTypeService emergencyTypeService;
+
+	@Autowired
+    EvacuationService evacuationService;
+
+	@Autowired
+    LocationService locationService;
+
+	@Autowired
+    UserService userService;
+
+	@Autowired
+    UserTypeService userTypeService;
+
+	public Converter<Emergency, String> getEmergencyToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Emergency, java.lang.String>() {
+            public String convert(Emergency emergency) {
+                return new StringBuilder().append(emergency.getCreated()).append(' ').append(emergency.getDescription()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, Emergency> getIdToEmergencyConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.Emergency>() {
+            public edu.ndnu.capstone.domain.Emergency convert(java.lang.Integer id) {
+                return emergencyService.findEmergency(id);
+            }
+        };
+    }
+
+	public Converter<String, Emergency> getStringToEmergencyConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Emergency>() {
+            public edu.ndnu.capstone.domain.Emergency convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), Emergency.class);
+            }
+        };
+    }
+
+	public Converter<EmergencyStatus, String> getEmergencyStatusToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyStatus, java.lang.String>() {
+            public String convert(EmergencyStatus emergencyStatus) {
+                return new StringBuilder().append(emergencyStatus.getName()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, EmergencyStatus> getIdToEmergencyStatusConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyStatus>() {
+            public edu.ndnu.capstone.domain.EmergencyStatus convert(java.lang.Integer id) {
+                return emergencyStatusService.findEmergencyStatus(id);
+            }
+        };
+    }
+
+	public Converter<String, EmergencyStatus> getStringToEmergencyStatusConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyStatus>() {
+            public edu.ndnu.capstone.domain.EmergencyStatus convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), EmergencyStatus.class);
+            }
+        };
+    }
+
+	public Converter<EmergencyType, String> getEmergencyTypeToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyType, java.lang.String>() {
+            public String convert(EmergencyType emergencyType) {
+                return new StringBuilder().append(emergencyType.getName()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, EmergencyType> getIdToEmergencyTypeConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyType>() {
+            public edu.ndnu.capstone.domain.EmergencyType convert(java.lang.Integer id) {
+                return emergencyTypeService.findEmergencyType(id);
+            }
+        };
+    }
+
+	public Converter<String, EmergencyType> getStringToEmergencyTypeConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyType>() {
+            public edu.ndnu.capstone.domain.EmergencyType convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), EmergencyType.class);
+            }
+        };
+    }
+
+	public Converter<Evacuation, String> getEvacuationToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Evacuation, java.lang.String>() {
+            public String convert(Evacuation evacuation) {
+                return new StringBuilder().append(evacuation.getArea()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, Evacuation> getIdToEvacuationConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.Evacuation>() {
+            public edu.ndnu.capstone.domain.Evacuation convert(java.lang.Integer id) {
+                return evacuationService.findEvacuation(id);
+            }
+        };
+    }
+
+	public Converter<String, Evacuation> getStringToEvacuationConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Evacuation>() {
+            public edu.ndnu.capstone.domain.Evacuation convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), Evacuation.class);
+            }
+        };
+    }
+
+	public Converter<Location, String> getLocationToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Location, java.lang.String>() {
+            public String convert(Location location) {
+                return new StringBuilder().append(location.getName()).append(' ').append(location.getAddress()).append(' ').append(location.getCity()).append(' ').append(location.getState()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, Location> getIdToLocationConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.Location>() {
+            public edu.ndnu.capstone.domain.Location convert(java.lang.Integer id) {
+                return locationService.findLocation(id);
+            }
+        };
+    }
+
+	public Converter<String, Location> getStringToLocationConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Location>() {
+            public edu.ndnu.capstone.domain.Location convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), Location.class);
+            }
+        };
+    }
+
+	public Converter<User, String> getUserToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.User, java.lang.String>() {
+            public String convert(User user) {
+                return new StringBuilder().append(user.getName()).append(' ').append(user.getEmail()).append(' ').append(user.getUsername()).append(' ').append(user.getPassword()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, User> getIdToUserConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.User>() {
+            public edu.ndnu.capstone.domain.User convert(java.lang.Integer id) {
+                return userService.findUser(id);
+            }
+        };
+    }
+
+	public Converter<String, User> getStringToUserConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.User>() {
+            public edu.ndnu.capstone.domain.User convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), User.class);
+            }
+        };
+    }
+
+	public Converter<UserType, String> getUserTypeToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.UserType, java.lang.String>() {
+            public String convert(UserType userType) {
+                return new StringBuilder().append(userType.getName()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, UserType> getIdToUserTypeConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.UserType>() {
+            public edu.ndnu.capstone.domain.UserType convert(java.lang.Integer id) {
+                return userTypeService.findUserType(id);
+            }
+        };
+    }
+
+	public Converter<String, UserType> getStringToUserTypeConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.UserType>() {
+            public edu.ndnu.capstone.domain.UserType convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), UserType.class);
+            }
+        };
+    }
+
+	public void installLabelConverters(FormatterRegistry registry) {
+        registry.addConverter(getEmergencyToStringConverter());
+        registry.addConverter(getIdToEmergencyConverter());
+        registry.addConverter(getStringToEmergencyConverter());
+        registry.addConverter(getEmergencyStatusToStringConverter());
+        registry.addConverter(getIdToEmergencyStatusConverter());
+        registry.addConverter(getStringToEmergencyStatusConverter());
+        registry.addConverter(getEmergencyTypeToStringConverter());
+        registry.addConverter(getIdToEmergencyTypeConverter());
+        registry.addConverter(getStringToEmergencyTypeConverter());
+        registry.addConverter(getEvacuationToStringConverter());
+        registry.addConverter(getIdToEvacuationConverter());
+        registry.addConverter(getStringToEvacuationConverter());
+        registry.addConverter(getLocationToStringConverter());
+        registry.addConverter(getIdToLocationConverter());
+        registry.addConverter(getStringToLocationConverter());
+        registry.addConverter(getUserToStringConverter());
+        registry.addConverter(getIdToUserConverter());
+        registry.addConverter(getStringToUserConverter());
+        registry.addConverter(getUserTypeToStringConverter());
+        registry.addConverter(getIdToUserTypeConverter());
+        registry.addConverter(getStringToUserTypeConverter());
+    }
+
+	public void afterPropertiesSet() {
+        super.afterPropertiesSet();
+        installLabelConverters(getObject());
+    }
 }
