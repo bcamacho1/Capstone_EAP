@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -62,10 +64,13 @@ public class User
 
 	@Column(name = "password")
     @NotNull
+    @Pattern(regexp = "^[A-Za-z]*", message = "Must start with the letter")
     private String password;
 
 	@Column(name = "phone", length = 10, unique = true)
     @NotNull
+    //@Pattern(regexp = "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$|^(\\d{3})[\\.](\\d{3})[\\.](\\d{4})$")
+    //" ^(((?!\([5]{3}\))(\(\d{3}\)))|((?![5]{3})(\d{3})))([. -]*)(\d{3})([. -]*)\d{4}$")
     private String phone;
 
 	@Column(name = "year", length = 4)
@@ -75,6 +80,8 @@ public class User
 
 	@Column(name = "active", length = 1)
     @NotNull
+   // @Min(value = 0, message = "Must be 0 or 1")
+	//@Max(value = 1, message = "Must be 0 or 1")
     private Integer active;
 
 	@Column(name = "created", updatable = false)
@@ -156,10 +163,6 @@ public class User
     }
 
 	public void setActive(Integer active) {
-    	if(active==0 || active==1)
-        this.active = active;
-    	else
-    		 this.active = 2;
     }
 
 	public Calendar getCreated() {
