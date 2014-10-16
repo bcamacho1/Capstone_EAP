@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.validation.constraints.Max;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -54,23 +55,26 @@ public class User
     @NotNull
     private String name;
 
-	@Column(name = "email", length = 256, unique = true)
+	@Column(name = "email", length = 100, unique = true)
     @NotNull
+   // @Pattern(regexp = "[A-Za-z0-9]{3,100}@ndnu.edu")
     private String email;
-
+	
+	
 	@Column(name = "username", length = 150, unique = true)
     @NotNull
+    @Size(min=5)
     private String username;
 
 	@Column(name = "password")
     @NotNull
-    @Pattern(regexp = "^[A-Za-z]*", message = "Must start with the letter")
+    @Pattern(regexp = "^[0-9a-zA-Z]{5,}$")
     private String password;
 
 	@Column(name = "phone", length = 10, unique = true)
     @NotNull
-    //@Pattern(regexp = "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$|^(\\d{3})[\\.](\\d{3})[\\.](\\d{4})$")
-    //" ^(((?!\([5]{3}\))(\(\d{3}\)))|((?![5]{3})(\d{3})))([. -]*)(\d{3})([. -]*)\d{4}$")
+    @Pattern(regexp = "[0-9]{10}")
+ 
     private String phone;
 
 	@Column(name = "year", length = 4)
@@ -80,8 +84,8 @@ public class User
 
 	@Column(name = "active", length = 1)
     @NotNull
-   // @Min(value = 0, message = "Must be 0 or 1")
-	//@Max(value = 1, message = "Must be 0 or 1")
+    @Min(0)
+	@Max(1)
     private Integer active;
 
 	@Column(name = "created", updatable = false)
@@ -131,6 +135,7 @@ public class User
     }
 
 	public void setUsername(String username) {
+		this.email=username+"@ndu.edu";
         this.username = username;
     }
 
@@ -163,6 +168,7 @@ public class User
     }
 
 	public void setActive(Integer active) {
+		this.active = active;
     }
 
 	public Calendar getCreated() {

@@ -6,8 +6,8 @@
         <field:simple field="emergencies" id="c_edu_ndnu_capstone_domain_User_emergencies" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency" z="96v/orisk+QZ0UvamFbdCmNUM9g="/>
         <field:select field="typeId" id="c_edu_ndnu_capstone_domain_User_typeId" itemValue="id" items="${usertypes}" path="/usertypes" z="cuXEuKQFS8VdksWWbETwOj+Ps4k="/>
         <field:input field="name" id="c_edu_ndnu_capstone_domain_User_name" required="true" z="AvB38b/End0hXemXNC8GrbD8SAw="/>
-        <field:input field="email" id="c_edu_ndnu_capstone_domain_User_email" required="true" validationMessageCode="field_invalid_email" z="OGADRfESfWyp/4F216swLnNdyoQ="/>
-        <field:input field="username" id="c_edu_ndnu_capstone_domain_User_username" required="true" z="MiEOzhgH466ktY7pKT/tYMLt5S0="/>
+        <field:input field="email" id="c_edu_ndnu_capstone_domain_User_email"  disabled="true" required="true" validationMessageCode="field_invalid_email" z="OGADRfESfWyp/4F216swLnNdyoQ="/>
+        <field:input field="username" id="c_edu_ndnu_capstone_domain_User_username" disabled="true" required="true" z="MiEOzhgH466ktY7pKT/tYMLt5S0="/>
         <field:input field="password" id="c_edu_ndnu_capstone_domain_User_password" required="true" z="kEW4oQdeXWi+JyIwdUJkmMKHYII=" type="password"/>
         <field:input field="phone" id="c_edu_ndnu_capstone_domain_User_phone" required="true" validationMessageCode="field_invalid_number" max="10" min="10" z="k42Av41wIfhbInJmZhCY/WbW+h4="/>
         <field:input field="year" id="c_edu_ndnu_capstone_domain_User_year" required="true" validationMessageCode="field_invalid_number" max="4" min="4" z="HL+hSR+nz8/34t6nn2HXLRJaIyA="/>

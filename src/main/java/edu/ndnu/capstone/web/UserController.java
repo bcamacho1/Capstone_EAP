@@ -3,15 +3,21 @@ import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.UserTypeService;
+import edu.ndnu.capstone.domain.UserrActiveType;
+
 import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,12 +50,32 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
+        	//bindingResult.addError(new ObjectError("user", "Username is already in the database"));
+        	//bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
+        	java.util.List<ObjectError> list=bindingResult.getAllErrors();
+        	for(ObjectError obj:list)
+        	{
+        		System.out.println("objname"+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+        		if(obj instanceof FieldError)
+        		{
+        			System.out.println(((FieldError)obj).getField());
+        		}
+        	}
+        	
             populateEditForm(uiModel, user);
             return "users/create";
         }
-        uiModel.asMap().clear();
-        userService.saveUser(user);
-        return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+        try {
+        	userService.saveUser(user);
+        	uiModel.asMap().clear();  
+	        return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+        } catch (Exception e) {
+        	bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
+        	populateEditForm(uiModel, user);
+            return "users/create";
+        }
+        
+        
     }
 
 	@RequestMapping(params = "form", produces = "text/html")
@@ -117,6 +143,7 @@ public class UserController {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
         uiModel.addAttribute("usertypes", userTypeService.findAllUserTypes());
+        uiModel.addAttribute("useractivetypes",UserrActiveType.findTypes());
     }
 
 	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
