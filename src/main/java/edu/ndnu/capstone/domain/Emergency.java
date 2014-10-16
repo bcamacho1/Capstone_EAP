@@ -33,116 +33,116 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "userId", "locationId", "typeId", "statusId" })
 public class Emergency {
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User userId;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = false)
     private Location locationId;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
     private EmergencyType typeId;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
     private EmergencyStatus statusId;
 
-	@Column(name = "created", updatable = false)
+    @Column(name = "created", updatable = false)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "MM")
     private Calendar created = java.util.Calendar.getInstance();
 
-	@Column(name = "description", length = 1024)
+    @Column(name = "description", length = 1024)
     private String description;
 
-	public User getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-	public void setUserId(User userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-	public Location getLocationId() {
+    public Location getLocationId() {
         return locationId;
     }
 
-	public void setLocationId(Location locationId) {
+    public void setLocationId(Location locationId) {
         this.locationId = locationId;
     }
 
-	public EmergencyType getTypeId() {
+    public EmergencyType getTypeId() {
         return typeId;
     }
 
-	public void setTypeId(EmergencyType typeId) {
+    public void setTypeId(EmergencyType typeId) {
         this.typeId = typeId;
     }
 
-	public EmergencyStatus getStatusId() {
+    public EmergencyStatus getStatusId() {
         return statusId;
     }
 
-	public void setStatusId(EmergencyStatus statusId) {
+    public void setStatusId(EmergencyStatus statusId) {
         this.statusId = statusId;
     }
 
-	public Calendar getCreated() {
+    public Calendar getCreated() {
         return created;
     }
 
-	public void setCreated(Calendar created) {
+    public void setCreated(Calendar created) {
         this.created = created;
     }
 
-	public String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-	public void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("userId", "locationId", "typeId", "statusId").toString();
     }
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-	@PersistenceContext
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new Emergency().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countEmergencys() {
+    public static long countEmergencys() {
         return entityManager().createQuery("SELECT COUNT(o) FROM Emergency o", Long.class).getSingleResult();
     }
 
-	public static List<Emergency> findAllEmergencys() {
+    public static List<Emergency> findAllEmergencys() {
         return entityManager().createQuery("SELECT o FROM Emergency o", Emergency.class).getResultList();
     }
 
-	public static List<Emergency> findAllEmergencys(String sortFieldName, String sortOrder) {
+    public static List<Emergency> findAllEmergencys(String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM Emergency o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -153,16 +153,16 @@ public class Emergency {
         return entityManager().createQuery(jpaQuery, Emergency.class).getResultList();
     }
 
-	public static Emergency findEmergency(Integer id) {
+    public static Emergency findEmergency(Integer id) {
         if (id == null) return null;
         return entityManager().find(Emergency.class, id);
     }
 
-	public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults) {
+    public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM Emergency o", Emergency.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+    public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM Emergency o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -173,13 +173,13 @@ public class Emergency {
         return entityManager().createQuery(jpaQuery, Emergency.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -190,19 +190,19 @@ public class Emergency {
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public Emergency merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         Emergency merged = this.entityManager.merge(this);

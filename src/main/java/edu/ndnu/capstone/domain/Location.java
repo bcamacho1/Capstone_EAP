@@ -29,26 +29,26 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "emergencies" })
 public class Location {
 
-	@PersistenceContext
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new Location().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countLocations() {
+    public static long countLocations() {
         return entityManager().createQuery("SELECT COUNT(o) FROM Location o", Long.class).getSingleResult();
     }
 
-	public static List<Location> findAllLocations() {
+    public static List<Location> findAllLocations() {
         return entityManager().createQuery("SELECT o FROM Location o", Location.class).getResultList();
     }
 
-	public static List<Location> findAllLocations(String sortFieldName, String sortOrder) {
+    public static List<Location> findAllLocations(String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM Location o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -59,16 +59,16 @@ public class Location {
         return entityManager().createQuery(jpaQuery, Location.class).getResultList();
     }
 
-	public static Location findLocation(Integer id) {
+    public static Location findLocation(Integer id) {
         if (id == null) return null;
         return entityManager().find(Location.class, id);
     }
 
-	public static List<Location> findLocationEntries(int firstResult, int maxResults) {
+    public static List<Location> findLocationEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM Location o", Location.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	public static List<Location> findLocationEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+    public static List<Location> findLocationEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM Location o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -79,13 +79,13 @@ public class Location {
         return entityManager().createQuery(jpaQuery, Location.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -96,19 +96,19 @@ public class Location {
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public Location merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         Location merged = this.entityManager.merge(this);
@@ -116,135 +116,135 @@ public class Location {
         return merged;
     }
 
-	@OneToMany(mappedBy = "locationId")
+    @OneToMany(mappedBy = "locationId")
     private Set<Emergency> emergencies;
 
-	@Column(name = "name", length = 256)
+    @Column(name = "name", length = 256)
     @NotNull
     private String name;
 
-	@Column(name = "address", length = 1024)
+    @Column(name = "address", length = 1024)
     @NotNull
     private String address;
 
-	@Column(name = "city", length = 1024)
+    @Column(name = "city", length = 1024)
     @NotNull
     private String city;
 
-	@Column(name = "state", length = 64)
+    @Column(name = "state", length = 64)
     @NotNull
     private String state;
 
-	@Column(name = "zipcode", length = 64)
+    @Column(name = "zipcode", length = 64)
     @NotNull
     private String zipcode;
 
-	@Column(name = "evacuation_area")
+    @Column(name = "evacuation_area")
     private Integer evacuationArea;
 
-	@Column(name = "latitude", length = 64)
+    @Column(name = "latitude", length = 64)
     private String latitude;
 
-	@Column(name = "longitude", length = 64)
+    @Column(name = "longitude", length = 64)
     private String longitude;
 
-	@Column(name = "description", length = 1024)
+    @Column(name = "description", length = 1024)
     private String description;
 
-	public Set<Emergency> getEmergencies() {
+    public Set<Emergency> getEmergencies() {
         return emergencies;
     }
 
-	public void setEmergencies(Set<Emergency> emergencies) {
+    public void setEmergencies(Set<Emergency> emergencies) {
         this.emergencies = emergencies;
     }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
-	public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-	public String getAddress() {
+    public String getAddress() {
         return address;
     }
 
-	public void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-	public String getCity() {
+    public String getCity() {
         return city;
     }
 
-	public void setCity(String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-	public String getState() {
+    public String getState() {
         return state;
     }
 
-	public void setState(String state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-	public String getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-	public void setZipcode(String zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
 
-	public Integer getEvacuationArea() {
+    public Integer getEvacuationArea() {
         return evacuationArea;
     }
 
-	public void setEvacuationArea(Integer evacuationArea) {
+    public void setEvacuationArea(Integer evacuationArea) {
         this.evacuationArea = evacuationArea;
     }
 
-	public String getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-	public void setLatitude(String latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-	public String getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-	public void setLongitude(String longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-	public String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-	public void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies").toString();
     }
 }

@@ -29,66 +29,66 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "emergencies" })
 public class EmergencyType {
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies").toString();
     }
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-	@OneToMany(mappedBy = "typeId")
+    @OneToMany(mappedBy = "typeId")
     private Set<Emergency> emergencies;
 
-	@Column(name = "name", length = 256)
+    @Column(name = "name", length = 256)
     @NotNull
     private String name;
 
-	public Set<Emergency> getEmergencies() {
+    public Set<Emergency> getEmergencies() {
         return emergencies;
     }
 
-	public void setEmergencies(Set<Emergency> emergencies) {
+    public void setEmergencies(Set<Emergency> emergencies) {
         this.emergencies = emergencies;
     }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
-	public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-	@PersistenceContext
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new EmergencyType().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countEmergencyTypes() {
+    public static long countEmergencyTypes() {
         return entityManager().createQuery("SELECT COUNT(o) FROM EmergencyType o", Long.class).getSingleResult();
     }
 
-	public static List<EmergencyType> findAllEmergencyTypes() {
+    public static List<EmergencyType> findAllEmergencyTypes() {
         return entityManager().createQuery("SELECT o FROM EmergencyType o", EmergencyType.class).getResultList();
     }
 
-	public static List<EmergencyType> findAllEmergencyTypes(String sortFieldName, String sortOrder) {
+    public static List<EmergencyType> findAllEmergencyTypes(String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM EmergencyType o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -99,16 +99,16 @@ public class EmergencyType {
         return entityManager().createQuery(jpaQuery, EmergencyType.class).getResultList();
     }
 
-	public static EmergencyType findEmergencyType(Integer id) {
+    public static EmergencyType findEmergencyType(Integer id) {
         if (id == null) return null;
         return entityManager().find(EmergencyType.class, id);
     }
 
-	public static List<EmergencyType> findEmergencyTypeEntries(int firstResult, int maxResults) {
+    public static List<EmergencyType> findEmergencyTypeEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyType o", EmergencyType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	public static List<EmergencyType> findEmergencyTypeEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+    public static List<EmergencyType> findEmergencyTypeEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM EmergencyType o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -119,13 +119,13 @@ public class EmergencyType {
         return entityManager().createQuery(jpaQuery, EmergencyType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -136,19 +136,19 @@ public class EmergencyType {
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public EmergencyType merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         EmergencyType merged = this.entityManager.merge(this);

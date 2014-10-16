@@ -41,140 +41,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class User 
 {
 	
-	/*
-	 * The set and get methods are stored in User_Roo_DbManaged.aj
-	 * We use the two annotations below, PrePersist and PreUpdate,
-	 * to execute the code below before creating/updating a user.
-	 * 
-	 * This code takes the password string and makes a sha-256 hash
-	 * before saving it in the database.
-	 * 
-	 */
-	@PrePersist
-	@PreUpdate
-	public void encryptPassword() 
-	{
-	    String password = this.getPassword();
-	    if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
-	    {
-	        MessageDigest md;
-	        try 
-	        {
-	            md = MessageDigest.getInstance("SHA-256");
-	            md.update(password.getBytes());
-	            byte[] shaDig = md.digest();
-	            String hashedPassword = convertByteArrayToHexString(shaDig);
-	            this.setPassword(hashedPassword);
-	        } 
-	        catch (NoSuchAlgorithmException e) 
-	        {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-	    }
-	}
-	
-	private String convertByteArrayToHexString(byte[] arrayBytes)
-	{
-	    StringBuffer stringBuffer = new StringBuffer();
-	    for (int i = 0; i < arrayBytes.length; i++)
-	    {
-	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(1));
-	    }
-	    return stringBuffer.toString();
-	}
-
-	@PersistenceContext
-    transient EntityManager entityManager;
-
-	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
-
-	public static final EntityManager entityManager() {
-        EntityManager em = new User().entityManager;
-        if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
-        return em;
-    }
-
-	public static long countUsers() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM User o", Long.class).getSingleResult();
-    }
-
-	public static List<User> findAllUsers() {
-        return entityManager().createQuery("SELECT o FROM User o", User.class).getResultList();
-    }
-
-	public static List<User> findAllUsers(String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM User o";
-        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
-            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
-                jpaQuery = jpaQuery + " " + sortOrder;
-            }
-        }
-        return entityManager().createQuery(jpaQuery, User.class).getResultList();
-    }
-
-	public static User findUser(Integer id) {
-        if (id == null) return null;
-        return entityManager().find(User.class, id);
-    }
-
-	public static List<User> findUserEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM User o", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
-    }
-
-	public static List<User> findUserEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM User o";
-        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
-            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
-                jpaQuery = jpaQuery + " " + sortOrder;
-            }
-        }
-        return entityManager().createQuery(jpaQuery, User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
-    }
-
-	@Transactional
-    public void persist() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.persist(this);
-    }
-
-	@Transactional
-    public void remove() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        if (this.entityManager.contains(this)) {
-            this.entityManager.remove(this);
-        } else {
-            User attached = User.findUser(this.id);
-            this.entityManager.remove(attached);
-        }
-    }
-
-	@Transactional
-    public void flush() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.flush();
-    }
-
-	@Transactional
-    public void clear() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.clear();
-    }
-
-	@Transactional
-    public User merge() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        User merged = this.entityManager.merge(this);
-        this.entityManager.flush();
-        return merged;
-    }
-
-	public String toString() {
-        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies", "typeId").toString();
-    }
-
 	@OneToMany(mappedBy = "userId")
     private Set<Emergency> emergencies;
 
@@ -322,5 +188,138 @@ public class User
 
 	public void setId(Integer id) {
         this.id = id;
+    }
+	
+	/*
+	 * We use the two annotations below, PrePersist and PreUpdate,
+	 * to execute the code below before creating/updating a user.
+	 * 
+	 * This code takes the password string and makes a sha-256 hash
+	 * before saving it in the database.
+	 * 
+	 */
+	@PrePersist
+	@PreUpdate
+	public void encryptPassword() 
+	{
+	    String password = this.getPassword();
+	    if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
+	    {
+	        MessageDigest md;
+	        try 
+	        {
+	            md = MessageDigest.getInstance("SHA-256");
+	            md.update(password.getBytes());
+	            byte[] shaDig = md.digest();
+	            String hashedPassword = convertByteArrayToHexString(shaDig);
+	            this.setPassword(hashedPassword);
+	        } 
+	        catch (NoSuchAlgorithmException e) 
+	        {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
+	private String convertByteArrayToHexString(byte[] arrayBytes)
+	{
+	    StringBuffer stringBuffer = new StringBuffer();
+	    for (int i = 0; i < arrayBytes.length; i++)
+	    {
+	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(1));
+	    }
+	    return stringBuffer.toString();
+	}
+
+	@PersistenceContext
+    transient EntityManager entityManager;
+
+	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+
+	public static final EntityManager entityManager() {
+        EntityManager em = new User().entityManager;
+        if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+        return em;
+    }
+
+	public static long countUsers() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM User o", Long.class).getSingleResult();
+    }
+
+	public static List<User> findAllUsers() {
+        return entityManager().createQuery("SELECT o FROM User o", User.class).getResultList();
+    }
+
+	public static List<User> findAllUsers(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM User o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, User.class).getResultList();
+    }
+
+	public static User findUser(Integer id) {
+        if (id == null) return null;
+        return entityManager().find(User.class, id);
+    }
+
+	public static List<User> findUserEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM User o", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+
+	public static List<User> findUserEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM User o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+
+	@Transactional
+    public void persist() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.persist(this);
+    }
+
+	@Transactional
+    public void remove() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        if (this.entityManager.contains(this)) {
+            this.entityManager.remove(this);
+        } else {
+            User attached = User.findUser(this.id);
+            this.entityManager.remove(attached);
+        }
+    }
+
+	@Transactional
+    public void flush() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.flush();
+    }
+
+	@Transactional
+    public void clear() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.clear();
+    }
+
+	@Transactional
+    public User merge() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        User merged = this.entityManager.merge(this);
+        this.entityManager.flush();
+        return merged;
+    }
+
+	public String toString() {
+        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies", "typeId").toString();
     }
 }

@@ -29,62 +29,62 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "emergencies" })
 public class EmergencyStatus {
 
-	@OneToMany(mappedBy = "statusId")
+    @OneToMany(mappedBy = "statusId")
     private Set<Emergency> emergencies;
 
-	@Column(name = "name", length = 256)
+    @Column(name = "name", length = 256)
     @NotNull
     private String name;
 
-	public Set<Emergency> getEmergencies() {
+    public Set<Emergency> getEmergencies() {
         return emergencies;
     }
 
-	public void setEmergencies(Set<Emergency> emergencies) {
+    public void setEmergencies(Set<Emergency> emergencies) {
         this.emergencies = emergencies;
     }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
-	public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-	@PersistenceContext
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new EmergencyStatus().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countEmergencyStatuses() {
+    public static long countEmergencyStatuses() {
         return entityManager().createQuery("SELECT COUNT(o) FROM EmergencyStatus o", Long.class).getSingleResult();
     }
 
-	public static List<EmergencyStatus> findAllEmergencyStatuses() {
+    public static List<EmergencyStatus> findAllEmergencyStatuses() {
         return entityManager().createQuery("SELECT o FROM EmergencyStatus o", EmergencyStatus.class).getResultList();
     }
 
-	public static List<EmergencyStatus> findAllEmergencyStatuses(String sortFieldName, String sortOrder) {
+    public static List<EmergencyStatus> findAllEmergencyStatuses(String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM EmergencyStatus o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -95,16 +95,16 @@ public class EmergencyStatus {
         return entityManager().createQuery(jpaQuery, EmergencyStatus.class).getResultList();
     }
 
-	public static EmergencyStatus findEmergencyStatus(Integer id) {
+    public static EmergencyStatus findEmergencyStatus(Integer id) {
         if (id == null) return null;
         return entityManager().find(EmergencyStatus.class, id);
     }
 
-	public static List<EmergencyStatus> findEmergencyStatusEntries(int firstResult, int maxResults) {
+    public static List<EmergencyStatus> findEmergencyStatusEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyStatus o", EmergencyStatus.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	public static List<EmergencyStatus> findEmergencyStatusEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+    public static List<EmergencyStatus> findEmergencyStatusEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM EmergencyStatus o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -115,13 +115,13 @@ public class EmergencyStatus {
         return entityManager().createQuery(jpaQuery, EmergencyStatus.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -132,19 +132,19 @@ public class EmergencyStatus {
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public EmergencyStatus merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         EmergencyStatus merged = this.entityManager.merge(this);
@@ -152,7 +152,7 @@ public class EmergencyStatus {
         return merged;
     }
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies").toString();
     }
 }
