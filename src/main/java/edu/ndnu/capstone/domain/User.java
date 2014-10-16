@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -70,6 +70,7 @@ public class User
 
 	@Column(name = "year", length = 4)
     @NotNull
+    @Pattern(regexp = "20[0-9][0-9]")
     private String year;
 
 	@Column(name = "active", length = 1)
