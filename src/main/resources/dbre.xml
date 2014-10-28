@@ -48,6 +48,65 @@
             <index-column name="status_id"/>
         </index>
     </table>
+    <table name="emergency_alert_log">
+        <column name="id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="user_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="emergency_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="emergency_message_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="ts" primaryKey="false" required="true" scale="0" size="19" type="93,TIMESTAMP"/>
+        <column name="sent" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <foreign-key foreignTable="user" name="emergency_alert_log_ibfk_1" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="id" local="user_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="emergency" name="emergency_alert_log_ibfk_2" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="id" local="emergency_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="emergency_message" name="emergency_alert_log_ibfk_3" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="id" local="emergency_message_id"/>
+        </foreign-key>
+        <unique name="PRIMARY">
+            <unique-column name="id"/>
+        </unique>
+        <index name="user_id">
+            <index-column name="user_id"/>
+        </index>
+        <index name="emergency_id">
+            <index-column name="emergency_id"/>
+        </index>
+        <index name="emergency_message_id">
+            <index-column name="emergency_message_id"/>
+        </index>
+    </table>
+    <table name="emergency_message">
+        <column name="id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="user_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="emergency_type_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="message" primaryKey="false" required="false" scale="0" size="4000" type="12,VARCHAR"/>
+        <foreign-key foreignTable="user" name="emergency_message_ibfk_1" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="id" local="user_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="emergency_type" name="emergency_message_ibfk_2" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="id" local="emergency_type_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="emergency_alert_log" name="emergency_alert_log_ibfk_3" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="emergency_message_id" local="id"/>
+        </foreign-key>
+        <unique name="PRIMARY">
+            <unique-column name="id"/>
+        </unique>
+        <index name="user_id">
+            <index-column name="user_id"/>
+        </index>
+        <index name="emergency_type_id">
+            <index-column name="emergency_type_id"/>
+        </index>
+    </table>
     <table name="emergency_status">
         <column name="id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="name" primaryKey="false" required="true" scale="0" size="256" type="12,VARCHAR"/>

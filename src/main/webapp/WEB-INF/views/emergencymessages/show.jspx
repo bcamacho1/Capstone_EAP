@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_ndnu_capstone_domain_EmergencyMessage" object="${emergencymessage}" path="/emergencymessages" z="MPLSw/dIw1wKYDlBS9GonsGDgmA=">
+        <field:display field="userId" id="s_edu_ndnu_capstone_domain_EmergencyMessage_userId" object="${emergencymessage}" z="RwFPmFLztN4OqslQAC0OEmjSbhw="/>
+        <field:display field="message" id="s_edu_ndnu_capstone_domain_EmergencyMessage_message" object="${emergencymessage}" z="G0s6NFtQRgBUbqxwaHgLhH/QqZA="/>
+        <field:display field="emergencyTypeId" id="s_edu_ndnu_capstone_domain_EmergencyMessage_emergencyTypeId" object="${emergencymessage}" z="M08x2vyM3WuswmB4g9osrP4ZHyY="/>
+    </page:show>
+</div>

@@ -29,6 +29,10 @@
             <menu:item id="i_emergency_list" messageCode="global_menu_list" url="/emergencys?page=1&amp;size=${empty param.size ? 10 : param.size}" z="xfvnWuc5P9PXplkSpR3JT9ZpGv4="/>
             <menu:item id="i_emergencytype_list" messageCode="global_menu_list" url="/emergencytypes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="hu6idqfwOUrvlQi7B2PnLnuLoSI="/>
             <menu:item id="i_emergencystatus_list" messageCode="global_menu_list" url="/emergencystatuses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="yZJ73zR21oYjuERgeahKYtpwNYI="/>
+            <menu:item id="i_emergencymessage_new" messageCode="global_menu_new" url="/emergencymessages?form" z="RNxtsB/8/u+HagQOpooShHaUXHQ="/>
+            <menu:item id="i_emergencymessage_list" messageCode="global_menu_list" url="/emergencymessages?page=1&amp;size=${empty param.size ? 10 : param.size}" z="fIzz2fxIkUPepDl2qU/Ft3y9XNc="/>
+            <menu:item id="i_emergencyalertlog_new" messageCode="global_menu_new" url="/emergencyalertlogs?form" z="Y5f0oCc6DONokUCBLiTqb5vVtMY="/>
+            <menu:item id="i_emergencyalertlog_list" messageCode="global_menu_list" url="/emergencyalertlogs?page=1&amp;size=${empty param.size ? 10 : param.size}" z="zI2Jl4d2GHIbOmboy2mYlyQYfKo="/>
         </menu:category>
     </menu:menu>
 </div>

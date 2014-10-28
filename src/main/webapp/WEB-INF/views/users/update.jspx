@@ -4,6 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_User" modelAttribute="user" path="/users" versionField="none" z="dAgSSO1OAUEJHLMB+unvY50hI00=">
         <field:simple field="emergencies" id="c_edu_ndnu_capstone_domain_User_emergencies" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency" z="96v/orisk+QZ0UvamFbdCmNUM9g="/>
+        <field:simple field="emergencyMessages" id="c_edu_ndnu_capstone_domain_User_emergencyMessages" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency Message" z="4+RebHYPh+zdEHuvU/En9YuVvXo="/>
         <field:select field="typeId" id="c_edu_ndnu_capstone_domain_User_typeId" itemValue="id" items="${usertypes}" path="/usertypes" z="cuXEuKQFS8VdksWWbETwOj+Ps4k="/>
         <field:input field="name" id="c_edu_ndnu_capstone_domain_User_name" required="true" z="AvB38b/End0hXemXNC8GrbD8SAw="/>
         <field:input field="email" id="c_edu_ndnu_capstone_domain_User_email"  disabled="true" required="true" validationMessageCode="field_invalid_email" z="OGADRfESfWyp/4F216swLnNdyoQ="/>
@@ -13,5 +14,6 @@
         <field:input field="year" id="c_edu_ndnu_capstone_domain_User_year" required="true" validationMessageCode="field_invalid_number" max="4" min="4" z="HL+hSR+nz8/34t6nn2HXLRJaIyA="/>
         <field:input field="active" id="c_edu_ndnu_capstone_domain_User_active" required="true" validationMessageCode="field_invalid_integer" max="1" min="1" z="wMEcOQjcrIJKY5RQ7mQ4/Uu9Ago="/>
         <field:input field="description" id="c_edu_ndnu_capstone_domain_User_description" required="true" z="6TJHmWCAvkCtONvKOBHftLCMtso="/>
+        <field:simple field="emergencyAlertLogs" id="c_edu_ndnu_capstone_domain_User_emergencyAlertLogs" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency Alert Log" z="DVQOdEx/8k4z9gCnCLnYWYizrbA="/>
     </form:update>
 </div>

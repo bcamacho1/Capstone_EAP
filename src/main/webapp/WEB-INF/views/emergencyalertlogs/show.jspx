@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_edu_ndnu_capstone_domain_EmergencyAlertLog" object="${emergencyalertlog}" path="/emergencyalertlogs" z="bCfwCegfJqb2gPtdgF5I2kOnxbA=">
+        <field:display field="userId" id="s_edu_ndnu_capstone_domain_EmergencyAlertLog_userId" object="${emergencyalertlog}" z="MjFCDgOnxUezndO0mgErTnLFCzw="/>
+        <field:display field="emergencyId" id="s_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyId" object="${emergencyalertlog}" z="o35Syt08GaDq+A3c97jPfDlxYeQ="/>
+        <field:display field="emergencyMessageId" id="s_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyMessageId" object="${emergencyalertlog}" z="N8cHJ43SNPyEOFmsrrKevN6EEEA="/>
+        <field:display calendar="true" dateTimePattern="${emergencyAlertLog_ts_date_format}" field="ts" id="s_edu_ndnu_capstone_domain_EmergencyAlertLog_ts" object="${emergencyalertlog}" z="tvG7rM13xj03Ai4gTkIsDPnX5f8="/>
+        <field:display field="sent" id="s_edu_ndnu_capstone_domain_EmergencyAlertLog_sent" object="${emergencyalertlog}" z="Hjo4eQFZdK1QwDi5Xq1/7T7Xg+g="/>
+    </page:show>
+</div>

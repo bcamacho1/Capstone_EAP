@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_edu_ndnu_capstone_domain_EmergencyAlertLog" items="${emergencyalertlogs}" z="oklC1DA17tlI3GI4HuP9Ajk03wg=">
+        <table:table data="${emergencyalertlogs}" id="l_edu_ndnu_capstone_domain_EmergencyAlertLog" path="/emergencyalertlogs" z="WxDINXzhj4g563G5v/s+mo7CgT0=">
+            <table:column id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_userId" property="userId" z="E9SDVFghLRpi62NLLNsCpKoTLNM="/>
+            <table:column id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyId" property="emergencyId" z="dexob2HKi+frNf/RHr1poY1Qd6M="/>
+            <table:column id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyMessageId" property="emergencyMessageId" z="JMiDLN3xMmPhBupV/hKou88tLtQ="/>
+            <table:column calendar="true" dateTimePattern="${emergencyAlertLog_ts_date_format}" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_ts" property="ts" z="88NaMAzqoJQEIRS97U/V0Yum57M="/>
+            <table:column id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_sent" property="sent" z="jnJ0sMy2R8DxqkABCYSNJ7hq/4s="/>
+        </table:table>
+    </page:list>
+</div>
