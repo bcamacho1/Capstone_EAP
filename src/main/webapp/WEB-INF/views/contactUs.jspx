@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <spring:message code="error_resourcenotfound_title" htmlEscape="false" var="title"/>
 
-
+<div class="jumbotron">
 <style>
 h1
 {
@@ -24,14 +24,12 @@ color: #a09f48;
 
 	 <br/>
 	 <h2>General Information</h2>
-	<br/>
+
 	 Public Safety officers are on duty 24/7. <b>Always call the Public Safety cell phone number first;</b> one of the cell phones is carried by the duty officer at all times. 
 	 Office is located in St. Mary's Hall, off the lobby.
 <br/><br/>
 
  <h2>Who You Can Contact</h2>
-<br/>
-
        	 <b>Emergency:</b> (police, fire, medical): 911
 	 <br/><br/>
 <b>Public Safety cell phone:</b> 650-504-0656 and 650-740-1483
@@ -45,4 +43,6 @@ color: #a09f48;
 <b>Daniel L. Torrez</b>, Director of Public Safety
 <br/>
 650-508-3505, dtorrez@ndnu.edu
+</div>
+
 </div>
