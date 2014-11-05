@@ -3,7 +3,7 @@ import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.UserTypeService;
-import edu.ndnu.capstone.domain.UserrActiveType;
+//import edu.ndnu.capstone.domain.UserrActiveType;
 
 import java.io.UnsupportedEncodingException;
 
@@ -143,7 +143,7 @@ public class UserController {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
         uiModel.addAttribute("usertypes", userTypeService.findAllUserTypes());
-        uiModel.addAttribute("useractivetypes",UserrActiveType.findTypes());
+        //uiModel.addAttribute("useractivetypes",UserrActiveType.findTypes());
     }
 
 	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
