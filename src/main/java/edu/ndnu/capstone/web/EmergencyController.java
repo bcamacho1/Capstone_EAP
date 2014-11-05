@@ -1,5 +1,4 @@
 package edu.ndnu.capstone.web;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
@@ -10,12 +9,16 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import edu.ndnu.capstone.domain.Emergency;
+import edu.ndnu.capstone.domain.EmergencyAlertLogService;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.EmergencyStatusService;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
 import edu.ndnu.capstone.domain.LocationService;
-import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.User;
+import java.io.UnsupportedEncodingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
@@ -35,8 +38,26 @@ import org.joda.time.format.DateTimeFormat;
 @Controller
 @RooWebScaffold(path = "emergencys", formBackingObject = Emergency.class)
 @GvNIXWebJQuery
-public class EmergencyController 
-{
+public class EmergencyController {
+
+    @Autowired
+    EmergencyService emergencyService;
+
+    @Autowired
+    EmergencyAlertLogService emergencyAlertLogService;
+
+    @Autowired
+    EmergencyStatusService emergencyStatusService;
+
+    @Autowired
+    EmergencyTypeService emergencyTypeService;
+
+    @Autowired
+    LocationService locationService;
+
+    @Autowired
+    UserService userService;
+    
     // The url to get to this method is /emergencys/alert
     // This gets appended to the RequestMapping annotation above
     //@RequestMapping("/alert")
@@ -83,6 +104,7 @@ public class EmergencyController
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("Emergency Alert");
             message.setText("New Emergency: \nid=" + param);
+            //message.setContent(text, "text/html");
     
             Transport.send(message);
             System.out.println("Sent message successfully....");
@@ -98,22 +120,7 @@ public class EmergencyController
         return "index";
     }
 
-	@Autowired
-    EmergencyService emergencyService;
-
-	@Autowired
-    EmergencyStatusService emergencyStatusService;
-
-	@Autowired
-    EmergencyTypeService emergencyTypeService;
-
-	@Autowired
-    LocationService locationService;
-
-	@Autowired
-    UserService userService;
-
-	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
+    @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergency);
@@ -124,13 +131,13 @@ public class EmergencyController
         return "redirect:/emergencys/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(params = "form", produces = "text/html")
+    @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new Emergency());
         return "emergencys/create";
     }
 
-	@RequestMapping(value = "/{id}", produces = "text/html")
+    @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergency", emergencyService.findEmergency(id));
@@ -138,22 +145,22 @@ public class EmergencyController
         return "emergencys/show";
     }
 
-	@RequestMapping(produces = "text/html")
-    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
+    @RequestMapping(produces = "text/html")
+    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("emergencys", Emergency.findEmergencyEntries(firstResult, sizeNo, sortFieldName, sortOrder));
+            uiModel.addAttribute("emergencys", emergencyService.findEmergencyEntries(firstResult, sizeNo));
             float nrOfPages = (float) emergencyService.countAllEmergencys() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("emergencys", Emergency.findAllEmergencys(sortFieldName, sortOrder));
+            uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
         }
         addDateTimeFormatPatterns(uiModel);
         return "emergencys/list";
     }
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergency);
@@ -164,13 +171,13 @@ public class EmergencyController
         return "redirect:/emergencys/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(value = "/{id}", params = "form", produces = "text/html")
+    @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, emergencyService.findEmergency(id));
         return "emergencys/update";
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         Emergency emergency = emergencyService.findEmergency(id);
         emergencyService.deleteEmergency(emergency);
@@ -180,20 +187,21 @@ public class EmergencyController
         return "redirect:/emergencys";
     }
 
-	void addDateTimeFormatPatterns(Model uiModel) {
+    void addDateTimeFormatPatterns(Model uiModel) {
         uiModel.addAttribute("emergency_created_date_format", DateTimeFormat.patternForStyle("MM", LocaleContextHolder.getLocale()));
     }
 
-	void populateEditForm(Model uiModel, Emergency emergency) {
+    void populateEditForm(Model uiModel, Emergency emergency) {
         uiModel.addAttribute("emergency", emergency);
         addDateTimeFormatPatterns(uiModel);
+        uiModel.addAttribute("emergencyalertlogs", emergencyAlertLogService.findAllEmergencyAlertLogs());
         uiModel.addAttribute("emergencystatuses", emergencyStatusService.findAllEmergencyStatuses());
         uiModel.addAttribute("emergencytypes", emergencyTypeService.findAllEmergencyTypes());
         uiModel.addAttribute("locations", locationService.findAllLocations());
         uiModel.addAttribute("users", userService.findAllUsers());
     }
 
-	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;

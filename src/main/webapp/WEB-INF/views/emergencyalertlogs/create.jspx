@@ -6,7 +6,7 @@
         <field:select field="userId" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_userId" itemValue="id" items="${users}" path="/users" z="W1/jkQQPd1StNpvPALoYJq4uCOY="/>
         <field:select field="emergencyId" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyId" itemValue="id" items="${emergencys}" path="/emergencys" z="jGC1j0Ygmdv5l2AYv5MP5cXozzU="/>
         <field:select field="emergencyMessageId" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyMessageId" itemValue="id" items="${emergencymessages}" path="/emergencymessages" z="5/dc0Zo6bR4VH9+G+/bVqrJxkwU="/>
-        <field:datetime dateTimePattern="${emergencyAlertLog_ts_date_format}" field="ts" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_ts" required="true" z="WdYkAM39x8/veIs9B658ED//I2w="/>
+        <!--field:datetime dateTimePattern="${emergencyAlertLog_ts_date_format}" field="ts" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_ts" required="true" z="WdYkAM39x8/veIs9B658ED//I2w="/-->
         <field:input field="sent" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_sent" validationMessageCode="field_invalid_integer" z="iMrBQp51lkVIA1yjGWzzLQFZ6tY="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_ndnu_capstone_domain_EmergencyAlertLog" render="${not empty dependencies}" z="+NNXZCcus0ymnFAJhaQL+yTHbnA="/>

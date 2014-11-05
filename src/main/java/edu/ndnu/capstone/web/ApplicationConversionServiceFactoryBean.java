@@ -1,6 +1,10 @@
 package edu.ndnu.capstone.web;
 
 import edu.ndnu.capstone.domain.Emergency;
+import edu.ndnu.capstone.domain.EmergencyAlertLog;
+import edu.ndnu.capstone.domain.EmergencyAlertLogService;
+import edu.ndnu.capstone.domain.EmergencyMessage;
+import edu.ndnu.capstone.domain.EmergencyMessageService;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.EmergencyStatus;
 import edu.ndnu.capstone.domain.EmergencyStatusService;
@@ -36,6 +40,12 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 
 	@Autowired
     EmergencyService emergencyService;
+
+	@Autowired
+    EmergencyAlertLogService emergencyAlertLogService;
+
+	@Autowired
+    EmergencyMessageService emergencyMessageService;
 
 	@Autowired
     EmergencyStatusService emergencyStatusService;
@@ -75,6 +85,54 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Emergency>() {
             public edu.ndnu.capstone.domain.Emergency convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), Emergency.class);
+            }
+        };
+    }
+
+	public Converter<EmergencyAlertLog, String> getEmergencyAlertLogToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyAlertLog, java.lang.String>() {
+            public String convert(EmergencyAlertLog emergencyAlertLog) {
+                return new StringBuilder().append(emergencyAlertLog.getTs()).append(' ').append(emergencyAlertLog.getSent()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, EmergencyAlertLog> getIdToEmergencyAlertLogConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyAlertLog>() {
+            public edu.ndnu.capstone.domain.EmergencyAlertLog convert(java.lang.Integer id) {
+                return emergencyAlertLogService.findEmergencyAlertLog(id);
+            }
+        };
+    }
+
+	public Converter<String, EmergencyAlertLog> getStringToEmergencyAlertLogConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyAlertLog>() {
+            public edu.ndnu.capstone.domain.EmergencyAlertLog convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), EmergencyAlertLog.class);
+            }
+        };
+    }
+
+	public Converter<EmergencyMessage, String> getEmergencyMessageToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyMessage, java.lang.String>() {
+            public String convert(EmergencyMessage emergencyMessage) {
+                return new StringBuilder().append(emergencyMessage.getMessage()).toString();
+            }
+        };
+    }
+
+	public Converter<Integer, EmergencyMessage> getIdToEmergencyMessageConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyMessage>() {
+            public edu.ndnu.capstone.domain.EmergencyMessage convert(java.lang.Integer id) {
+                return emergencyMessageService.findEmergencyMessage(id);
+            }
+        };
+    }
+
+	public Converter<String, EmergencyMessage> getStringToEmergencyMessageConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyMessage>() {
+            public edu.ndnu.capstone.domain.EmergencyMessage convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), EmergencyMessage.class);
             }
         };
     }
@@ -154,7 +212,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 	public Converter<Location, String> getLocationToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Location, java.lang.String>() {
             public String convert(Location location) {
-                return new StringBuilder().append(location.getName()).append(' ').append(location.getAddress()).append(' ').append(location.getCity()).append(' ').append(location.getState()).toString();
+                return new StringBuilder().append(location.getName()).append(", ").append(location.getAddress()).append(", ").append(location.getCity()).append(", ").append(location.getState()).toString();
             }
         };
     }
@@ -178,7 +236,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 	public Converter<User, String> getUserToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.User, java.lang.String>() {
             public String convert(User user) {
-                return new StringBuilder().append(user.getName()).append(' ').append(user.getEmail()).append(' ').append(user.getUsername()).append(' ').append(user.getPassword()).toString();
+                return new StringBuilder().append(user.getName()).append(" - ").append(user.getEmail()).toString();
             }
         };
     }
@@ -227,6 +285,12 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         registry.addConverter(getEmergencyToStringConverter());
         registry.addConverter(getIdToEmergencyConverter());
         registry.addConverter(getStringToEmergencyConverter());
+        registry.addConverter(getEmergencyAlertLogToStringConverter());
+        registry.addConverter(getIdToEmergencyAlertLogConverter());
+        registry.addConverter(getStringToEmergencyAlertLogConverter());
+        registry.addConverter(getEmergencyMessageToStringConverter());
+        registry.addConverter(getIdToEmergencyMessageConverter());
+        registry.addConverter(getStringToEmergencyMessageConverter());
         registry.addConverter(getEmergencyStatusToStringConverter());
         registry.addConverter(getIdToEmergencyStatusConverter());
         registry.addConverter(getStringToEmergencyStatusConverter());
