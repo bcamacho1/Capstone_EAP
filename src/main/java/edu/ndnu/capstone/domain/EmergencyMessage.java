@@ -78,7 +78,6 @@ public class EmergencyMessage {
 	public static EmergencyMessage findEmergencyMessageByUserAndType(Integer user_id, Integer type_id) {
         if (user_id == null) return null;
         if (type_id == null) return null;
-        
         try
         {
             return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id + " and emergency_type_id = " + type_id, EmergencyMessage.class).getSingleResult();
@@ -88,6 +87,18 @@ public class EmergencyMessage {
             return null;
         }
 	}
+	
+	public static List<EmergencyMessage> findEmergencyMessageByUser(Integer user_id) {
+        if (user_id == null) return null;
+        try
+        {
+            return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id, EmergencyMessage.class).getResultList();
+        }
+        catch (DataAccessException e)
+        {
+            return null;
+        }
+    }
 	
     public static EmergencyMessage findDefaultEmergencyMessageByType(Integer type_id) {
         if (type_id == null) return null;

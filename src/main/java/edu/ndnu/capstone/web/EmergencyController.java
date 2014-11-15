@@ -181,6 +181,11 @@ public class EmergencyController {
                                                           "</table>" +
                                                       "</td>" +
                                                   "</tr>" +
+                                                  "<tr>" +
+                                                      "<td bgcolor=\"#ee4c50\">" +
+                                                          "Row 3" +
+                                                      "</td>" +
+                                                  "</tr>" +
                                               "</table>" +
                                           "</td>" +
                                       "</tr>" +

@@ -3,10 +3,10 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_edu_ndnu_capstone_domain_EmergencyMessage" items="${emergencymessages}" z="vjoaywF54Pxp/Tyi1Hsf8vUjmeA=">
-        <table:table data="${emergencymessages}" id="l_edu_ndnu_capstone_domain_EmergencyMessage" path="/emergencymessages" z="skPZQ6Hs99N38ptxK6HT6qwnW20=">
+        <table:emergencyMessageTable data="${emergencymessages}" id="l_edu_ndnu_capstone_domain_EmergencyMessage" path="/emergencymessages" z="skPZQ6Hs99N38ptxK6HT6qwnW20=">
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyMessage_userId" property="userId" z="TYfcAIm1nj2B+t9NVyTj7pBVdl0="/>
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyMessage_message" property="message" z="eRcYaQ68xybZEfet+ZjtToKnE5Q="/>
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyMessage_emergencyTypeId" property="emergencyTypeId" z="nM5f8xyskHkXgAubuc7nyoYPigE="/>
-        </table:table>
+        </table:emergencyMessageTable>
     </page:list>
 </div>
