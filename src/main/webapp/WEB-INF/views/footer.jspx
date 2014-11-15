@@ -5,43 +5,103 @@
 
   <spring:url value="/" var="home"/>
 
-  <div class="col-xs-12 col-sm-9">
-	  <span>
-	    <a href="${home}">
-	      <spring:message code="button_home"/>
-	    </a>
-	    <c:out value=" | "/>
-        <a href="/">Contact Us</a>
-        <c:out value=" | "/>
-        <a href="/">NDNU</a>
-        <c:out value=" | "/>
-        <spring:url value="/users?form" var="register"/>
-        <a href="${register}">Register</a>
-      </span>
-      <c:if test="${pageContext['request'].userPrincipal == null}">
-        <c:out value=" | "/>
-        <span>
-          <spring:url value="/login" var="login"/>
-          <a href="${login}">Login</a>
-            </span>
-      </c:if>
-	  <c:if test="${pageContext['request'].userPrincipal != null}">
-	    <c:out value=" | "/>
-	    <span>
-	      <spring:url value="/resources/j_spring_security_logout" var="logout"/>
-	      <a href="${logout}">
-	        <spring:message code="security_logout"/>
-	      </a>
-	        </span>
-	  </c:if>
- </div>
- <div class="col-xs-12 col-sm-3">
-	  <spring:url value="/resources/images/springsource-logo.png" var="logo"/>
-	  <spring:message code="global_sponsored" htmlEscape="false" var="sponsored"/>
-	  <span>
-	    <a href="http://springsource.com" title="${fn:escapeXml(sponsored)}">
-	      <img align="right" alt="${fn:escapeXml(sponsored)}" src="${logo}"/>
-	    </a>
-	  </span>
-  </div>
+
+<style>
+.outerContainer {
+	width: 100%;
+}
+.innerContainer {
+	position: relative;
+	margin: auto;
+	width: 95%;
+}
+
+
+#footerContainer a{
+	color: white;
+}
+
+
+#footerContainer a:hover, a:active {
+    color: #fcb708;
+    text-decoration: none;
+}
+
+
+#footerContainer {
+    color: white;
+    text-align: center;
+	background: #7D7A73;
+	font-size: 125%;
+	font-family: 'Rosario', sans-serif;
+}
+
+#footerContainer h4 {
+	font-size: 200%;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+#footerContainer ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	}
+
+#hide
+{
+color: #7D7A73;
+}
+
+#footer1 {
+  display: table;
+  }
+  
+  	
+	.footerBox {
+  display: table-cell;
+	width: 33.33%;
+}
+
+
+</style>
+
+   <div id="footerContainer" class="outerContainer">
+
+ <footer id="footer1" class="innerContainer">
+
+ <div class="footerBox">
+ 
+<h4>Quick Links</h4>
+         <ul>
+<li><a href="">EAP Home</a></li>
+<li><a href="http://www.ndnu.edu/">NDNU Home</a></li>
+<li><a href="campusMap">Campus Map</a></li>
+<li><a href="contactUs">Contact Us</a></li>
+                </ul>
+</div>
+
+
+ <div class="footerBox">
+<div id = "hide"><h4>""</h4></div>
+                      <ul>
+<li><a href="emergencys;jsessionid=0F5393E492C020344282D5FBDD699F05?page=1&amp;size=10">Current Emergencies</a></li>
+<li><a href="emergencys?form">Report Emergency</a></li>
+<li><a href="emergencys;jsessionid=0F5393E492C020344282D5FBDD699F05?page=1&amp;size=10">Locations</a></li>
+<li><a href="evacuations?page=1&amp;size=10">Evacuations</a></li>  
+                </ul>
+            
+</div>
+
+
+ <div class="footerBox">
+                <h4>Notre Dame de Namur University</h4>
+                1500 Ralston Avenue, Belmont, CA 94002<br/>
+                © 2014 Notre Dame de Namur University. All rights reserved<br/>
+            
+</div>
+
+</footer>
+</div>
+
 </div>
