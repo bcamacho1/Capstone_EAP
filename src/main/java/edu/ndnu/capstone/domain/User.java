@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -24,9 +25,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Max;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.dbre.RooDbManaged;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -276,6 +279,11 @@ public class User
         if (id == null) return null;
         return entityManager().find(User.class, id);
     }
+	
+	public static User findUserByUsername(String username) {
+	    if (username == null) return null;
+        return entityManager().createQuery("SELECT o FROM User o WHERE username = '" + username + "'", User.class).getSingleResult();
+	}
 
 	public static List<User> findUserEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM User o", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();

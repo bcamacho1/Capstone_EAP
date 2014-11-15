@@ -1,5 +1,6 @@
 package edu.ndnu.capstone.domain;
 import java.util.List;
+
 import org.springframework.roo.addon.layers.service.RooService;
 
 @RooService(domainTypes = { edu.ndnu.capstone.domain.User.class })
@@ -12,6 +13,9 @@ public interface UserService {
 
 
 	public abstract User findUser(Integer id);
+	
+	
+	public abstract User findUserByUsername(String username);
 
 
 	public abstract List<User> findAllUsers();

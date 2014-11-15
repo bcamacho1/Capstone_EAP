@@ -22,15 +22,10 @@ import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.User;
-
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -72,6 +67,11 @@ public class EmergencyController {
     @RequestMapping(value="/alert/{param}")
     public String sendEmailAlert(@PathVariable("param") int param) 
     {
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(login);
+        
+        User user = User.findUserByUsername(login); 
+        
         System.out.printf("%d\n", param);
         System.out.println("You sent an email alert!");
         
@@ -80,13 +80,14 @@ public class EmergencyController {
         EmergencyType type = emergency.getTypeId();
         EmergencyStatus status = emergency.getStatusId();
         Location location = emergency.getLocationId();
-        //EmergencyMessage message = EmergencyMessage.findEmergencyMessageByUserAndType(, type.getId());
+        
+        EmergencyMessage message = EmergencyMessage.findEmergencyMessageByUserAndType(user.getId(), type.getId());
         String action = "";
         
-        //if (message == null)
-        //{
-            EmergencyMessage message = EmergencyMessage.findDefaultEmergencyMessageByType(type.getId());
-        //}
+        if (message == null)
+        {
+            message = EmergencyMessage.findDefaultEmergencyMessageByType(type.getId());
+        }
             
         if (message == null)
         {

@@ -1,6 +1,7 @@
 package edu.ndnu.capstone.domain;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,10 @@ public class UserServiceImpl implements UserService {
 	public User findUser(Integer id) {
         return User.findUser(id);
     }
+	
+	public User findUserByUsername(String username) {
+	    return User.findUserByUsername(username);
+	}
 
 	public List<User> findAllUsers() {
         return User.findAllUsers();

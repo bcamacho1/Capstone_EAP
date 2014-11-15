@@ -62,6 +62,10 @@ public class EmergencyMessage {
 	public static long countEmergencyMessages() {
         return entityManager().createQuery("SELECT COUNT(o) FROM EmergencyMessage o", Long.class).getSingleResult();
     }
+	
+	public static long countEmergencyMessagesByUser(Integer user_id) {
+        return entityManager().createQuery("SELECT COUNT(o) FROM EmergencyMessage o WHERE user_id = " + user_id, Long.class).getSingleResult();
+    }
 
 	public static List<EmergencyMessage> findAllEmergencyMessages() {
         return entityManager().createQuery("SELECT o FROM EmergencyMessage o", EmergencyMessage.class).getResultList();
@@ -78,14 +82,7 @@ public class EmergencyMessage {
 	public static EmergencyMessage findEmergencyMessageByUserAndType(Integer user_id, Integer type_id) {
         if (user_id == null) return null;
         if (type_id == null) return null;
-        try
-        {
             return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id + " and emergency_type_id = " + type_id, EmergencyMessage.class).getSingleResult();
-	    }
-        catch (DataAccessException e)
-        {
-            return null;
-        }
 	}
 	
 	public static List<EmergencyMessage> findEmergencyMessageByUser(Integer user_id) {
@@ -114,6 +111,10 @@ public class EmergencyMessage {
 
 	public static List<EmergencyMessage> findEmergencyMessageEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyMessage o", EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+	
+	public static List<EmergencyMessage> findEmergencyMessageEntriesByUser(Integer user_id, int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM EmergencyMessage o where user_id = " + user_id, EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
 	@Transactional

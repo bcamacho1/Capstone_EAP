@@ -3,12 +3,18 @@ import edu.ndnu.capstone.domain.EmergencyAlertLogService;
 import edu.ndnu.capstone.domain.EmergencyMessage;
 import edu.ndnu.capstone.domain.EmergencyMessageService;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
+import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.UserType;
+
 import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,14 +70,35 @@ public class EmergencyMessageController {
 
 	@RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        if (page != null || size != null) {
+	    String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = User.findUserByUsername(login);
+        UserType type = user.getTypeId();
+	    
+	    if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("emergencymessages", emergencyMessageService.findEmergencyMessageEntries(firstResult, sizeNo));
-            float nrOfPages = (float) emergencyMessageService.countAllEmergencyMessages() / sizeNo;
-            uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+            if (type.getName().compareTo("Admin")==0)
+            {
+                uiModel.addAttribute("emergencymessages", emergencyMessageService.findEmergencyMessageEntries(firstResult, sizeNo));
+                float nrOfPages = (float) emergencyMessageService.countAllEmergencyMessages() / sizeNo;
+                uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+            }
+            else
+            {
+                uiModel.addAttribute("emergencymessages", emergencyMessageService.findEmergencyMessageEntriesByUser(user.getId(), firstResult, sizeNo));
+                float nrOfPages = (float) emergencyMessageService.countAllEmergencyMessagesByUser(user.getId()) / sizeNo;
+                uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+            }
+            
         } else {
-            uiModel.addAttribute("emergencymessages", emergencyMessageService.findAllEmergencyMessages());
+            if (type.getName().compareTo("Admin")==0)
+            {
+                uiModel.addAttribute("emergencymessages", emergencyMessageService.findAllEmergencyMessages());
+            }
+            else
+            {
+                uiModel.addAttribute("emergencymessages", emergencyMessageService.findEmergencyMessageByUser(user.getId()));
+            }
         }
         return "emergencymessages/list";
     }
