@@ -100,7 +100,7 @@
               <img alt="${fn:escapeXml(show_label)}" class="image" src="${show_image_url}" title="${fn:escapeXml(show_label)}" />
             </a>
           </td>
-          <sec:authorize ifAllGranted="Admin">
+          <sec:authorize ifAnyGranted="Admin,First Responder">
 	          <c:if test="${update}">
 	            <td class="utilbox">
 	              <spring:url value="${path}/${itemId}" var="update_form_url">
@@ -113,6 +113,8 @@
 	              </a>
 	            </td>
 	          </c:if>
+	      </sec:authorize>
+	      <sec:authorize ifAnyGranted="Admin">
 	          <c:if test="${delete}">
 	            <td class="utilbox">
 	              <spring:url value="${path}/${itemId}" var="delete_form_url" />
@@ -134,9 +136,9 @@
 	              </form:form>
 	            </td>
 	          </c:if>
-          </sec:authorize> 
+          </sec:authorize>
           <td>
-            <sec:authorize ifAllGranted="First Responder">
+            <sec:authorize ifAnyGranted="Admin,First Responder">
                 <spring:url value="/emergencys/alert/${itemId}" var="alert"/>
                 <a href="${alert}">Send Alert!</a>
             </sec:authorize> 

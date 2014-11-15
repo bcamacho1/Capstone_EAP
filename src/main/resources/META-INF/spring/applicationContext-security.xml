@@ -14,7 +14,8 @@
         <intercept-url pattern="/resources/.*" access="permitAll" />
         <intercept-url pattern="/locations.*form" access="hasRole('Admin')" />
         <intercept-url pattern="/evacuations.*form" access="hasRole('Admin')" />
-        <intercept-url pattern="/emergencys.*form" access="hasRole('Admin')" />
+        <intercept-url pattern="/emergencys\?form" access="hasRole('Admin')" />
+        <intercept-url pattern="/emergencys/.*\?form" access="hasAnyRole('Admin','First Responder')" />
         <intercept-url pattern="/emergencytypes.*form" access="hasRole('Admin')" />
         <intercept-url pattern="/emergencystatuses.*form" access="hasRole('Admin')" />
         <intercept-url pattern="/login/.*" access="permitAll" />
@@ -24,9 +25,8 @@
     	<!-- hasRole('Admin') checks the user type, "Admin" needs to match what is exactly in the user_type table -->
     	<intercept-url pattern="/usertypes.*" access="hasRole('Admin')" />
     	<intercept-url pattern="/users.*" access="hasRole('Admin')" />
-	    <intercept-url pattern="/emergencymessages.*" access="hasRole('Admin')" />
-	    <intercept-url pattern="/emergencymessages.*" access="hasRole('First Responder')" />
-	    <intercept-url pattern="/emergencyalertlogs.*" access="hasRole('Admin')" />
+	    <intercept-url pattern="/emergencymessages.*" access="hasAnyRole('Admin','First Responder')" />
+	    <intercept-url pattern="/emergencyalertlogs.*" access="hasAnyRole('Admin','First Responder')" />
     	<intercept-url pattern="/.*" access="permitAll" />
     
         <!-- By default, lock down the pages, the permitAll urls above are open to the public -->

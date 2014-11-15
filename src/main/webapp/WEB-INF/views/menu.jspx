@@ -10,8 +10,8 @@
         </menu:category>
         <menu:category id="c_location" z="RvMgx8apsPylYygCQ4tMBVfulVw=">
             <sec:authorize ifAllGranted="Admin">
-            <menu:item id="i_location_new" messageCode="global_menu_new" url="/locations?form" z="sW8KSnwNnd9wjssI0lLV1kzOguk="/>
-            <menu:item id="i_evacuation_new" messageCode="global_menu_new" url="/evacuations?form" z="ghzvt70Ijl3M2ffa6mhq/NhD4WI="/>
+	            <menu:item id="i_location_new" messageCode="global_menu_new" url="/locations?form" z="sW8KSnwNnd9wjssI0lLV1kzOguk="/>
+	            <menu:item id="i_evacuation_new" messageCode="global_menu_new" url="/evacuations?form" z="ghzvt70Ijl3M2ffa6mhq/NhD4WI="/>
             </sec:authorize> 
             <menu:item id="i_location_list" messageCode="global_menu_list" url="/locations?page=1&amp;size=${empty param.size ? 10 : param.size}" z="VdKLEljpeTLil2W6A3GdWmSBzXI="/>
             <menu:item id="i_evacuation_list" messageCode="global_menu_list" url="/evacuations?page=1&amp;size=${empty param.size ? 10 : param.size}" z="cLu7321k/lc/ey2Luye26pK3sQg="/>
@@ -31,14 +31,16 @@
                 <menu:item id="i_emergencystatus_new" messageCode="global_menu_new" url="/emergencystatuses?form" z="61XmrZj0wOOyp0SjyLeXfDTymKo="/>
                 <!--menu:item id="i_emergencyalertlog_new" messageCode="global_menu_new" url="/emergencyalertlogs?form" z="Y5f0oCc6DONokUCBLiTqb5vVtMY="/-->
             </sec:authorize> 
-            <sec:authorize ifAllGranted="First Responder">
+            <sec:authorize ifAnyGranted="Admin,First Responder">
 	            <menu:item id="i_emergencymessage_new" messageCode="global_menu_new" url="/emergencymessages?form" z="RNxtsB/8/u+HagQOpooShHaUXHQ="/>
-	            <menu:item id="i_emergencymessage_list" messageCode="global_menu_list" url="/emergencymessages?page=1&amp;size=${empty param.size ? 10 : param.size}" z="fIzz2fxIkUPepDl2qU/Ft3y9XNc="/>
-	            <menu:item id="i_emergencyalertlog_list" messageCode="global_menu_list" url="/emergencyalertlogs?page=1&amp;size=${empty param.size ? 10 : param.size}" z="zI2Jl4d2GHIbOmboy2mYlyQYfKo="/>
-            </sec:authorize> 
-            <menu:item id="i_emergency_list" messageCode="global_menu_list" url="/emergencys?page=1&amp;size=${empty param.size ? 10 : param.size}" z="xfvnWuc5P9PXplkSpR3JT9ZpGv4="/>
+	        </sec:authorize> 
+	        <menu:item id="i_emergency_list" messageCode="global_menu_list" url="/emergencys?page=1&amp;size=${empty param.size ? 10 : param.size}" z="xfvnWuc5P9PXplkSpR3JT9ZpGv4="/>
             <menu:item id="i_emergencytype_list" messageCode="global_menu_list" url="/emergencytypes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="hu6idqfwOUrvlQi7B2PnLnuLoSI="/>
             <menu:item id="i_emergencystatus_list" messageCode="global_menu_list" url="/emergencystatuses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="yZJ73zR21oYjuERgeahKYtpwNYI="/>
+	        <sec:authorize ifAnyGranted="Admin,First Responder">
+	           <menu:item id="i_emergencymessage_list" messageCode="global_menu_list" url="/emergencymessages?page=1&amp;size=${empty param.size ? 10 : param.size}" z="fIzz2fxIkUPepDl2qU/Ft3y9XNc="/>
+               <menu:item id="i_emergencyalertlog_list" messageCode="global_menu_list" url="/emergencyalertlogs?page=1&amp;size=${empty param.size ? 10 : param.size}" z="zI2Jl4d2GHIbOmboy2mYlyQYfKo="/>
+	        </sec:authorize>
         </menu:category>
     </menu:menu>
 </div>
