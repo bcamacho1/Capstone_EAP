@@ -3,22 +3,31 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import edu.ndnu.capstone.domain.Emergency;
 import edu.ndnu.capstone.domain.EmergencyAlertLogService;
+import edu.ndnu.capstone.domain.EmergencyMessage;
 import edu.ndnu.capstone.domain.EmergencyService;
+import edu.ndnu.capstone.domain.EmergencyStatus;
 import edu.ndnu.capstone.domain.EmergencyStatusService;
+import edu.ndnu.capstone.domain.EmergencyType;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
+import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.User;
+
 import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
@@ -60,18 +69,40 @@ public class EmergencyController {
     
     // The url to get to this method is /emergencys/alert
     // This gets appended to the RequestMapping annotation above
-    //@RequestMapping("/alert")
-    //@RequestMapping(value="/alert/{param}", method=RequestMethod.GET)
     @RequestMapping(value="/alert/{param}")
     public String sendEmailAlert(@PathVariable("param") int param) 
     {
         System.out.printf("%d\n", param);
         System.out.println("You sent an email alert!");
         
+        // load the emergency information to populate the email
+        Emergency emergency = Emergency.findEmergency(param);
+        EmergencyType type = emergency.getTypeId();
+        EmergencyStatus status = emergency.getStatusId();
+        Location location = emergency.getLocationId();
+        //EmergencyMessage message = EmergencyMessage.findEmergencyMessageByUserAndType(, type.getId());
+        String action = "";
+        
+        //if (message == null)
+        //{
+            EmergencyMessage message = EmergencyMessage.findDefaultEmergencyMessageByType(type.getId());
+        //}
+            
+        if (message == null)
+        {
+            action = "N/A";
+        }
+        else
+        {
+            action = message.getMessage();
+        }
+        
+        // email credentials
         final String username = "capstone.eap.ndnu@gmail.com";
         final String password = "capstone_eap";
         final String from = "capstone.eap.ndnu@gmail.com";
         String to = "smantegani@student.ndnu.edu";
+        //String to = "samantegani@gmail.com";
  
         new User();
         EntityManager em = User.entityManager();
@@ -99,14 +130,71 @@ public class EmergencyController {
         
         try
         {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Emergency Alert");
-            message.setText("New Emergency: \nid=" + param);
-            //message.setContent(text, "text/html");
+            String text = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" +
+                          "<html xmlns=\"http://www.w3.org/1999/xhtml\">" +
+                              "<head>" +
+                                  "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" +
+                                  "<title>Capstone Template</title>" +
+                                  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>" +
+                              "</head>"+
+                              "<body style=\"margin: 0; padding: 0;\">" +
+                                  "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
+                                      "<tr>" +
+                                          "<td>" +
+                                              "<table align=\"center\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\">" +
+                                                  "<tr>" +
+                                                      "<td bgcolor=\"#000271\" align=\"center\">" +
+                                                          "<h1><font color=\"#ffffff\">NDNU Emergency Alert!</font></h1>" +
+                                                      "</td>" +
+                                                  "</tr>" +
+                                                  "<tr>" +
+                                                      "<td bgcolor=\"#eeeeee\">" +
+                                                          "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
+                                                              "<tr>" +
+                                                                  "<td bgcolor=\"#e5bd17\">&nbsp;</td>" +
+                                                              "</tr>" +
+                                                              "<tr>" +
+                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                                                                      "<strong>Type:</strong> " + type.getName() +
+                                                                  "</td>" +
+                                                              "</tr>" +
+                                                              "<tr>" +
+                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                                                                      "<strong>Location:</strong> " + location.getName() +
+                                                                  "</td>" +
+                                                              "</tr>" +
+                                                              "<tr>" +
+                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                                                                      "<strong>Status:</strong> " + status.getName() +
+                                                                  "</td>" +
+                                                              "</tr>" +
+                                                              "<tr>" +
+                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                                                                      "<strong>Description:</strong> " + emergency.getDescription() +
+                                                                  "</td>" +
+                                                              "</tr>" +
+                                                              "<tr>" +
+                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                                                                      "<strong>Action:</strong> " + action +
+                                                                  "</td>" +
+                                                              "</tr>" +
+                                                          "</table>" +
+                                                      "</td>" +
+                                                  "</tr>" +
+                                              "</table>" +
+                                          "</td>" +
+                                      "</tr>" +
+                                  "</table>" +
+                              "</body>" +
+                          "</html>";
+
+            MimeMessage email = new MimeMessage(session);
+            email.setFrom(new InternetAddress(from));
+            email.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            email.setSubject("NDNU Emergency Alert: " + type.getName());
+            email.setContent(text, "text/html");
     
-            Transport.send(message);
+            Transport.send(email);
             System.out.println("Sent message successfully....");
         }
         catch (MessagingException mex) 

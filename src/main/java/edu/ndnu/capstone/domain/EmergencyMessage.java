@@ -1,6 +1,7 @@
 package edu.ndnu.capstone.domain;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -12,9 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.roo.addon.dbre.RooDbManaged;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -67,6 +70,35 @@ public class EmergencyMessage {
 	public static EmergencyMessage findEmergencyMessage(Integer id) {
         if (id == null) return null;
         return entityManager().find(EmergencyMessage.class, id);
+    }
+	
+	// When writing queries, these methods need to catch the DataAccessException exception and not the NoResultException as expected
+	// This is because Spring converts the exceptions into ones that it uses
+	// See Class DataAccessException in the Spring documentation for more details
+	public static EmergencyMessage findEmergencyMessageByUserAndType(Integer user_id, Integer type_id) {
+        if (user_id == null) return null;
+        if (type_id == null) return null;
+        
+        try
+        {
+            return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id + " and emergency_type_id = " + type_id, EmergencyMessage.class).getSingleResult();
+	    }
+        catch (DataAccessException e)
+        {
+            return null;
+        }
+	}
+	
+    public static EmergencyMessage findDefaultEmergencyMessageByType(Integer type_id) {
+        if (type_id == null) return null;
+        try
+        {
+            return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id is null and emergency_type_id = " + type_id, EmergencyMessage.class).getSingleResult();
+        }
+        catch (DataAccessException e)
+        {
+            return null;
+        }
     }
 
 	public static List<EmergencyMessage> findEmergencyMessageEntries(int firstResult, int maxResults) {
