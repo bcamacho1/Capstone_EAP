@@ -1,4 +1,4 @@
-<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" xmlns:sec="http://www.springframework.org/security/tags">
   <jsp:directive.tag import="java.util.ArrayList" />
   <jsp:output omit-xml-declaration="yes" />
 
@@ -100,42 +100,46 @@
               <img alt="${fn:escapeXml(show_label)}" class="image" src="${show_image_url}" title="${fn:escapeXml(show_label)}" />
             </a>
           </td>
-          <c:if test="${update}">
-            <td class="utilbox">
-              <spring:url value="${path}/${itemId}" var="update_form_url">
-                <spring:param name="form" />
-              </spring:url>
-              <spring:url value="/resources/images/update.png" var="update_image_url" />
-              <spring:message arguments="${typeName}" code="entity_update" var="update_label" htmlEscape="false" />
-              <a href="${update_form_url}" alt="${fn:escapeXml(update_label)}" title="${fn:escapeXml(update_label)}">
-                <img alt="${fn:escapeXml(update_label)}" class="image" src="${update_image_url}" title="${fn:escapeXml(update_label)}" />
-              </a>
-            </td>
-          </c:if>
-          <c:if test="${delete}">
-            <td class="utilbox">
-              <spring:url value="${path}/${itemId}" var="delete_form_url" />
-              <spring:url value="/resources/images/delete.png" var="delete_image_url" />
-              <form:form action="${delete_form_url}" method="DELETE">
-                <spring:message arguments="${typeName}" code="entity_delete" var="delete_label" htmlEscape="false" />
-                <c:set var="delete_confirm_msg">
-                  <spring:escapeBody javaScriptEscape="true">
-                    <spring:message code="entity_delete_confirm" />
-                  </spring:escapeBody>
-                </c:set>
-                <input alt="${fn:escapeXml(delete_label)}" class="image" src="${delete_image_url}" title="${fn:escapeXml(delete_label)}" type="image" value="${fn:escapeXml(delete_label)}" onclick="return confirm('${delete_confirm_msg}');" />
-                <c:if test="${not empty param.page}">
-                  <input name="page" type="hidden" value="1" />
-                </c:if>
-                <c:if test="${not empty param.size}">
-                  <input name="size" type="hidden" value="${fn:escapeXml(param.size)}" />
-                </c:if>
-              </form:form>
-            </td>
-          </c:if>
+          <sec:authorize ifAllGranted="Admin">
+	          <c:if test="${update}">
+	            <td class="utilbox">
+	              <spring:url value="${path}/${itemId}" var="update_form_url">
+	                <spring:param name="form" />
+	              </spring:url>
+	              <spring:url value="/resources/images/update.png" var="update_image_url" />
+	              <spring:message arguments="${typeName}" code="entity_update" var="update_label" htmlEscape="false" />
+	              <a href="${update_form_url}" alt="${fn:escapeXml(update_label)}" title="${fn:escapeXml(update_label)}">
+	                <img alt="${fn:escapeXml(update_label)}" class="image" src="${update_image_url}" title="${fn:escapeXml(update_label)}" />
+	              </a>
+	            </td>
+	          </c:if>
+	          <c:if test="${delete}">
+	            <td class="utilbox">
+	              <spring:url value="${path}/${itemId}" var="delete_form_url" />
+	              <spring:url value="/resources/images/delete.png" var="delete_image_url" />
+	              <form:form action="${delete_form_url}" method="DELETE">
+	                <spring:message arguments="${typeName}" code="entity_delete" var="delete_label" htmlEscape="false" />
+	                <c:set var="delete_confirm_msg">
+	                  <spring:escapeBody javaScriptEscape="true">
+	                    <spring:message code="entity_delete_confirm" />
+	                  </spring:escapeBody>
+	                </c:set>
+	                <input alt="${fn:escapeXml(delete_label)}" class="image" src="${delete_image_url}" title="${fn:escapeXml(delete_label)}" type="image" value="${fn:escapeXml(delete_label)}" onclick="return confirm('${delete_confirm_msg}');" />
+	                <c:if test="${not empty param.page}">
+	                  <input name="page" type="hidden" value="1" />
+	                </c:if>
+	                <c:if test="${not empty param.size}">
+	                  <input name="size" type="hidden" value="${fn:escapeXml(param.size)}" />
+	                </c:if>
+	              </form:form>
+	            </td>
+	          </c:if>
+          </sec:authorize> 
           <td>
-          <spring:url value="/emergencys/alert/${itemId}" var="alert"/>
-            <a href="${alert}">Send Alert!</a>
+            <sec:authorize ifAllGranted="First Responder">
+                <spring:url value="/emergencys/alert/${itemId}" var="alert"/>
+                <a href="${alert}">Send Alert!</a>
+            </sec:authorize> 
           </td>
         </tr>
       </c:forEach>
@@ -143,14 +147,16 @@
         <td colspan="${colCounter}">
           <c:if test="${empty create or create}">
             <span class="new">
-              <spring:url value="${path}" var="create_url">
-                <spring:param name="form" />
-              </spring:url>
-              <a href="${create_url}">
-                <spring:url value="/resources/images/add.png" var="create_img_url" />
-                <spring:message arguments="${typeName}" code="global_menu_new" var="add_message" htmlEscape="false" />
-                <img alt="${fn:escapeXml(add_message)}" src="${create_img_url}" title="${fn:escapeXml(add_message)}" />
-              </a>
+              <sec:authorize ifAllGranted="Admin">
+	              <spring:url value="${path}" var="create_url">
+	                <spring:param name="form" />
+	              </spring:url>
+	              <a href="${create_url}">
+	                <spring:url value="/resources/images/add.png" var="create_img_url" />
+	                <spring:message arguments="${typeName}" code="global_menu_new" var="add_message" htmlEscape="false" />
+	                <img alt="${fn:escapeXml(add_message)}" src="${create_img_url}" title="${fn:escapeXml(add_message)}" />
+	              </a>
+              </sec:authorize> 
             </span>
             <c:out value=" " />
           </c:if>
