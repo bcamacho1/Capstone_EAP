@@ -2,9 +2,8 @@
 <div id="footer" class="container" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <jsp:output omit-xml-declaration="yes"/>
-
   <spring:url value="/" var="home"/>
-
+ 
 
 <style>
 .outerContainer {
@@ -78,12 +77,13 @@ color: #7D7A73;
 <li><a href="http://www.ndnu.edu/">NDNU Home</a></li>
 <li><a href="campusMap">Campus Map</a></li>
 <li><a href="contactUs">Contact Us</a></li>
+<li><a href="login;jsessionid=4511B0682ABFAE125890F154E618D9EA">Login</a></li>
                 </ul>
 </div>
 
 
  <div class="footerBox">
-<div id = "hide"><h4>""</h4></div>
+<h4>Quick Links</h4>
                       <ul>
 <li><a href="emergencys;jsessionid=0F5393E492C020344282D5FBDD699F05?page=1&amp;size=10">Current Emergencies</a></li>
 <li><a href="emergencys?form">Report Emergency</a></li>
