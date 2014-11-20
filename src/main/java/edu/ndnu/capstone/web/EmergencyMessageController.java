@@ -8,6 +8,8 @@ import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.UserType;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -32,19 +34,19 @@ import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
 @GvNIXWebJQuery
 public class EmergencyMessageController {
 
-	@Autowired
+    @Autowired
     EmergencyMessageService emergencyMessageService;
 
-	@Autowired
+    @Autowired
     EmergencyAlertLogService emergencyAlertLogService;
 
-	@Autowired
+    @Autowired
     EmergencyTypeService emergencyTypeService;
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
+    @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyMessage);
@@ -55,26 +57,26 @@ public class EmergencyMessageController {
         return "redirect:/emergencymessages/" + encodeUrlPathSegment(emergencyMessage.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(params = "form", produces = "text/html")
+    @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new EmergencyMessage());
         return "emergencymessages/create";
     }
 
-	@RequestMapping(value = "/{id}", produces = "text/html")
+    @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         uiModel.addAttribute("emergencymessage", emergencyMessageService.findEmergencyMessage(id));
         uiModel.addAttribute("itemId", id);
         return "emergencymessages/show";
     }
 
-	@RequestMapping(produces = "text/html")
+    @RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-	    String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = User.findUserByUsername(login);
         UserType type = user.getTypeId();
-	    
-	    if (page != null || size != null) {
+
+        if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
             if (type.getName().compareTo("Admin")==0)
@@ -89,7 +91,7 @@ public class EmergencyMessageController {
                 float nrOfPages = (float) emergencyMessageService.countAllEmergencyMessagesByUser(user.getId()) / sizeNo;
                 uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
             }
-            
+
         } else {
             if (type.getName().compareTo("Admin")==0)
             {
@@ -103,7 +105,7 @@ public class EmergencyMessageController {
         return "emergencymessages/list";
     }
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyMessage);
@@ -114,13 +116,13 @@ public class EmergencyMessageController {
         return "redirect:/emergencymessages/" + encodeUrlPathSegment(emergencyMessage.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(value = "/{id}", params = "form", produces = "text/html")
+    @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, emergencyMessageService.findEmergencyMessage(id));
         return "emergencymessages/update";
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         EmergencyMessage emergencyMessage = emergencyMessageService.findEmergencyMessage(id);
         emergencyMessageService.deleteEmergencyMessage(emergencyMessage);
@@ -130,14 +132,28 @@ public class EmergencyMessageController {
         return "redirect:/emergencymessages";
     }
 
-	void populateEditForm(Model uiModel, EmergencyMessage emergencyMessage) {
+    void populateEditForm(Model uiModel, EmergencyMessage emergencyMessage) {
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = User.findUserByUsername(login);
+        UserType type = user.getTypeId();
+
+        if (type.getName().compareTo("Admin")==0)
+        {
+            uiModel.addAttribute("users", userService.findAllUsers());
+        }
+        else
+        {
+            List<User> currentUserList = new ArrayList<User>();
+            currentUserList.add(user);
+            uiModel.addAttribute("users", currentUserList);
+        }
+
         uiModel.addAttribute("emergencyMessage", emergencyMessage);
         uiModel.addAttribute("emergencyalertlogs", emergencyAlertLogService.findAllEmergencyAlertLogs());
         uiModel.addAttribute("emergencytypes", emergencyTypeService.findAllEmergencyTypes());
-        uiModel.addAttribute("users", userService.findAllUsers());
     }
 
-	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;
