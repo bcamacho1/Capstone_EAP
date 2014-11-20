@@ -25,7 +25,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity
-@Table(name = "emergency")
+@Table(name = "emergency", schema = "capstone")
 @Configurable
 @RooJavaBean
 @RooJpaActiveRecord(versionField = "", table = "emergency")
@@ -50,12 +50,13 @@ public class Emergency {
     private EmergencyStatus statusId;
 
     @Column(name = "created", updatable = false)
-    @NotNull
+    @NotNull(message = "Date can not be left blank.")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "MM")
     private Calendar created = java.util.Calendar.getInstance();
 
     @Column(name = "description", length = 1024)
+    @NotNull(message = "Description can not be left blank")
     private String description;
 
     public User getUserId() {

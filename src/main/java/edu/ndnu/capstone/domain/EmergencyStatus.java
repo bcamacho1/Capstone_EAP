@@ -33,7 +33,7 @@ public class EmergencyStatus {
     private Set<Emergency> emergencies;
 
     @Column(name = "name", length = 256)
-    @NotNull
+    @NotNull(message = "name can not be left null.")
     private String name;
 
     public Set<Emergency> getEmergencies() {

@@ -29,7 +29,6 @@ import javax.validation.constraints.Max;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.dao.DataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.dbre.RooDbManaged;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -55,38 +54,39 @@ public class User
     private UserType typeId;
 
 	@Column(name = "name", length = 256)
-    @NotNull
+    @NotNull(message="Name can not be left blank.")
+    @Size(min=2, max=30, message="Size must be between 2 and 30 characters.}")
+	@Pattern(regexp = "[A-Za-z]", message="Name must contain only letters.")
     private String name;
 
 	@Column(name = "email", length = 100, unique = true)
-    @NotNull
-   // @Pattern(regexp = "[A-Za-z0-9]{3,100}@ndnu.edu")
+    @NotNull(message="Email can not be left blank.")
+    @Pattern(regexp = "[A-Za-z0-9]{3,100}@ndnu.edu", message="Must be of the form staff@ndnu.edu")
     private String email;
 	
 	
 	@Column(name = "username", length = 150, unique = true)
-    @NotNull
-    @Size(min=5)
+    @NotNull(message="User name can not be left blank.")
+    @Size(min=5, message="Must be at least 5 characters.")
     private String username;
 
 	@Column(name = "password")
-    @NotNull
-    @Pattern(regexp = "^[0-9a-zA-Z]{5,}$")
+    @NotNull(message="Password can not be left blank.")
+    @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="Password must start with a number and be at least 5 characters.")
     private String password;
 
 	@Column(name = "phone", length = 10, unique = true)
-    @NotNull
-    @Pattern(regexp = "[0-9]{10}")
- 
+    @NotNull(message="Phone number can not be left blank.")
+    @Pattern(regexp = "^((?![5]{3})(\\d{3}))([. -]*)(\\d{3})([. -]*)\\d{4}$", message="Phone number can be of the form 888-123-4567 or 888.123.4567.")
     private String phone;
 
 	@Column(name = "year", length = 4)
-    @NotNull
-    @Pattern(regexp = "20[0-9][0-9]")
+    @NotNull(message="Year can not be left blank.")
+    @Pattern(regexp = "20[0-9][0-9]", message="Year must be between 2000 and 2099.")
     private String year;
 
 	@Column(name = "active", length = 1)
-    @NotNull
+    @NotNull(message="Active can not be left blank.")
     @Min(0)
 	@Max(1)
     private Integer active;
@@ -279,11 +279,6 @@ public class User
         if (id == null) return null;
         return entityManager().find(User.class, id);
     }
-	
-	public static User findUserByUsername(String username) {
-	    if (username == null) return null;
-        return entityManager().createQuery("SELECT o FROM User o WHERE username = '" + username + "'", User.class).getSingleResult();
-	}
 
 	public static List<User> findUserEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM User o", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
@@ -340,4 +335,9 @@ public class User
 	public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies", "typeId").toString();
     }
+
+	public static User findUserByUsername(String username2) {
+		if (username2 == null) return null;
+        return entityManager().createQuery("SELECT o FROM User o WHERE username = '" + username2 + "'", User.class).getSingleResult();
+	}
 }

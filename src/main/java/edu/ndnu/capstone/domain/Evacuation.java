@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class Evacuation {
 
 	@Column(name = "area", length = 45)
-    @NotNull
+    @NotNull(message = "Area can not be left blank.")
     private String area;
 
 	public String getArea() {

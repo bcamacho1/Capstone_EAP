@@ -50,7 +50,7 @@ public class EmergencyType {
     private Set<Emergency> emergencies;
 
     @Column(name = "name", length = 256)
-    @NotNull
+    @NotNull(message = "Name can not be left blank.")
     private String name;
 
     public Set<Emergency> getEmergencies() {
