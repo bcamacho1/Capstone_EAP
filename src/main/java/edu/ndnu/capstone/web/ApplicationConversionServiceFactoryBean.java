@@ -68,7 +68,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 	public Converter<Emergency, String> getEmergencyToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Emergency, java.lang.String>() {
             public String convert(Emergency emergency) {
-                return new StringBuilder().append(emergency.getCreated()).append(' ').append(emergency.getDescription()).toString();
+                return new StringBuilder().append(emergency.getLocationId().getName()).append(", ").append(emergency.getTypeId().getName()).append(", ").append(emergency.getDescription()).toString();
             }
         };
     }

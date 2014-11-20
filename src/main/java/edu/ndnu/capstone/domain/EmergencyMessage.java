@@ -33,59 +33,66 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "userId", "emergencyId", "emergencyAlertLogs", "emergencyTypeId" })
 public class EmergencyMessage {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("userId", "emergencyId", "emergencyAlertLogs", "emergencyTypeId").toString();
     }
 
-	@PersistenceContext
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new EmergencyMessage().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countEmergencyMessages() {
+    public static long countEmergencyMessages() {
         return entityManager().createQuery("SELECT COUNT(o) FROM EmergencyMessage o", Long.class).getSingleResult();
     }
-	
-	public static long countEmergencyMessagesByUser(Integer user_id) {
+
+    public static long countEmergencyMessagesByUser(Integer user_id) {
         return entityManager().createQuery("SELECT COUNT(o) FROM EmergencyMessage o WHERE user_id = " + user_id, Long.class).getSingleResult();
     }
 
-	public static List<EmergencyMessage> findAllEmergencyMessages() {
+    public static List<EmergencyMessage> findAllEmergencyMessages() {
         return entityManager().createQuery("SELECT o FROM EmergencyMessage o", EmergencyMessage.class).getResultList();
     }
 
-	public static EmergencyMessage findEmergencyMessage(Integer id) {
+    public static EmergencyMessage findEmergencyMessage(Integer id) {
         if (id == null) return null;
         return entityManager().find(EmergencyMessage.class, id);
     }
-	
-	// When writing queries, these methods need to catch the DataAccessException exception and not the NoResultException as expected
-	// This is because Spring converts the exceptions into ones that it uses
-	// See Class DataAccessException in the Spring documentation for more details
-	public static EmergencyMessage findEmergencyMessageByUserAndType(Integer user_id, Integer type_id) {
+
+    // When writing queries, these methods need to catch the DataAccessException exception and not the NoResultException as expected
+    // This is because Spring converts the exceptions into ones that it uses
+    // See Class DataAccessException in the Spring documentation for more details
+    public static EmergencyMessage findEmergencyMessageByUserAndType(Integer user_id, Integer type_id) {
         if (user_id == null) return null;
         if (type_id == null) return null;
+        try
+        {
             return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id + " and emergency_type_id = " + type_id, EmergencyMessage.class).getSingleResult();
-	}
-	
-	public static List<EmergencyMessage> findEmergencyMessageByUser(Integer user_id) {
+        }
+        catch (DataAccessException e)
+        {
+            return null;
+        }
+    }
+
+    public static List<EmergencyMessage> findEmergencyMessageByUser(Integer user_id) {
         if (user_id == null) return null;
         try
         {
@@ -96,7 +103,7 @@ public class EmergencyMessage {
             return null;
         }
     }
-	
+
     public static EmergencyMessage findDefaultEmergencyMessageByType(Integer type_id) {
         if (type_id == null) return null;
         try
@@ -109,21 +116,21 @@ public class EmergencyMessage {
         }
     }
 
-	public static List<EmergencyMessage> findEmergencyMessageEntries(int firstResult, int maxResults) {
+    public static List<EmergencyMessage> findEmergencyMessageEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyMessage o", EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
-	
-	public static List<EmergencyMessage> findEmergencyMessageEntriesByUser(Integer user_id, int firstResult, int maxResults) {
+
+    public static List<EmergencyMessage> findEmergencyMessageEntriesByUser(Integer user_id, int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyMessage o where user_id = " + user_id, EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -134,19 +141,19 @@ public class EmergencyMessage {
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public EmergencyMessage merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         EmergencyMessage merged = this.entityManager.merge(this);
@@ -154,49 +161,49 @@ public class EmergencyMessage {
         return merged;
     }
 
-	@OneToMany(mappedBy = "emergencyMessageId")
+    @OneToMany(mappedBy = "emergencyMessageId")
     private Set<EmergencyAlertLog> emergencyAlertLogs;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "emergency_type_id", referencedColumnName = "id")
     private EmergencyType emergencyTypeId;
 
-	@Column(name = "message")
+    @Column(name = "message")
     private String message;
 
-	public Set<EmergencyAlertLog> getEmergencyAlertLogs() {
+    public Set<EmergencyAlertLog> getEmergencyAlertLogs() {
         return emergencyAlertLogs;
     }
 
-	public void setEmergencyAlertLogs(Set<EmergencyAlertLog> emergencyAlertLogs) {
+    public void setEmergencyAlertLogs(Set<EmergencyAlertLog> emergencyAlertLogs) {
         this.emergencyAlertLogs = emergencyAlertLogs;
     }
 
-	public User getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-	public void setUserId(User userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-	public EmergencyType getEmergencyTypeId() {
+    public EmergencyType getEmergencyTypeId() {
         return emergencyTypeId;
     }
 
-	public void setEmergencyTypeId(EmergencyType emergencyTypeId) {
+    public void setEmergencyTypeId(EmergencyType emergencyTypeId) {
         this.emergencyTypeId = emergencyTypeId;
     }
 
-	public String getMessage() {
+    public String getMessage() {
         return message;
     }
 
-	public void setMessage(String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 }

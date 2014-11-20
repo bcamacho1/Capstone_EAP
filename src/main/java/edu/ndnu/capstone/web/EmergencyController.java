@@ -1,5 +1,6 @@
 package edu.ndnu.capstone.web;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import edu.ndnu.capstone.domain.Emergency;
+import edu.ndnu.capstone.domain.EmergencyAlertLog;
 import edu.ndnu.capstone.domain.EmergencyAlertLogService;
 import edu.ndnu.capstone.domain.EmergencyMessage;
 import edu.ndnu.capstone.domain.EmergencyService;
@@ -22,6 +24,7 @@ import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
@@ -202,6 +205,14 @@ public class EmergencyController {
     
             Transport.send(email);
             System.out.println("Sent message successfully....");
+            
+            EmergencyAlertLog eml = new EmergencyAlertLog();
+            eml.setUserId(user);
+            eml.setEmergencyId(emergency);
+            eml.setEmergencyMessageId(message);
+            eml.setTs(Calendar.getInstance());
+            eml.setSent(1);
+            emergencyAlertLogService.saveEmergencyAlertLog(eml);
         }
         catch (MessagingException mex) 
         {
