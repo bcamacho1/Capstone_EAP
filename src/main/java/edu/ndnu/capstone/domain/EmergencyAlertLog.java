@@ -33,117 +33,117 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "userId", "emergencyId", "emergencyMessageId" })
 public class EmergencyAlertLog {
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "emergency_id", referencedColumnName = "id", nullable = false)
     private Emergency emergencyId;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "emergency_message_id", referencedColumnName = "id")
     private EmergencyMessage emergencyMessageId;
 
-	@Column(name = "ts")
+    @Column(name = "ts")
     @NotNull(message = "Date can not be left blank.")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "MM")
     private Calendar ts;
 
-	@Column(name = "sent")
+    @Column(name = "sent")
     private Integer sent;
 
-	public User getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-	public void setUserId(User userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-	public Emergency getEmergencyId() {
+    public Emergency getEmergencyId() {
         return emergencyId;
     }
 
-	public void setEmergencyId(Emergency emergencyId) {
+    public void setEmergencyId(Emergency emergencyId) {
         this.emergencyId = emergencyId;
     }
 
-	public EmergencyMessage getEmergencyMessageId() {
+    public EmergencyMessage getEmergencyMessageId() {
         return emergencyMessageId;
     }
 
-	public void setEmergencyMessageId(EmergencyMessage emergencyMessageId) {
+    public void setEmergencyMessageId(EmergencyMessage emergencyMessageId) {
         this.emergencyMessageId = emergencyMessageId;
     }
 
-	public Calendar getTs() {
+    public Calendar getTs() {
         return ts;
     }
 
-	public void setTs(Calendar ts) {
+    public void setTs(Calendar ts) {
         this.ts = ts;
     }
 
-	public Integer getSent() {
+    public Integer getSent() {
         return sent;
     }
 
-	public void setSent(Integer sent) {
+    public void setSent(Integer sent) {
         this.sent = sent;
     }
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("userId", "emergencyId", "emergencyMessageId").toString();
     }
 
-	@PersistenceContext
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new EmergencyAlertLog().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countEmergencyAlertLogs() {
+    public static long countEmergencyAlertLogs() {
         return entityManager().createQuery("SELECT COUNT(o) FROM EmergencyAlertLog o", Long.class).getSingleResult();
     }
 
-	public static List<EmergencyAlertLog> findAllEmergencyAlertLogs() {
+    public static List<EmergencyAlertLog> findAllEmergencyAlertLogs() {
         return entityManager().createQuery("SELECT o FROM EmergencyAlertLog o", EmergencyAlertLog.class).getResultList();
     }
 
-	public static EmergencyAlertLog findEmergencyAlertLog(Integer id) {
+    public static EmergencyAlertLog findEmergencyAlertLog(Integer id) {
         if (id == null) return null;
         return entityManager().find(EmergencyAlertLog.class, id);
     }
 
-	public static List<EmergencyAlertLog> findEmergencyAlertLogEntries(int firstResult, int maxResults) {
+    public static List<EmergencyAlertLog> findEmergencyAlertLogEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM EmergencyAlertLog o", EmergencyAlertLog.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -154,19 +154,19 @@ public class EmergencyAlertLog {
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public EmergencyAlertLog merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         EmergencyAlertLog merged = this.entityManager.merge(this);
