@@ -1,9 +1,10 @@
 package edu.ndnu.capstone.web;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.UserActiveType;
 import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.UserTypeService;
-//import edu.ndnu.capstone.domain.UserrActiveType;
+
 
 import java.io.UnsupportedEncodingException;
 
@@ -33,11 +34,6 @@ import org.joda.time.format.DateTimeFormat;
 @GvNIXWebJQuery
 public class UserController {
 	
-	
-	
-	
-	
-
 	@Autowired
     UserService userService;
 
@@ -143,7 +139,7 @@ public class UserController {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
         uiModel.addAttribute("usertypes", userTypeService.findAllUserTypes());
-        //uiModel.addAttribute("useractivetypes",UserrActiveType.findTypes());
+        uiModel.addAttribute("useractivetypes", UserActiveType.findTypes());
     }
 
 	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
