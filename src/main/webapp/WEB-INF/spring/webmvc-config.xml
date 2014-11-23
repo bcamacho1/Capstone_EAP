@@ -36,6 +36,7 @@
     <mvc:view-controller path="/dataAccessFailure"/>
     <mvc:view-controller path="/campusMap"/>
     <mvc:view-controller path="/contactUs"/>
+    <mvc:view-controller path="/passwordChange"/>
     
 
     <!-- Resolves localized messages*.properties and application.properties files in the application to allow for internationalization. 

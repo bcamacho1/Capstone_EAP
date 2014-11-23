@@ -30,7 +30,7 @@
     <put-attribute name="body" value="/WEB-INF/views/contactUs.jspx"/>
   </definition>
   
-  <definition extends="default" name="contactUs">
+  <definition extends="default" name="passwordChange">
     <put-attribute name="body" value="/WEB-INF/views/passwordChange.jspx"/>
   </definition>
   
