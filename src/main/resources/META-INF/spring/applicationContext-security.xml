@@ -25,6 +25,7 @@
     	<!-- hasRole('Admin') checks the user type, "Admin" needs to match what is exactly in the user_type table -->
     	<intercept-url pattern="/usertypes.*" access="hasRole('Admin')" />
     	<intercept-url pattern="/users.*" access="hasRole('Admin')" />
+    	<intercept-url pattern="/passwordchange.*" access="hasRole('Admin')" />
 	    <intercept-url pattern="/emergencymessages.*" access="hasAnyRole('Admin','First Responder')" />
 	    <intercept-url pattern="/emergencyalertlogs.*" access="hasAnyRole('Admin','First Responder')" />
     	<intercept-url pattern="/.*" access="permitAll" />

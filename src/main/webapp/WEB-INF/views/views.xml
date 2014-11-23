@@ -26,8 +26,12 @@
     <put-attribute name="body" value="/WEB-INF/views/campusMap.jspx"/>
   </definition>
   
-   <definition extends="default" name="contactUs">
+  <definition extends="default" name="contactUs">
     <put-attribute name="body" value="/WEB-INF/views/contactUs.jspx"/>
+  </definition>
+  
+  <definition extends="default" name="contactUs">
+    <put-attribute name="body" value="/WEB-INF/views/passwordChange.jspx"/>
   </definition>
   
 </tiles-definitions>
