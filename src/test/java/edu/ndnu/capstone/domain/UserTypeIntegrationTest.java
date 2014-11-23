@@ -24,20 +24,20 @@ public class UserTypeIntegrationTest {
     public void testMarkerMethod() {
     }
 
-	@Autowired
+    @Autowired
     UserTypeDataOnDemand dod;
 
-	@Autowired
+    @Autowired
     UserTypeService userTypeService;
 
-	@Test
+    @Test
     public void testCountAllUserTypes() {
         Assert.assertNotNull("Data on demand for 'UserType' failed to initialize correctly", dod.getRandomUserType());
         long count = userTypeService.countAllUserTypes();
         Assert.assertTrue("Counter for 'UserType' incorrectly reported there were no entries", count > 0);
     }
 
-	@Test
+    @Test
     public void testFindUserType() {
         UserType obj = dod.getRandomUserType();
         Assert.assertNotNull("Data on demand for 'UserType' failed to initialize correctly", obj);
@@ -48,7 +48,7 @@ public class UserTypeIntegrationTest {
         Assert.assertEquals("Find method for 'UserType' returned the incorrect identifier", id, obj.getId());
     }
 
-	@Test
+    @Test
     public void testFindAllUserTypes() {
         Assert.assertNotNull("Data on demand for 'UserType' failed to initialize correctly", dod.getRandomUserType());
         long count = userTypeService.countAllUserTypes();
@@ -58,7 +58,7 @@ public class UserTypeIntegrationTest {
         Assert.assertTrue("Find all method for 'UserType' failed to return any data", result.size() > 0);
     }
 
-	@Test
+    @Test
     public void testFindUserTypeEntries() {
         Assert.assertNotNull("Data on demand for 'UserType' failed to initialize correctly", dod.getRandomUserType());
         long count = userTypeService.countAllUserTypes();
@@ -70,7 +70,7 @@ public class UserTypeIntegrationTest {
         Assert.assertEquals("Find entries method for 'UserType' returned an incorrect number of entries", count, result.size());
     }
 
-	@Test
+    @Test
     public void testSaveUserType() {
         Assert.assertNotNull("Data on demand for 'UserType' failed to initialize correctly", dod.getRandomUserType());
         UserType obj = dod.getNewTransientUserType(Integer.MAX_VALUE);
@@ -90,7 +90,7 @@ public class UserTypeIntegrationTest {
         Assert.assertNotNull("Expected 'UserType' identifier to no longer be null", obj.getId());
     }
 
-	@Test
+    @Test
     public void testDeleteUserType() {
         UserType obj = dod.getRandomUserType();
         Assert.assertNotNull("Data on demand for 'UserType' failed to initialize correctly", obj);

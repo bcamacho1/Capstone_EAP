@@ -16,20 +16,20 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = Evacuation.class)
 public class EvacuationDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<Evacuation> data;
+    private List<Evacuation> data;
 
-	@Autowired
+    @Autowired
     EvacuationService evacuationService;
 
-	public Evacuation getNewTransientEvacuation(int index) {
+    public Evacuation getNewTransientEvacuation(int index) {
         Evacuation obj = new Evacuation();
         setArea(obj, index);
         return obj;
     }
 
-	public void setArea(Evacuation obj, int index) {
+    public void setArea(Evacuation obj, int index) {
         String area = "area_" + index;
         if (area.length() > 45) {
             area = area.substring(0, 45);
@@ -37,7 +37,7 @@ public class EvacuationDataOnDemand {
         obj.setArea(area);
     }
 
-	public Evacuation getSpecificEvacuation(int index) {
+    public Evacuation getSpecificEvacuation(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -50,18 +50,18 @@ public class EvacuationDataOnDemand {
         return evacuationService.findEvacuation(id);
     }
 
-	public Evacuation getRandomEvacuation() {
+    public Evacuation getRandomEvacuation() {
         init();
         Evacuation obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return evacuationService.findEvacuation(id);
     }
 
-	public boolean modifyEvacuation(Evacuation obj) {
+    public boolean modifyEvacuation(Evacuation obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = evacuationService.findEvacuationEntries(from, to);
@@ -71,7 +71,7 @@ public class EvacuationDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<Evacuation>();
         for (int i = 0; i < 10; i++) {
             Evacuation obj = getNewTransientEvacuation(i);

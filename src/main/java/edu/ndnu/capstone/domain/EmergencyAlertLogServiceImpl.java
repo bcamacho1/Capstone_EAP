@@ -8,31 +8,31 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EmergencyAlertLogServiceImpl implements EmergencyAlertLogService {
 
-	public long countAllEmergencyAlertLogs() {
+    public long countAllEmergencyAlertLogs() {
         return EmergencyAlertLog.countEmergencyAlertLogs();
     }
 
-	public void deleteEmergencyAlertLog(EmergencyAlertLog emergencyAlertLog) {
+    public void deleteEmergencyAlertLog(EmergencyAlertLog emergencyAlertLog) {
         emergencyAlertLog.remove();
     }
 
-	public EmergencyAlertLog findEmergencyAlertLog(Integer id) {
+    public EmergencyAlertLog findEmergencyAlertLog(Integer id) {
         return EmergencyAlertLog.findEmergencyAlertLog(id);
     }
 
-	public List<EmergencyAlertLog> findAllEmergencyAlertLogs() {
+    public List<EmergencyAlertLog> findAllEmergencyAlertLogs() {
         return EmergencyAlertLog.findAllEmergencyAlertLogs();
     }
 
-	public List<EmergencyAlertLog> findEmergencyAlertLogEntries(int firstResult, int maxResults) {
+    public List<EmergencyAlertLog> findEmergencyAlertLogEntries(int firstResult, int maxResults) {
         return EmergencyAlertLog.findEmergencyAlertLogEntries(firstResult, maxResults);
     }
 
-	public void saveEmergencyAlertLog(EmergencyAlertLog emergencyAlertLog) {
+    public void saveEmergencyAlertLog(EmergencyAlertLog emergencyAlertLog) {
         emergencyAlertLog.persist();
     }
 
-	public EmergencyAlertLog updateEmergencyAlertLog(EmergencyAlertLog emergencyAlertLog) {
+    public EmergencyAlertLog updateEmergencyAlertLog(EmergencyAlertLog emergencyAlertLog) {
         return emergencyAlertLog.merge();
     }
 }

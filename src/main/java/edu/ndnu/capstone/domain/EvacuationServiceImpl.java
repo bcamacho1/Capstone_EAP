@@ -8,31 +8,31 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EvacuationServiceImpl implements EvacuationService {
 
-	public long countAllEvacuations() {
+    public long countAllEvacuations() {
         return Evacuation.countEvacuations();
     }
 
-	public void deleteEvacuation(Evacuation evacuation) {
+    public void deleteEvacuation(Evacuation evacuation) {
         evacuation.remove();
     }
 
-	public Evacuation findEvacuation(Integer id) {
+    public Evacuation findEvacuation(Integer id) {
         return Evacuation.findEvacuation(id);
     }
 
-	public List<Evacuation> findAllEvacuations() {
+    public List<Evacuation> findAllEvacuations() {
         return Evacuation.findAllEvacuations();
     }
 
-	public List<Evacuation> findEvacuationEntries(int firstResult, int maxResults) {
+    public List<Evacuation> findEvacuationEntries(int firstResult, int maxResults) {
         return Evacuation.findEvacuationEntries(firstResult, maxResults);
     }
 
-	public void saveEvacuation(Evacuation evacuation) {
+    public void saveEvacuation(Evacuation evacuation) {
         evacuation.persist();
     }
 
-	public Evacuation updateEvacuation(Evacuation evacuation) {
+    public Evacuation updateEvacuation(Evacuation evacuation) {
         return evacuation.merge();
     }
 }

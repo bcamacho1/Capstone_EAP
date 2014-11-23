@@ -24,20 +24,20 @@ public class UserIntegrationTest {
     public void testMarkerMethod() {
     }
 
-	@Autowired
+    @Autowired
     UserDataOnDemand dod;
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	@Test
+    @Test
     public void testCountAllUsers() {
         Assert.assertNotNull("Data on demand for 'User' failed to initialize correctly", dod.getRandomUser());
         long count = userService.countAllUsers();
         Assert.assertTrue("Counter for 'User' incorrectly reported there were no entries", count > 0);
     }
 
-	@Test
+    @Test
     public void testFindUser() {
         User obj = dod.getRandomUser();
         Assert.assertNotNull("Data on demand for 'User' failed to initialize correctly", obj);
@@ -48,7 +48,7 @@ public class UserIntegrationTest {
         Assert.assertEquals("Find method for 'User' returned the incorrect identifier", id, obj.getId());
     }
 
-	@Test
+    @Test
     public void testFindAllUsers() {
         Assert.assertNotNull("Data on demand for 'User' failed to initialize correctly", dod.getRandomUser());
         long count = userService.countAllUsers();
@@ -58,7 +58,7 @@ public class UserIntegrationTest {
         Assert.assertTrue("Find all method for 'User' failed to return any data", result.size() > 0);
     }
 
-	@Test
+    @Test
     public void testFindUserEntries() {
         Assert.assertNotNull("Data on demand for 'User' failed to initialize correctly", dod.getRandomUser());
         long count = userService.countAllUsers();
@@ -70,7 +70,7 @@ public class UserIntegrationTest {
         Assert.assertEquals("Find entries method for 'User' returned an incorrect number of entries", count, result.size());
     }
 
-	@Test
+    @Test
     public void testSaveUser() {
         Assert.assertNotNull("Data on demand for 'User' failed to initialize correctly", dod.getRandomUser());
         User obj = dod.getNewTransientUser(Integer.MAX_VALUE);
@@ -90,7 +90,7 @@ public class UserIntegrationTest {
         Assert.assertNotNull("Expected 'User' identifier to no longer be null", obj.getId());
     }
 
-	@Test
+    @Test
     public void testDeleteUser() {
         User obj = dod.getRandomUser();
         Assert.assertNotNull("Data on demand for 'User' failed to initialize correctly", obj);

@@ -16,20 +16,20 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = EmergencyStatus.class)
 public class EmergencyStatusDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<EmergencyStatus> data;
+    private List<EmergencyStatus> data;
 
-	@Autowired
+    @Autowired
     EmergencyStatusService emergencyStatusService;
 
-	public EmergencyStatus getNewTransientEmergencyStatus(int index) {
+    public EmergencyStatus getNewTransientEmergencyStatus(int index) {
         EmergencyStatus obj = new EmergencyStatus();
         setName(obj, index);
         return obj;
     }
 
-	public void setName(EmergencyStatus obj, int index) {
+    public void setName(EmergencyStatus obj, int index) {
         String name = "name_" + index;
         if (name.length() > 256) {
             name = name.substring(0, 256);
@@ -37,7 +37,7 @@ public class EmergencyStatusDataOnDemand {
         obj.setName(name);
     }
 
-	public EmergencyStatus getSpecificEmergencyStatus(int index) {
+    public EmergencyStatus getSpecificEmergencyStatus(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -50,18 +50,18 @@ public class EmergencyStatusDataOnDemand {
         return emergencyStatusService.findEmergencyStatus(id);
     }
 
-	public EmergencyStatus getRandomEmergencyStatus() {
+    public EmergencyStatus getRandomEmergencyStatus() {
         init();
         EmergencyStatus obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return emergencyStatusService.findEmergencyStatus(id);
     }
 
-	public boolean modifyEmergencyStatus(EmergencyStatus obj) {
+    public boolean modifyEmergencyStatus(EmergencyStatus obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = emergencyStatusService.findEmergencyStatusEntries(from, to);
@@ -71,7 +71,7 @@ public class EmergencyStatusDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<EmergencyStatus>();
         for (int i = 0; i < 10; i++) {
             EmergencyStatus obj = getNewTransientEmergencyStatus(i);

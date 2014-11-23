@@ -24,13 +24,13 @@ import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
 @GvNIXWebJQuery
 public class UserTypeController {
 
-	@Autowired
+    @Autowired
     UserTypeService userTypeService;
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
+    @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid UserType userType, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, userType);
@@ -41,20 +41,20 @@ public class UserTypeController {
         return "redirect:/usertypes/" + encodeUrlPathSegment(userType.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(params = "form", produces = "text/html")
+    @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new UserType());
         return "usertypes/create";
     }
 
-	@RequestMapping(value = "/{id}", produces = "text/html")
+    @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         uiModel.addAttribute("usertype", userTypeService.findUserType(id));
         uiModel.addAttribute("itemId", id);
         return "usertypes/show";
     }
 
-	@RequestMapping(produces = "text/html")
+    @RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
@@ -68,7 +68,7 @@ public class UserTypeController {
         return "usertypes/list";
     }
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid UserType userType, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, userType);
@@ -79,13 +79,13 @@ public class UserTypeController {
         return "redirect:/usertypes/" + encodeUrlPathSegment(userType.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(value = "/{id}", params = "form", produces = "text/html")
+    @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, userTypeService.findUserType(id));
         return "usertypes/update";
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         UserType userType = userTypeService.findUserType(id);
         userTypeService.deleteUserType(userType);
@@ -95,12 +95,12 @@ public class UserTypeController {
         return "redirect:/usertypes";
     }
 
-	void populateEditForm(Model uiModel, UserType userType) {
+    void populateEditForm(Model uiModel, UserType userType) {
         uiModel.addAttribute("userType", userType);
         uiModel.addAttribute("users", userService.findAllUsers());
     }
 
-	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;

@@ -8,31 +8,31 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserTypeServiceImpl implements UserTypeService {
 
-	public long countAllUserTypes() {
+    public long countAllUserTypes() {
         return UserType.countUserTypes();
     }
 
-	public void deleteUserType(UserType userType) {
+    public void deleteUserType(UserType userType) {
         userType.remove();
     }
 
-	public UserType findUserType(Integer id) {
+    public UserType findUserType(Integer id) {
         return UserType.findUserType(id);
     }
 
-	public List<UserType> findAllUserTypes() {
+    public List<UserType> findAllUserTypes() {
         return UserType.findAllUserTypes();
     }
 
-	public List<UserType> findUserTypeEntries(int firstResult, int maxResults) {
+    public List<UserType> findUserTypeEntries(int firstResult, int maxResults) {
         return UserType.findUserTypeEntries(firstResult, maxResults);
     }
 
-	public void saveUserType(UserType userType) {
+    public void saveUserType(UserType userType) {
         userType.persist();
     }
 
-	public UserType updateUserType(UserType userType) {
+    public UserType updateUserType(UserType userType) {
         return userType.merge();
     }
 }

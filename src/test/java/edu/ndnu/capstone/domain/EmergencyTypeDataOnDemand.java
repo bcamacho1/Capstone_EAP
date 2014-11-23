@@ -16,20 +16,20 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = EmergencyType.class)
 public class EmergencyTypeDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<EmergencyType> data;
+    private List<EmergencyType> data;
 
-	@Autowired
+    @Autowired
     EmergencyTypeService emergencyTypeService;
 
-	public EmergencyType getNewTransientEmergencyType(int index) {
+    public EmergencyType getNewTransientEmergencyType(int index) {
         EmergencyType obj = new EmergencyType();
         setName(obj, index);
         return obj;
     }
 
-	public void setName(EmergencyType obj, int index) {
+    public void setName(EmergencyType obj, int index) {
         String name = "name_" + index;
         if (name.length() > 256) {
             name = name.substring(0, 256);
@@ -37,7 +37,7 @@ public class EmergencyTypeDataOnDemand {
         obj.setName(name);
     }
 
-	public EmergencyType getSpecificEmergencyType(int index) {
+    public EmergencyType getSpecificEmergencyType(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -50,18 +50,18 @@ public class EmergencyTypeDataOnDemand {
         return emergencyTypeService.findEmergencyType(id);
     }
 
-	public EmergencyType getRandomEmergencyType() {
+    public EmergencyType getRandomEmergencyType() {
         init();
         EmergencyType obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return emergencyTypeService.findEmergencyType(id);
     }
 
-	public boolean modifyEmergencyType(EmergencyType obj) {
+    public boolean modifyEmergencyType(EmergencyType obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = emergencyTypeService.findEmergencyTypeEntries(from, to);
@@ -71,7 +71,7 @@ public class EmergencyTypeDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<EmergencyType>();
         for (int i = 0; i < 10; i++) {
             EmergencyType obj = getNewTransientEmergencyType(i);

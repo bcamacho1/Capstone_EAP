@@ -8,31 +8,31 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EmergencyTypeServiceImpl implements EmergencyTypeService {
 
-	public long countAllEmergencyTypes() {
+    public long countAllEmergencyTypes() {
         return EmergencyType.countEmergencyTypes();
     }
 
-	public void deleteEmergencyType(EmergencyType emergencyType) {
+    public void deleteEmergencyType(EmergencyType emergencyType) {
         emergencyType.remove();
     }
 
-	public EmergencyType findEmergencyType(Integer id) {
+    public EmergencyType findEmergencyType(Integer id) {
         return EmergencyType.findEmergencyType(id);
     }
 
-	public List<EmergencyType> findAllEmergencyTypes() {
+    public List<EmergencyType> findAllEmergencyTypes() {
         return EmergencyType.findAllEmergencyTypes();
     }
 
-	public List<EmergencyType> findEmergencyTypeEntries(int firstResult, int maxResults) {
+    public List<EmergencyType> findEmergencyTypeEntries(int firstResult, int maxResults) {
         return EmergencyType.findEmergencyTypeEntries(firstResult, maxResults);
     }
 
-	public void saveEmergencyType(EmergencyType emergencyType) {
+    public void saveEmergencyType(EmergencyType emergencyType) {
         emergencyType.persist();
     }
 
-	public EmergencyType updateEmergencyType(EmergencyType emergencyType) {
+    public EmergencyType updateEmergencyType(EmergencyType emergencyType) {
         return emergencyType.merge();
     }
 }

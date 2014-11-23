@@ -24,13 +24,13 @@ import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
 @GvNIXWebJQuery
 public class EmergencyStatusController {
 
-	@Autowired
+    @Autowired
     EmergencyStatusService emergencyStatusService;
 
-	@Autowired
+    @Autowired
     EmergencyService emergencyService;
 
-	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
+    @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid EmergencyStatus emergencyStatus, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyStatus);
@@ -41,20 +41,20 @@ public class EmergencyStatusController {
         return "redirect:/emergencystatuses/" + encodeUrlPathSegment(emergencyStatus.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(params = "form", produces = "text/html")
+    @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new EmergencyStatus());
         return "emergencystatuses/create";
     }
 
-	@RequestMapping(value = "/{id}", produces = "text/html")
+    @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         uiModel.addAttribute("emergencystatus", emergencyStatusService.findEmergencyStatus(id));
         uiModel.addAttribute("itemId", id);
         return "emergencystatuses/show";
     }
 
-	@RequestMapping(produces = "text/html")
+    @RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
@@ -68,7 +68,7 @@ public class EmergencyStatusController {
         return "emergencystatuses/list";
     }
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid EmergencyStatus emergencyStatus, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyStatus);
@@ -79,13 +79,13 @@ public class EmergencyStatusController {
         return "redirect:/emergencystatuses/" + encodeUrlPathSegment(emergencyStatus.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(value = "/{id}", params = "form", produces = "text/html")
+    @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, emergencyStatusService.findEmergencyStatus(id));
         return "emergencystatuses/update";
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         EmergencyStatus emergencyStatus = emergencyStatusService.findEmergencyStatus(id);
         emergencyStatusService.deleteEmergencyStatus(emergencyStatus);
@@ -95,12 +95,12 @@ public class EmergencyStatusController {
         return "redirect:/emergencystatuses";
     }
 
-	void populateEditForm(Model uiModel, EmergencyStatus emergencyStatus) {
+    void populateEditForm(Model uiModel, EmergencyStatus emergencyStatus) {
         uiModel.addAttribute("emergencyStatus", emergencyStatus);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
     }
 
-	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;

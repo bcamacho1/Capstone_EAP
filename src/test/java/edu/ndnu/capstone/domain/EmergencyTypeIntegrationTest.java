@@ -24,20 +24,20 @@ public class EmergencyTypeIntegrationTest {
     public void testMarkerMethod() {
     }
 
-	@Autowired
+    @Autowired
     EmergencyTypeDataOnDemand dod;
 
-	@Autowired
+    @Autowired
     EmergencyTypeService emergencyTypeService;
 
-	@Test
+    @Test
     public void testCountAllEmergencyTypes() {
         Assert.assertNotNull("Data on demand for 'EmergencyType' failed to initialize correctly", dod.getRandomEmergencyType());
         long count = emergencyTypeService.countAllEmergencyTypes();
         Assert.assertTrue("Counter for 'EmergencyType' incorrectly reported there were no entries", count > 0);
     }
 
-	@Test
+    @Test
     public void testFindEmergencyType() {
         EmergencyType obj = dod.getRandomEmergencyType();
         Assert.assertNotNull("Data on demand for 'EmergencyType' failed to initialize correctly", obj);
@@ -48,7 +48,7 @@ public class EmergencyTypeIntegrationTest {
         Assert.assertEquals("Find method for 'EmergencyType' returned the incorrect identifier", id, obj.getId());
     }
 
-	@Test
+    @Test
     public void testFindAllEmergencyTypes() {
         Assert.assertNotNull("Data on demand for 'EmergencyType' failed to initialize correctly", dod.getRandomEmergencyType());
         long count = emergencyTypeService.countAllEmergencyTypes();
@@ -58,7 +58,7 @@ public class EmergencyTypeIntegrationTest {
         Assert.assertTrue("Find all method for 'EmergencyType' failed to return any data", result.size() > 0);
     }
 
-	@Test
+    @Test
     public void testFindEmergencyTypeEntries() {
         Assert.assertNotNull("Data on demand for 'EmergencyType' failed to initialize correctly", dod.getRandomEmergencyType());
         long count = emergencyTypeService.countAllEmergencyTypes();
@@ -70,7 +70,7 @@ public class EmergencyTypeIntegrationTest {
         Assert.assertEquals("Find entries method for 'EmergencyType' returned an incorrect number of entries", count, result.size());
     }
 
-	@Test
+    @Test
     public void testSaveEmergencyType() {
         Assert.assertNotNull("Data on demand for 'EmergencyType' failed to initialize correctly", dod.getRandomEmergencyType());
         EmergencyType obj = dod.getNewTransientEmergencyType(Integer.MAX_VALUE);
@@ -90,7 +90,7 @@ public class EmergencyTypeIntegrationTest {
         Assert.assertNotNull("Expected 'EmergencyType' identifier to no longer be null", obj.getId());
     }
 
-	@Test
+    @Test
     public void testDeleteEmergencyType() {
         EmergencyType obj = dod.getRandomEmergencyType();
         Assert.assertNotNull("Data on demand for 'EmergencyType' failed to initialize correctly", obj);

@@ -28,19 +28,19 @@ import org.joda.time.format.DateTimeFormat;
 @GvNIXWebJQuery
 public class EmergencyAlertLogController {
 
-	@Autowired
+    @Autowired
     EmergencyAlertLogService emergencyAlertLogService;
 
-	@Autowired
+    @Autowired
     EmergencyService emergencyService;
 
-	@Autowired
+    @Autowired
     EmergencyMessageService emergencyMessageService;
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
+    @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid EmergencyAlertLog emergencyAlertLog, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyAlertLog);
@@ -51,13 +51,13 @@ public class EmergencyAlertLogController {
         return "redirect:/emergencyalertlogs/" + encodeUrlPathSegment(emergencyAlertLog.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(params = "form", produces = "text/html")
+    @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new EmergencyAlertLog());
         return "emergencyalertlogs/create";
     }
 
-	@RequestMapping(value = "/{id}", produces = "text/html")
+    @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencyalertlog", emergencyAlertLogService.findEmergencyAlertLog(id));
@@ -65,7 +65,7 @@ public class EmergencyAlertLogController {
         return "emergencyalertlogs/show";
     }
 
-	@RequestMapping(produces = "text/html")
+    @RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
@@ -80,7 +80,7 @@ public class EmergencyAlertLogController {
         return "emergencyalertlogs/list";
     }
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid EmergencyAlertLog emergencyAlertLog, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyAlertLog);
@@ -91,13 +91,13 @@ public class EmergencyAlertLogController {
         return "redirect:/emergencyalertlogs/" + encodeUrlPathSegment(emergencyAlertLog.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(value = "/{id}", params = "form", produces = "text/html")
+    @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, emergencyAlertLogService.findEmergencyAlertLog(id));
         return "emergencyalertlogs/update";
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         EmergencyAlertLog emergencyAlertLog = emergencyAlertLogService.findEmergencyAlertLog(id);
         emergencyAlertLogService.deleteEmergencyAlertLog(emergencyAlertLog);
@@ -107,11 +107,11 @@ public class EmergencyAlertLogController {
         return "redirect:/emergencyalertlogs";
     }
 
-	void addDateTimeFormatPatterns(Model uiModel) {
+    void addDateTimeFormatPatterns(Model uiModel) {
         uiModel.addAttribute("emergencyAlertLog_ts_date_format", DateTimeFormat.patternForStyle("MM", LocaleContextHolder.getLocale()));
     }
 
-	void populateEditForm(Model uiModel, EmergencyAlertLog emergencyAlertLog) {
+    void populateEditForm(Model uiModel, EmergencyAlertLog emergencyAlertLog) {
         uiModel.addAttribute("emergencyAlertLog", emergencyAlertLog);
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
@@ -119,7 +119,7 @@ public class EmergencyAlertLogController {
         uiModel.addAttribute("users", userService.findAllUsers());
     }
 
-	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;

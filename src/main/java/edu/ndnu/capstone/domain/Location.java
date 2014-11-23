@@ -126,37 +126,37 @@ public class Location {
     @Column(name = "name", length = 256)
     @NotNull(message = "Name can not be left blank.")
     @Size(min=2, max=30)
-	@Pattern(regexp = "[A-Za-z]", message="Name must contain only letters.")
+    @Pattern(regexp = "[A-Za-z]", message="Name must contain only letters.")
     private String name;
 
     @Column(name = "address", length = 1024)
     @NotNull(message = "Address can not be left blank.")
     @Size(min=2, max=30)
-	@Pattern(regexp = "[0-9 A-Za-z]", message="Address can be both letters and numbers.")
+    @Pattern(regexp = "[0-9 A-Za-z]", message="Address can be both letters and numbers.")
     private String address;
 
     @Column(name = "city", length = 1024)
     @NotNull(message = "City can not be left blank.")
     @Size(min=2, max=30, message="City must be between 2 and 30 characters.")
-	@Pattern(regexp = "[A-Za-z ]", message="City must contain only letters.")
+    @Pattern(regexp = "[A-Za-z ]", message="City must contain only letters.")
     private String city;
 
     @Column(name = "state", length = 64)
     @NotNull
     @Size(min=2, max=30, message="State must be between 2 and 30 characters.")
-	@Pattern(regexp = "[A-Za-z ]", message="State can only contain letters.")
+    @Pattern(regexp = "[A-Za-z ]", message="State can only contain letters.")
     private String state;
 
-   
+
     @Column(name = "zipcode", length = 64)
     @NotNull(message = "Zipcode can not be left blank.")
     @Size(min=5, max=5)
-   	@Pattern(regexp = "[0-9]", message="Zipcode can only contain numbers")
+    @Pattern(regexp = "[0-9]", message="Zipcode can only contain numbers")
     private String zipcode;
 
     @Column(name = "evacuation_area")
     private Integer evacuationArea;
-  
+
     @Column(name = "latitude", length = 64)
     @Size(min=8, max=8)
     @Pattern(regexp = "^(\\d{2}-\\d{2}-\\d{2}", message="Latitude must be of the form 66-55-44 ")

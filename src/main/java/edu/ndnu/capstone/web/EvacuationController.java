@@ -23,10 +23,10 @@ import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
 @GvNIXWebJQuery
 public class EvacuationController {
 
-	@Autowired
+    @Autowired
     EvacuationService evacuationService;
 
-	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
+    @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid Evacuation evacuation, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, evacuation);
@@ -37,20 +37,20 @@ public class EvacuationController {
         return "redirect:/evacuations/" + encodeUrlPathSegment(evacuation.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(params = "form", produces = "text/html")
+    @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new Evacuation());
         return "evacuations/create";
     }
 
-	@RequestMapping(value = "/{id}", produces = "text/html")
+    @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         uiModel.addAttribute("evacuation", evacuationService.findEvacuation(id));
         uiModel.addAttribute("itemId", id);
         return "evacuations/show";
     }
 
-	@RequestMapping(produces = "text/html")
+    @RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
@@ -64,7 +64,7 @@ public class EvacuationController {
         return "evacuations/list";
     }
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid Evacuation evacuation, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, evacuation);
@@ -75,13 +75,13 @@ public class EvacuationController {
         return "redirect:/evacuations/" + encodeUrlPathSegment(evacuation.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(value = "/{id}", params = "form", produces = "text/html")
+    @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, evacuationService.findEvacuation(id));
         return "evacuations/update";
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         Evacuation evacuation = evacuationService.findEvacuation(id);
         evacuationService.deleteEvacuation(evacuation);
@@ -91,11 +91,11 @@ public class EvacuationController {
         return "redirect:/evacuations";
     }
 
-	void populateEditForm(Model uiModel, Evacuation evacuation) {
+    void populateEditForm(Model uiModel, Evacuation evacuation) {
         uiModel.addAttribute("evacuation", evacuation);
     }
 
-	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;

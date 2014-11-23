@@ -24,20 +24,20 @@ public class EvacuationIntegrationTest {
     public void testMarkerMethod() {
     }
 
-	@Autowired
+    @Autowired
     EvacuationDataOnDemand dod;
 
-	@Autowired
+    @Autowired
     EvacuationService evacuationService;
 
-	@Test
+    @Test
     public void testCountAllEvacuations() {
         Assert.assertNotNull("Data on demand for 'Evacuation' failed to initialize correctly", dod.getRandomEvacuation());
         long count = evacuationService.countAllEvacuations();
         Assert.assertTrue("Counter for 'Evacuation' incorrectly reported there were no entries", count > 0);
     }
 
-	@Test
+    @Test
     public void testFindEvacuation() {
         Evacuation obj = dod.getRandomEvacuation();
         Assert.assertNotNull("Data on demand for 'Evacuation' failed to initialize correctly", obj);
@@ -48,7 +48,7 @@ public class EvacuationIntegrationTest {
         Assert.assertEquals("Find method for 'Evacuation' returned the incorrect identifier", id, obj.getId());
     }
 
-	@Test
+    @Test
     public void testFindAllEvacuations() {
         Assert.assertNotNull("Data on demand for 'Evacuation' failed to initialize correctly", dod.getRandomEvacuation());
         long count = evacuationService.countAllEvacuations();
@@ -58,7 +58,7 @@ public class EvacuationIntegrationTest {
         Assert.assertTrue("Find all method for 'Evacuation' failed to return any data", result.size() > 0);
     }
 
-	@Test
+    @Test
     public void testFindEvacuationEntries() {
         Assert.assertNotNull("Data on demand for 'Evacuation' failed to initialize correctly", dod.getRandomEvacuation());
         long count = evacuationService.countAllEvacuations();
@@ -70,7 +70,7 @@ public class EvacuationIntegrationTest {
         Assert.assertEquals("Find entries method for 'Evacuation' returned an incorrect number of entries", count, result.size());
     }
 
-	@Test
+    @Test
     public void testSaveEvacuation() {
         Assert.assertNotNull("Data on demand for 'Evacuation' failed to initialize correctly", dod.getRandomEvacuation());
         Evacuation obj = dod.getNewTransientEvacuation(Integer.MAX_VALUE);
@@ -90,7 +90,7 @@ public class EvacuationIntegrationTest {
         Assert.assertNotNull("Expected 'Evacuation' identifier to no longer be null", obj.getId());
     }
 
-	@Test
+    @Test
     public void testDeleteEvacuation() {
         Evacuation obj = dod.getRandomEvacuation();
         Assert.assertNotNull("Data on demand for 'Evacuation' failed to initialize correctly", obj);

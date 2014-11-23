@@ -16,31 +16,31 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = EmergencyMessage.class)
 public class EmergencyMessageDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<EmergencyMessage> data;
+    private List<EmergencyMessage> data;
 
-	@Autowired
+    @Autowired
     EmergencyTypeDataOnDemand emergencyTypeDataOnDemand;
 
-	@Autowired
+    @Autowired
     UserDataOnDemand userDataOnDemand;
 
-	@Autowired
+    @Autowired
     EmergencyMessageService emergencyMessageService;
 
-	public EmergencyMessage getNewTransientEmergencyMessage(int index) {
+    public EmergencyMessage getNewTransientEmergencyMessage(int index) {
         EmergencyMessage obj = new EmergencyMessage();
         setMessage(obj, index);
         return obj;
     }
 
-	public void setMessage(EmergencyMessage obj, int index) {
+    public void setMessage(EmergencyMessage obj, int index) {
         String message = "message_" + index;
         obj.setMessage(message);
     }
 
-	public EmergencyMessage getSpecificEmergencyMessage(int index) {
+    public EmergencyMessage getSpecificEmergencyMessage(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -53,18 +53,18 @@ public class EmergencyMessageDataOnDemand {
         return emergencyMessageService.findEmergencyMessage(id);
     }
 
-	public EmergencyMessage getRandomEmergencyMessage() {
+    public EmergencyMessage getRandomEmergencyMessage() {
         init();
         EmergencyMessage obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return emergencyMessageService.findEmergencyMessage(id);
     }
 
-	public boolean modifyEmergencyMessage(EmergencyMessage obj) {
+    public boolean modifyEmergencyMessage(EmergencyMessage obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = emergencyMessageService.findEmergencyMessageEntries(from, to);
@@ -74,7 +74,7 @@ public class EmergencyMessageDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<EmergencyMessage>();
         for (int i = 0; i < 10; i++) {
             EmergencyMessage obj = getNewTransientEmergencyMessage(i);

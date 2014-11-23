@@ -29,39 +29,39 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "users" })
 public class UserType {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-	@PersistenceContext
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new UserType().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countUserTypes() {
+    public static long countUserTypes() {
         return entityManager().createQuery("SELECT COUNT(o) FROM UserType o", Long.class).getSingleResult();
     }
 
-	public static List<UserType> findAllUserTypes() {
+    public static List<UserType> findAllUserTypes() {
         return entityManager().createQuery("SELECT o FROM UserType o", UserType.class).getResultList();
     }
 
-	public static List<UserType> findAllUserTypes(String sortFieldName, String sortOrder) {
+    public static List<UserType> findAllUserTypes(String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM UserType o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -72,16 +72,16 @@ public class UserType {
         return entityManager().createQuery(jpaQuery, UserType.class).getResultList();
     }
 
-	public static UserType findUserType(Integer id) {
+    public static UserType findUserType(Integer id) {
         if (id == null) return null;
         return entityManager().find(UserType.class, id);
     }
 
-	public static List<UserType> findUserTypeEntries(int firstResult, int maxResults) {
+    public static List<UserType> findUserTypeEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM UserType o", UserType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	public static List<UserType> findUserTypeEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+    public static List<UserType> findUserTypeEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM UserType o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -92,13 +92,13 @@ public class UserType {
         return entityManager().createQuery(jpaQuery, UserType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -109,19 +109,19 @@ public class UserType {
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public UserType merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         UserType merged = this.entityManager.merge(this);
@@ -129,30 +129,30 @@ public class UserType {
         return merged;
     }
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("users").toString();
     }
 
-	@OneToMany(mappedBy = "typeId")
+    @OneToMany(mappedBy = "typeId")
     private Set<User> users;
 
-	@Column(name = "name", length = 256)
+    @Column(name = "name", length = 256)
     @NotNull
     private String name;
 
-	public Set<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-	public void setUsers(Set<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
-	public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 }

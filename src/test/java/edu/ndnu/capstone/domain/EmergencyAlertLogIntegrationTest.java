@@ -24,20 +24,20 @@ public class EmergencyAlertLogIntegrationTest {
     public void testMarkerMethod() {
     }
 
-	@Autowired
+    @Autowired
     EmergencyAlertLogDataOnDemand dod;
 
-	@Autowired
+    @Autowired
     EmergencyAlertLogService emergencyAlertLogService;
 
-	@Test
+    @Test
     public void testCountAllEmergencyAlertLogs() {
         Assert.assertNotNull("Data on demand for 'EmergencyAlertLog' failed to initialize correctly", dod.getRandomEmergencyAlertLog());
         long count = emergencyAlertLogService.countAllEmergencyAlertLogs();
         Assert.assertTrue("Counter for 'EmergencyAlertLog' incorrectly reported there were no entries", count > 0);
     }
 
-	@Test
+    @Test
     public void testFindEmergencyAlertLog() {
         EmergencyAlertLog obj = dod.getRandomEmergencyAlertLog();
         Assert.assertNotNull("Data on demand for 'EmergencyAlertLog' failed to initialize correctly", obj);
@@ -48,7 +48,7 @@ public class EmergencyAlertLogIntegrationTest {
         Assert.assertEquals("Find method for 'EmergencyAlertLog' returned the incorrect identifier", id, obj.getId());
     }
 
-	@Test
+    @Test
     public void testFindAllEmergencyAlertLogs() {
         Assert.assertNotNull("Data on demand for 'EmergencyAlertLog' failed to initialize correctly", dod.getRandomEmergencyAlertLog());
         long count = emergencyAlertLogService.countAllEmergencyAlertLogs();
@@ -58,7 +58,7 @@ public class EmergencyAlertLogIntegrationTest {
         Assert.assertTrue("Find all method for 'EmergencyAlertLog' failed to return any data", result.size() > 0);
     }
 
-	@Test
+    @Test
     public void testFindEmergencyAlertLogEntries() {
         Assert.assertNotNull("Data on demand for 'EmergencyAlertLog' failed to initialize correctly", dod.getRandomEmergencyAlertLog());
         long count = emergencyAlertLogService.countAllEmergencyAlertLogs();
@@ -70,7 +70,7 @@ public class EmergencyAlertLogIntegrationTest {
         Assert.assertEquals("Find entries method for 'EmergencyAlertLog' returned an incorrect number of entries", count, result.size());
     }
 
-	@Test
+    @Test
     public void testSaveEmergencyAlertLog() {
         Assert.assertNotNull("Data on demand for 'EmergencyAlertLog' failed to initialize correctly", dod.getRandomEmergencyAlertLog());
         EmergencyAlertLog obj = dod.getNewTransientEmergencyAlertLog(Integer.MAX_VALUE);
@@ -90,7 +90,7 @@ public class EmergencyAlertLogIntegrationTest {
         Assert.assertNotNull("Expected 'EmergencyAlertLog' identifier to no longer be null", obj.getId());
     }
 
-	@Test
+    @Test
     public void testDeleteEmergencyAlertLog() {
         EmergencyAlertLog obj = dod.getRandomEmergencyAlertLog();
         Assert.assertNotNull("Data on demand for 'EmergencyAlertLog' failed to initialize correctly", obj);

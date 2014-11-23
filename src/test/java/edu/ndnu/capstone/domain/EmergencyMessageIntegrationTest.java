@@ -24,20 +24,20 @@ public class EmergencyMessageIntegrationTest {
     public void testMarkerMethod() {
     }
 
-	@Autowired
+    @Autowired
     EmergencyMessageDataOnDemand dod;
 
-	@Autowired
+    @Autowired
     EmergencyMessageService emergencyMessageService;
 
-	@Test
+    @Test
     public void testCountAllEmergencyMessages() {
         Assert.assertNotNull("Data on demand for 'EmergencyMessage' failed to initialize correctly", dod.getRandomEmergencyMessage());
         long count = emergencyMessageService.countAllEmergencyMessages();
         Assert.assertTrue("Counter for 'EmergencyMessage' incorrectly reported there were no entries", count > 0);
     }
 
-	@Test
+    @Test
     public void testFindEmergencyMessage() {
         EmergencyMessage obj = dod.getRandomEmergencyMessage();
         Assert.assertNotNull("Data on demand for 'EmergencyMessage' failed to initialize correctly", obj);
@@ -48,7 +48,7 @@ public class EmergencyMessageIntegrationTest {
         Assert.assertEquals("Find method for 'EmergencyMessage' returned the incorrect identifier", id, obj.getId());
     }
 
-	@Test
+    @Test
     public void testFindAllEmergencyMessages() {
         Assert.assertNotNull("Data on demand for 'EmergencyMessage' failed to initialize correctly", dod.getRandomEmergencyMessage());
         long count = emergencyMessageService.countAllEmergencyMessages();
@@ -58,7 +58,7 @@ public class EmergencyMessageIntegrationTest {
         Assert.assertTrue("Find all method for 'EmergencyMessage' failed to return any data", result.size() > 0);
     }
 
-	@Test
+    @Test
     public void testFindEmergencyMessageEntries() {
         Assert.assertNotNull("Data on demand for 'EmergencyMessage' failed to initialize correctly", dod.getRandomEmergencyMessage());
         long count = emergencyMessageService.countAllEmergencyMessages();
@@ -70,7 +70,7 @@ public class EmergencyMessageIntegrationTest {
         Assert.assertEquals("Find entries method for 'EmergencyMessage' returned an incorrect number of entries", count, result.size());
     }
 
-	@Test
+    @Test
     public void testSaveEmergencyMessage() {
         Assert.assertNotNull("Data on demand for 'EmergencyMessage' failed to initialize correctly", dod.getRandomEmergencyMessage());
         EmergencyMessage obj = dod.getNewTransientEmergencyMessage(Integer.MAX_VALUE);
@@ -90,7 +90,7 @@ public class EmergencyMessageIntegrationTest {
         Assert.assertNotNull("Expected 'EmergencyMessage' identifier to no longer be null", obj.getId());
     }
 
-	@Test
+    @Test
     public void testDeleteEmergencyMessage() {
         EmergencyMessage obj = dod.getRandomEmergencyMessage();
         Assert.assertNotNull("Data on demand for 'EmergencyMessage' failed to initialize correctly", obj);

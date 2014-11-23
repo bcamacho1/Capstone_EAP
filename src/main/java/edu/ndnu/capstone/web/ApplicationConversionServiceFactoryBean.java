@@ -32,40 +32,40 @@ import org.springframework.roo.addon.web.mvc.controller.converter.RooConversionS
 @RooConversionService
 public class ApplicationConversionServiceFactoryBean extends FormattingConversionServiceFactoryBean {
 
-	@Override
-	protected void installFormatters(FormatterRegistry registry) {
-		super.installFormatters(registry);
-		// Register application converters and formatters
-	}
+    @Override
+    protected void installFormatters(FormatterRegistry registry) {
+        super.installFormatters(registry);
+        // Register application converters and formatters
+    }
 
-	@Autowired
+    @Autowired
     EmergencyService emergencyService;
 
-	@Autowired
+    @Autowired
     EmergencyAlertLogService emergencyAlertLogService;
 
-	@Autowired
+    @Autowired
     EmergencyMessageService emergencyMessageService;
 
-	@Autowired
+    @Autowired
     EmergencyStatusService emergencyStatusService;
 
-	@Autowired
+    @Autowired
     EmergencyTypeService emergencyTypeService;
 
-	@Autowired
+    @Autowired
     EvacuationService evacuationService;
 
-	@Autowired
+    @Autowired
     LocationService locationService;
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	@Autowired
+    @Autowired
     UserTypeService userTypeService;
 
-	public Converter<Emergency, String> getEmergencyToStringConverter() {
+    public Converter<Emergency, String> getEmergencyToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Emergency, java.lang.String>() {
             public String convert(Emergency emergency) {
                 return new StringBuilder().append(emergency.getLocationId().getName()).append(", ").append(emergency.getTypeId().getName()).append(", ").append(emergency.getDescription()).toString();
@@ -73,7 +73,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, Emergency> getIdToEmergencyConverter() {
+    public Converter<Integer, Emergency> getIdToEmergencyConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.Emergency>() {
             public edu.ndnu.capstone.domain.Emergency convert(java.lang.Integer id) {
                 return emergencyService.findEmergency(id);
@@ -81,7 +81,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, Emergency> getStringToEmergencyConverter() {
+    public Converter<String, Emergency> getStringToEmergencyConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Emergency>() {
             public edu.ndnu.capstone.domain.Emergency convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), Emergency.class);
@@ -89,7 +89,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<EmergencyAlertLog, String> getEmergencyAlertLogToStringConverter() {
+    public Converter<EmergencyAlertLog, String> getEmergencyAlertLogToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyAlertLog, java.lang.String>() {
             public String convert(EmergencyAlertLog emergencyAlertLog) {
                 return new StringBuilder().append(emergencyAlertLog.getTs()).append(' ').append(emergencyAlertLog.getSent()).toString();
@@ -97,7 +97,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, EmergencyAlertLog> getIdToEmergencyAlertLogConverter() {
+    public Converter<Integer, EmergencyAlertLog> getIdToEmergencyAlertLogConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyAlertLog>() {
             public edu.ndnu.capstone.domain.EmergencyAlertLog convert(java.lang.Integer id) {
                 return emergencyAlertLogService.findEmergencyAlertLog(id);
@@ -105,7 +105,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, EmergencyAlertLog> getStringToEmergencyAlertLogConverter() {
+    public Converter<String, EmergencyAlertLog> getStringToEmergencyAlertLogConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyAlertLog>() {
             public edu.ndnu.capstone.domain.EmergencyAlertLog convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), EmergencyAlertLog.class);
@@ -113,7 +113,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<EmergencyMessage, String> getEmergencyMessageToStringConverter() {
+    public Converter<EmergencyMessage, String> getEmergencyMessageToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyMessage, java.lang.String>() {
             public String convert(EmergencyMessage emergencyMessage) {
                 return new StringBuilder().append(emergencyMessage.getMessage()).toString();
@@ -121,7 +121,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, EmergencyMessage> getIdToEmergencyMessageConverter() {
+    public Converter<Integer, EmergencyMessage> getIdToEmergencyMessageConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyMessage>() {
             public edu.ndnu.capstone.domain.EmergencyMessage convert(java.lang.Integer id) {
                 return emergencyMessageService.findEmergencyMessage(id);
@@ -129,7 +129,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, EmergencyMessage> getStringToEmergencyMessageConverter() {
+    public Converter<String, EmergencyMessage> getStringToEmergencyMessageConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyMessage>() {
             public edu.ndnu.capstone.domain.EmergencyMessage convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), EmergencyMessage.class);
@@ -137,7 +137,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<EmergencyStatus, String> getEmergencyStatusToStringConverter() {
+    public Converter<EmergencyStatus, String> getEmergencyStatusToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyStatus, java.lang.String>() {
             public String convert(EmergencyStatus emergencyStatus) {
                 return new StringBuilder().append(emergencyStatus.getName()).toString();
@@ -145,7 +145,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, EmergencyStatus> getIdToEmergencyStatusConverter() {
+    public Converter<Integer, EmergencyStatus> getIdToEmergencyStatusConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyStatus>() {
             public edu.ndnu.capstone.domain.EmergencyStatus convert(java.lang.Integer id) {
                 return emergencyStatusService.findEmergencyStatus(id);
@@ -153,7 +153,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, EmergencyStatus> getStringToEmergencyStatusConverter() {
+    public Converter<String, EmergencyStatus> getStringToEmergencyStatusConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyStatus>() {
             public edu.ndnu.capstone.domain.EmergencyStatus convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), EmergencyStatus.class);
@@ -161,7 +161,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<EmergencyType, String> getEmergencyTypeToStringConverter() {
+    public Converter<EmergencyType, String> getEmergencyTypeToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.EmergencyType, java.lang.String>() {
             public String convert(EmergencyType emergencyType) {
                 return new StringBuilder().append(emergencyType.getName()).toString();
@@ -169,7 +169,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, EmergencyType> getIdToEmergencyTypeConverter() {
+    public Converter<Integer, EmergencyType> getIdToEmergencyTypeConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.EmergencyType>() {
             public edu.ndnu.capstone.domain.EmergencyType convert(java.lang.Integer id) {
                 return emergencyTypeService.findEmergencyType(id);
@@ -177,7 +177,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, EmergencyType> getStringToEmergencyTypeConverter() {
+    public Converter<String, EmergencyType> getStringToEmergencyTypeConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.EmergencyType>() {
             public edu.ndnu.capstone.domain.EmergencyType convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), EmergencyType.class);
@@ -185,7 +185,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Evacuation, String> getEvacuationToStringConverter() {
+    public Converter<Evacuation, String> getEvacuationToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Evacuation, java.lang.String>() {
             public String convert(Evacuation evacuation) {
                 return new StringBuilder().append(evacuation.getArea()).toString();
@@ -193,7 +193,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, Evacuation> getIdToEvacuationConverter() {
+    public Converter<Integer, Evacuation> getIdToEvacuationConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.Evacuation>() {
             public edu.ndnu.capstone.domain.Evacuation convert(java.lang.Integer id) {
                 return evacuationService.findEvacuation(id);
@@ -201,7 +201,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, Evacuation> getStringToEvacuationConverter() {
+    public Converter<String, Evacuation> getStringToEvacuationConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Evacuation>() {
             public edu.ndnu.capstone.domain.Evacuation convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), Evacuation.class);
@@ -209,7 +209,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Location, String> getLocationToStringConverter() {
+    public Converter<Location, String> getLocationToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Location, java.lang.String>() {
             public String convert(Location location) {
                 return new StringBuilder().append(location.getName()).append(", ").append(location.getAddress()).append(", ").append(location.getCity()).append(", ").append(location.getState()).toString();
@@ -217,7 +217,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, Location> getIdToLocationConverter() {
+    public Converter<Integer, Location> getIdToLocationConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.Location>() {
             public edu.ndnu.capstone.domain.Location convert(java.lang.Integer id) {
                 return locationService.findLocation(id);
@@ -225,7 +225,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, Location> getStringToLocationConverter() {
+    public Converter<String, Location> getStringToLocationConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Location>() {
             public edu.ndnu.capstone.domain.Location convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), Location.class);
@@ -233,7 +233,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<User, String> getUserToStringConverter() {
+    public Converter<User, String> getUserToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.User, java.lang.String>() {
             public String convert(User user) {
                 return new StringBuilder().append(user.getName()).append(" - ").append(user.getEmail()).toString();
@@ -241,7 +241,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, User> getIdToUserConverter() {
+    public Converter<Integer, User> getIdToUserConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.User>() {
             public edu.ndnu.capstone.domain.User convert(java.lang.Integer id) {
                 return userService.findUser(id);
@@ -249,7 +249,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, User> getStringToUserConverter() {
+    public Converter<String, User> getStringToUserConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.User>() {
             public edu.ndnu.capstone.domain.User convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), User.class);
@@ -257,7 +257,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<UserType, String> getUserTypeToStringConverter() {
+    public Converter<UserType, String> getUserTypeToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.UserType, java.lang.String>() {
             public String convert(UserType userType) {
                 return new StringBuilder().append(userType.getName()).toString();
@@ -265,7 +265,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<Integer, UserType> getIdToUserTypeConverter() {
+    public Converter<Integer, UserType> getIdToUserTypeConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.UserType>() {
             public edu.ndnu.capstone.domain.UserType convert(java.lang.Integer id) {
                 return userTypeService.findUserType(id);
@@ -273,7 +273,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public Converter<String, UserType> getStringToUserTypeConverter() {
+    public Converter<String, UserType> getStringToUserTypeConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.UserType>() {
             public edu.ndnu.capstone.domain.UserType convert(String id) {
                 return getObject().convert(getObject().convert(id, Integer.class), UserType.class);
@@ -281,7 +281,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-	public void installLabelConverters(FormatterRegistry registry) {
+    public void installLabelConverters(FormatterRegistry registry) {
         registry.addConverter(getEmergencyToStringConverter());
         registry.addConverter(getIdToEmergencyConverter());
         registry.addConverter(getStringToEmergencyConverter());
@@ -311,7 +311,7 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         registry.addConverter(getStringToUserTypeConverter());
     }
 
-	public void afterPropertiesSet() {
+    public void afterPropertiesSet() {
         super.afterPropertiesSet();
         installLabelConverters(getObject());
     }

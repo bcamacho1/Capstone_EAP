@@ -17,26 +17,26 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = Emergency.class)
 public class EmergencyDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<Emergency> data;
+    private List<Emergency> data;
 
-	@Autowired
+    @Autowired
     LocationDataOnDemand locationDataOnDemand;
 
-	@Autowired
+    @Autowired
     EmergencyStatusDataOnDemand emergencyStatusDataOnDemand;
 
-	@Autowired
+    @Autowired
     EmergencyTypeDataOnDemand emergencyTypeDataOnDemand;
 
-	@Autowired
+    @Autowired
     UserDataOnDemand userDataOnDemand;
 
-	@Autowired
+    @Autowired
     EmergencyService emergencyService;
 
-	public Emergency getNewTransientEmergency(int index) {
+    public Emergency getNewTransientEmergency(int index) {
         Emergency obj = new Emergency();
         setCreated(obj, index);
         setDescription(obj, index);
@@ -47,12 +47,12 @@ public class EmergencyDataOnDemand {
         return obj;
     }
 
-	public void setCreated(Emergency obj, int index) {
+    public void setCreated(Emergency obj, int index) {
         Calendar created = Calendar.getInstance();
         obj.setCreated(created);
     }
 
-	public void setDescription(Emergency obj, int index) {
+    public void setDescription(Emergency obj, int index) {
         String description = "description_" + index;
         if (description.length() > 1024) {
             description = description.substring(0, 1024);
@@ -60,27 +60,27 @@ public class EmergencyDataOnDemand {
         obj.setDescription(description);
     }
 
-	public void setLocationId(Emergency obj, int index) {
+    public void setLocationId(Emergency obj, int index) {
         Location locationId = locationDataOnDemand.getRandomLocation();
         obj.setLocationId(locationId);
     }
 
-	public void setStatusId(Emergency obj, int index) {
+    public void setStatusId(Emergency obj, int index) {
         EmergencyStatus statusId = emergencyStatusDataOnDemand.getRandomEmergencyStatus();
         obj.setStatusId(statusId);
     }
 
-	public void setTypeId(Emergency obj, int index) {
+    public void setTypeId(Emergency obj, int index) {
         EmergencyType typeId = emergencyTypeDataOnDemand.getRandomEmergencyType();
         obj.setTypeId(typeId);
     }
 
-	public void setUserId(Emergency obj, int index) {
+    public void setUserId(Emergency obj, int index) {
         User userId = userDataOnDemand.getRandomUser();
         obj.setUserId(userId);
     }
 
-	public Emergency getSpecificEmergency(int index) {
+    public Emergency getSpecificEmergency(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -93,18 +93,18 @@ public class EmergencyDataOnDemand {
         return emergencyService.findEmergency(id);
     }
 
-	public Emergency getRandomEmergency() {
+    public Emergency getRandomEmergency() {
         init();
         Emergency obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return emergencyService.findEmergency(id);
     }
 
-	public boolean modifyEmergency(Emergency obj) {
+    public boolean modifyEmergency(Emergency obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = emergencyService.findEmergencyEntries(from, to);
@@ -114,7 +114,7 @@ public class EmergencyDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<Emergency>();
         for (int i = 0; i < 10; i++) {
             Emergency obj = getNewTransientEmergency(i);

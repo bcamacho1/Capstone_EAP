@@ -24,20 +24,20 @@ public class LocationIntegrationTest {
     public void testMarkerMethod() {
     }
 
-	@Autowired
+    @Autowired
     LocationDataOnDemand dod;
 
-	@Autowired
+    @Autowired
     LocationService locationService;
 
-	@Test
+    @Test
     public void testCountAllLocations() {
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", dod.getRandomLocation());
         long count = locationService.countAllLocations();
         Assert.assertTrue("Counter for 'Location' incorrectly reported there were no entries", count > 0);
     }
 
-	@Test
+    @Test
     public void testFindLocation() {
         Location obj = dod.getRandomLocation();
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", obj);
@@ -48,7 +48,7 @@ public class LocationIntegrationTest {
         Assert.assertEquals("Find method for 'Location' returned the incorrect identifier", id, obj.getId());
     }
 
-	@Test
+    @Test
     public void testFindAllLocations() {
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", dod.getRandomLocation());
         long count = locationService.countAllLocations();
@@ -58,7 +58,7 @@ public class LocationIntegrationTest {
         Assert.assertTrue("Find all method for 'Location' failed to return any data", result.size() > 0);
     }
 
-	@Test
+    @Test
     public void testFindLocationEntries() {
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", dod.getRandomLocation());
         long count = locationService.countAllLocations();
@@ -70,7 +70,7 @@ public class LocationIntegrationTest {
         Assert.assertEquals("Find entries method for 'Location' returned an incorrect number of entries", count, result.size());
     }
 
-	@Test
+    @Test
     public void testSaveLocation() {
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", dod.getRandomLocation());
         Location obj = dod.getNewTransientLocation(Integer.MAX_VALUE);
@@ -90,7 +90,7 @@ public class LocationIntegrationTest {
         Assert.assertNotNull("Expected 'Location' identifier to no longer be null", obj.getId());
     }
 
-	@Test
+    @Test
     public void testDeleteLocation() {
         Location obj = dod.getRandomLocation();
         Assert.assertNotNull("Data on demand for 'Location' failed to initialize correctly", obj);

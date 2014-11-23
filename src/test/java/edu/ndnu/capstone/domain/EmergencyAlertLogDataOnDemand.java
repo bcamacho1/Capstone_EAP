@@ -17,23 +17,23 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = EmergencyAlertLog.class)
 public class EmergencyAlertLogDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<EmergencyAlertLog> data;
+    private List<EmergencyAlertLog> data;
 
-	@Autowired
+    @Autowired
     EmergencyDataOnDemand emergencyDataOnDemand;
 
-	@Autowired
+    @Autowired
     EmergencyMessageDataOnDemand emergencyMessageDataOnDemand;
 
-	@Autowired
+    @Autowired
     UserDataOnDemand userDataOnDemand;
 
-	@Autowired
+    @Autowired
     EmergencyAlertLogService emergencyAlertLogService;
 
-	public EmergencyAlertLog getNewTransientEmergencyAlertLog(int index) {
+    public EmergencyAlertLog getNewTransientEmergencyAlertLog(int index) {
         EmergencyAlertLog obj = new EmergencyAlertLog();
         setEmergencyId(obj, index);
         setSent(obj, index);
@@ -41,22 +41,22 @@ public class EmergencyAlertLogDataOnDemand {
         return obj;
     }
 
-	public void setEmergencyId(EmergencyAlertLog obj, int index) {
+    public void setEmergencyId(EmergencyAlertLog obj, int index) {
         Emergency emergencyId = emergencyDataOnDemand.getRandomEmergency();
         obj.setEmergencyId(emergencyId);
     }
 
-	public void setSent(EmergencyAlertLog obj, int index) {
+    public void setSent(EmergencyAlertLog obj, int index) {
         Integer sent = new Integer(index);
         obj.setSent(sent);
     }
 
-	public void setTs(EmergencyAlertLog obj, int index) {
+    public void setTs(EmergencyAlertLog obj, int index) {
         Calendar ts = Calendar.getInstance();
         obj.setTs(ts);
     }
 
-	public EmergencyAlertLog getSpecificEmergencyAlertLog(int index) {
+    public EmergencyAlertLog getSpecificEmergencyAlertLog(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -69,18 +69,18 @@ public class EmergencyAlertLogDataOnDemand {
         return emergencyAlertLogService.findEmergencyAlertLog(id);
     }
 
-	public EmergencyAlertLog getRandomEmergencyAlertLog() {
+    public EmergencyAlertLog getRandomEmergencyAlertLog() {
         init();
         EmergencyAlertLog obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return emergencyAlertLogService.findEmergencyAlertLog(id);
     }
 
-	public boolean modifyEmergencyAlertLog(EmergencyAlertLog obj) {
+    public boolean modifyEmergencyAlertLog(EmergencyAlertLog obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = emergencyAlertLogService.findEmergencyAlertLogEntries(from, to);
@@ -90,7 +90,7 @@ public class EmergencyAlertLogDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<EmergencyAlertLog>();
         for (int i = 0; i < 10; i++) {
             EmergencyAlertLog obj = getNewTransientEmergencyAlertLog(i);

@@ -16,20 +16,20 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = UserType.class)
 public class UserTypeDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<UserType> data;
+    private List<UserType> data;
 
-	@Autowired
+    @Autowired
     UserTypeService userTypeService;
 
-	public UserType getNewTransientUserType(int index) {
+    public UserType getNewTransientUserType(int index) {
         UserType obj = new UserType();
         setName(obj, index);
         return obj;
     }
 
-	public void setName(UserType obj, int index) {
+    public void setName(UserType obj, int index) {
         String name = "name_" + index;
         if (name.length() > 256) {
             name = name.substring(0, 256);
@@ -37,7 +37,7 @@ public class UserTypeDataOnDemand {
         obj.setName(name);
     }
 
-	public UserType getSpecificUserType(int index) {
+    public UserType getSpecificUserType(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -50,18 +50,18 @@ public class UserTypeDataOnDemand {
         return userTypeService.findUserType(id);
     }
 
-	public UserType getRandomUserType() {
+    public UserType getRandomUserType() {
         init();
         UserType obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return userTypeService.findUserType(id);
     }
 
-	public boolean modifyUserType(UserType obj) {
+    public boolean modifyUserType(UserType obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = userTypeService.findUserTypeEntries(from, to);
@@ -71,7 +71,7 @@ public class UserTypeDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<UserType>();
         for (int i = 0; i < 10; i++) {
             UserType obj = getNewTransientUserType(i);
