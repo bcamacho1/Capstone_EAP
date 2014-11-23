@@ -17,17 +17,17 @@ import org.springframework.stereotype.Component;
 @RooDataOnDemand(entity = User.class)
 public class UserDataOnDemand {
 
-	private Random rnd = new SecureRandom();
+    private Random rnd = new SecureRandom();
 
-	private List<User> data;
+    private List<User> data;
 
-	@Autowired
+    @Autowired
     UserTypeDataOnDemand userTypeDataOnDemand;
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	public User getNewTransientUser(int index) {
+    public User getNewTransientUser(int index) {
         User obj = new User();
         setActive(obj, index);
         setCreated(obj, index);
@@ -41,17 +41,17 @@ public class UserDataOnDemand {
         return obj;
     }
 
-	public void setActive(User obj, int index) {
+    public void setActive(User obj, int index) {
         Integer active = new Integer(index);
         obj.setActive(active);
     }
 
-	public void setCreated(User obj, int index) {
+    public void setCreated(User obj, int index) {
         Calendar created = Calendar.getInstance();
         obj.setCreated(created);
     }
 
-	public void setDescription(User obj, int index) {
+    public void setDescription(User obj, int index) {
         String description = "description_" + index;
         if (description.length() > 1024) {
             description = description.substring(0, 1024);
@@ -59,7 +59,7 @@ public class UserDataOnDemand {
         obj.setDescription(description);
     }
 
-	public void setEmail(User obj, int index) {
+    public void setEmail(User obj, int index) {
         String email = "foo" + index + "@bar.com";
         if (email.length() > 256) {
             email = new Random().nextInt(10) + email.substring(1, 256);
@@ -67,7 +67,7 @@ public class UserDataOnDemand {
         obj.setEmail(email);
     }
 
-	public void setName(User obj, int index) {
+    public void setName(User obj, int index) {
         String name = "name_" + index;
         if (name.length() > 256) {
             name = name.substring(0, 256);
@@ -75,12 +75,12 @@ public class UserDataOnDemand {
         obj.setName(name);
     }
 
-	public void setPassword(User obj, int index) {
+    public void setPassword(User obj, int index) {
         String password = "password_" + index;
         obj.setPassword(password);
     }
 
-	public void setPhone(User obj, int index) {
+    public void setPhone(User obj, int index) {
         String phone = "phone_" + index;
         if (phone.length() > 24) {
             phone = phone.substring(0, 24);
@@ -88,12 +88,12 @@ public class UserDataOnDemand {
         obj.setPhone(phone);
     }
 
-	public void setTypeId(User obj, int index) {
+    public void setTypeId(User obj, int index) {
         UserType typeId = userTypeDataOnDemand.getRandomUserType();
         obj.setTypeId(typeId);
     }
 
-	public void setUsername(User obj, int index) {
+    public void setUsername(User obj, int index) {
         String username = "username_" + index;
         if (username.length() > 256) {
             username = username.substring(0, 256);
@@ -101,7 +101,7 @@ public class UserDataOnDemand {
         obj.setUsername(username);
     }
 
-	public User getSpecificUser(int index) {
+    public User getSpecificUser(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -114,18 +114,18 @@ public class UserDataOnDemand {
         return userService.findUser(id);
     }
 
-	public User getRandomUser() {
+    public User getRandomUser() {
         init();
         User obj = data.get(rnd.nextInt(data.size()));
         Integer id = obj.getId();
         return userService.findUser(id);
     }
 
-	public boolean modifyUser(User obj) {
+    public boolean modifyUser(User obj) {
         return false;
     }
 
-	public void init() {
+    public void init() {
         int from = 0;
         int to = 10;
         data = userService.findUserEntries(from, to);
@@ -135,7 +135,7 @@ public class UserDataOnDemand {
         if (!data.isEmpty()) {
             return;
         }
-        
+
         data = new ArrayList<User>();
         for (int i = 0; i < 10; i++) {
             User obj = getNewTransientUser(i);
