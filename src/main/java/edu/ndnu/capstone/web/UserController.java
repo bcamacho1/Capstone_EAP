@@ -33,62 +33,62 @@ import org.joda.time.format.DateTimeFormat;
 @RooWebScaffold(path = "users", formBackingObject = User.class)
 @GvNIXWebJQuery
 public class UserController {
-	
-	@Autowired
+
+    @Autowired
     UserService userService;
 
-	@Autowired
+    @Autowired
     EmergencyService emergencyService;
 
-	@Autowired
+    @Autowired
     UserTypeService userTypeService;
 
-	@RequestMapping(value="/passwordChange")
+    @RequestMapping(value="/passwordChange")
     public String changePassword() 
     {
-	    System.out.println("Made it to the passwordChange method");
-	    
-	    return "index";
+        System.out.println("Made it to the passwordChange method");
+
+        return "index";
     }
-	
-	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
+
+    @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
-        	//bindingResult.addError(new ObjectError("user", "Username is already in the database"));
-        	//bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
-        	java.util.List<ObjectError> list=bindingResult.getAllErrors();
-        	for(ObjectError obj:list)
-        	{
-        		System.out.println("objname"+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
-        		if(obj instanceof FieldError)
-        		{
-        			System.out.println(((FieldError)obj).getField());
-        		}
-        	}
-        	
+            //bindingResult.addError(new ObjectError("user", "Username is already in the database"));
+            //bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
+            java.util.List<ObjectError> list=bindingResult.getAllErrors();
+            for(ObjectError obj:list)
+            {
+                System.out.println("objname"+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+                if(obj instanceof FieldError)
+                {
+                    System.out.println(((FieldError)obj).getField());
+                }
+            }
+
             populateEditForm(uiModel, user);
             return "users/create";
         }
         try {
-        	userService.saveUser(user);
-        	uiModel.asMap().clear();  
-	        return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+            userService.saveUser(user);
+            uiModel.asMap().clear();  
+            return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
         } catch (Exception e) {
-        	bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
-        	populateEditForm(uiModel, user);
+            bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
+            populateEditForm(uiModel, user);
             return "users/create";
         }
-        
-        
+
+
     }
 
-	@RequestMapping(params = "form", produces = "text/html")
+    @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new User());
         return "users/create";
     }
 
-	@RequestMapping(value = "/{id}", produces = "text/html")
+    @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("user", userService.findUser(id));
@@ -96,7 +96,7 @@ public class UserController {
         return "users/show";
     }
 
-	@RequestMapping(produces = "text/html")
+    @RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
@@ -111,7 +111,7 @@ public class UserController {
         return "users/list";
     }
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, user);
@@ -122,13 +122,13 @@ public class UserController {
         return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
     }
 
-	@RequestMapping(value = "/{id}", params = "form", produces = "text/html")
+    @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, userService.findUser(id));
         return "users/update";
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         User user = userService.findUser(id);
         userService.deleteUser(user);
@@ -138,11 +138,11 @@ public class UserController {
         return "redirect:/users";
     }
 
-	void addDateTimeFormatPatterns(Model uiModel) {
+    void addDateTimeFormatPatterns(Model uiModel) {
         uiModel.addAttribute("user_created_date_format", DateTimeFormat.patternForStyle("MM", LocaleContextHolder.getLocale()));
     }
 
-	void populateEditForm(Model uiModel, User user) {
+    void populateEditForm(Model uiModel, User user) {
         uiModel.addAttribute("user", user);
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
@@ -150,7 +150,7 @@ public class UserController {
         uiModel.addAttribute("useractivetypes", UserActiveType.findTypes());
     }
 
-	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+    String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;

@@ -64,7 +64,7 @@ public class EmergencyController {
 
     @Autowired
     UserService userService;
-    
+
     // The url to get to this method is /emergencys/alert
     // This gets appended to the RequestMapping annotation above
     @RequestMapping(value="/alert/{emergency_id}")
@@ -72,26 +72,26 @@ public class EmergencyController {
     {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(login);
-        
+
         User user = User.findUserByUsername(login); 
-        
+
         System.out.printf("%d\n", emergency_id);
         System.out.println("You sent an email alert!");
-        
+
         // load the emergency information to populate the email
         Emergency emergency = Emergency.findEmergency(emergency_id);
         EmergencyType type = emergency.getTypeId();
         EmergencyStatus status = emergency.getStatusId();
         Location location = emergency.getLocationId();
-        
+
         EmergencyMessage message = EmergencyMessage.findEmergencyMessageByUserAndType(user.getId(), type.getId());
         String action = "";
-        
+
         if (message == null)
         {
             message = EmergencyMessage.findDefaultEmergencyMessageByType(type.getId());
         }
-            
+
         if (message == null)
         {
             action = "N/A";
@@ -100,112 +100,112 @@ public class EmergencyController {
         {
             action = message.getMessage();
         }
-        
+
         // email credentials
         final String username = "capstone.eap.ndnu@gmail.com";
         final String password = "capstone_eap";
         final String from = "capstone.eap.ndnu@gmail.com";
         String to = "smantegani@student.ndnu.edu";
         //String to = "samantegani@gmail.com";
- 
+
         new User();
         EntityManager em = User.entityManager();
         // User is the class name in the query, not lower case "user" which is the actual name of the table
         @SuppressWarnings("unchecked")
         List<String> rs = em.createQuery("SELECT u.email FROM User u where u.active = 1").getResultList();
-        
+
         Iterator<String> iterator = rs.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
-        
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
- 
+
         Session session = Session.getInstance(props,
-          new javax.mail.Authenticator() {
+                new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
-          });
-        
+        });
+
         try
         {
             String text = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" +
-                          "<html xmlns=\"http://www.w3.org/1999/xhtml\">" +
-                              "<head>" +
-                                  "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" +
-                                  "<title>Capstone Template</title>" +
-                                  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>" +
-                              "</head>"+
-                              "<body style=\"margin: 0; padding: 0;\">" +
-                                  "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
-                                      "<tr>" +
-                                          "<td>" +
-                                              "<table align=\"center\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\">" +
-                                                  "<tr>" +
-                                                      "<td bgcolor=\"#000271\" align=\"center\">" +
-                                                          "<h1><font color=\"#ffffff\">NDNU Emergency Alert!</font></h1>" +
-                                                      "</td>" +
-                                                  "</tr>" +
-                                                  "<tr>" +
-                                                      "<td bgcolor=\"#eeeeee\">" +
-                                                          "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
-                                                              "<tr>" +
-                                                                  "<td bgcolor=\"#e5bd17\">&nbsp;</td>" +
-                                                              "</tr>" +
-                                                              "<tr>" +
-                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
-                                                                      "<strong>Type:</strong> " + type.getName() +
-                                                                  "</td>" +
-                                                              "</tr>" +
-                                                              "<tr>" +
-                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
-                                                                      "<strong>Location:</strong> " + location.getName() +
-                                                                  "</td>" +
-                                                              "</tr>" +
-                                                              "<tr>" +
-                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
-                                                                      "<strong>Status:</strong> " + status.getName() +
-                                                                  "</td>" +
-                                                              "</tr>" +
-                                                              "<tr>" +
-                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
-                                                                      "<strong>Description:</strong> " + emergency.getDescription() +
-                                                                  "</td>" +
-                                                              "</tr>" +
-                                                              "<tr>" +
-                                                                  "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
-                                                                      "<strong>Action:</strong> " + action +
-                                                                  "</td>" +
-                                                              "</tr>" +
-                                                          "</table>" +
-                                                      "</td>" +
-                                                  "</tr>" +
-                                                  "<tr>" +
-                                                      "<td bgcolor=\"#ee4c50\">" +
-                                                          "Row 3" +
-                                                      "</td>" +
-                                                  "</tr>" +
-                                              "</table>" +
-                                          "</td>" +
-                                      "</tr>" +
-                                  "</table>" +
-                              "</body>" +
-                          "</html>";
+                    "<html xmlns=\"http://www.w3.org/1999/xhtml\">" +
+                    "<head>" +
+                    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" +
+                    "<title>Capstone Template</title>" +
+                    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>" +
+                    "</head>"+
+                    "<body style=\"margin: 0; padding: 0;\">" +
+                    "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
+                    "<tr>" +
+                    "<td>" +
+                    "<table align=\"center\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\">" +
+                    "<tr>" +
+                    "<td bgcolor=\"#000271\" align=\"center\">" +
+                    "<h1><font color=\"#ffffff\">NDNU Emergency Alert!</font></h1>" +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td bgcolor=\"#eeeeee\">" +
+                    "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
+                    "<tr>" +
+                    "<td bgcolor=\"#e5bd17\">&nbsp;</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                    "<strong>Type:</strong> " + type.getName() +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                    "<strong>Location:</strong> " + location.getName() +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                    "<strong>Status:</strong> " + status.getName() +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                    "<strong>Description:</strong> " + emergency.getDescription() +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                    "<strong>Action:</strong> " + action +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td bgcolor=\"#ee4c50\">" +
+                    "Row 3" +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "</body>" +
+                    "</html>";
 
             MimeMessage email = new MimeMessage(session);
             email.setFrom(new InternetAddress(from));
             email.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             email.setSubject("NDNU Emergency Alert: " + type.getName());
             email.setContent(text, "text/html");
-    
+
             Transport.send(email);
             System.out.println("Sent message successfully....");
-            
+
             EmergencyAlertLog eml = new EmergencyAlertLog();
             eml.setUserId(user);
             eml.setEmergencyId(emergency);
@@ -218,7 +218,7 @@ public class EmergencyController {
         {
             mex.printStackTrace();
         }
-        
+
         // return the name of one of the mappings in the view.xml file
         // we will navigate to this page
         // examples like campusMap, index, resourceNotFound

@@ -45,213 +45,213 @@ import org.springframework.transaction.annotation.Transactional;
 @RooToString(excludeFields = { "emergencies", "typeId" })
 public class User 
 {
-	
-	@OneToMany(mappedBy = "userId")
+
+    @OneToMany(mappedBy = "userId")
     private Set<Emergency> emergencies;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
     private UserType typeId;
 
-	@Column(name = "name", length = 256)
+    @Column(name = "name", length = 256)
     @NotNull(message="Name can not be left blank.")
     @Size(min=2, max=30, message="Size must be between 2 and 30 characters.}")
-	@Pattern(regexp = "[A-Za-z]", message="Name must contain only letters.")
+    @Pattern(regexp = "[A-Za-z]", message="Name must contain only letters.")
     private String name;
 
-	@Column(name = "email", length = 100, unique = true)
+    @Column(name = "email", length = 100, unique = true)
     @NotNull(message="Email can not be left blank.")
     @Pattern(regexp = "[A-Za-z0-9]{3,100}@ndnu.edu", message="Must be of the form staff@ndnu.edu")
     private String email;
-	
-	
-	@Column(name = "username", length = 150, unique = true)
+
+
+    @Column(name = "username", length = 150, unique = true)
     @NotNull(message="User name can not be left blank.")
     @Size(min=5, message="Must be at least 5 characters.")
     private String username;
 
-	@Column(name = "password")
+    @Column(name = "password")
     @NotNull(message="Password can not be left blank.")
     @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="Password must start with a number and be at least 5 characters.")
     private String password;
 
-	@Column(name = "phone", length = 10, unique = true)
+    @Column(name = "phone", length = 10, unique = true)
     @NotNull(message="Phone number can not be left blank.")
     @Pattern(regexp = "^((?![5]{3})(\\d{3}))([. -]*)(\\d{3})([. -]*)\\d{4}$", message="Phone number can be of the form 888-123-4567 or 888.123.4567.")
     private String phone;
 
-	@Column(name = "active", length = 1)
+    @Column(name = "active", length = 1)
     @NotNull(message="Active can not be left blank.")
     @Min(0)
-	@Max(1)
+    @Max(1)
     private Integer active;
 
-	@Column(name = "created", updatable = false)
+    @Column(name = "created", updatable = false)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "MM")
     private Calendar created = java.util.Calendar.getInstance();
 
-	@Column(name = "description", length = 1024)
+    @Column(name = "description", length = 1024)
     @NotNull
     private String description;
 
-	public Set<Emergency> getEmergencies() {
+    public Set<Emergency> getEmergencies() {
         return emergencies;
     }
 
-	public void setEmergencies(Set<Emergency> emergencies) {
+    public void setEmergencies(Set<Emergency> emergencies) {
         this.emergencies = emergencies;
     }
 
-	public UserType getTypeId() {
+    public UserType getTypeId() {
         return typeId;
     }
 
-	public void setTypeId(UserType typeId) {
+    public void setTypeId(UserType typeId) {
         this.typeId = typeId;
     }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
-	public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-	public String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-	public void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-	public String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-	public void setUsername(String username) {
-		this.email=username+"@student.ndnu.edu";
+    public void setUsername(String username) {
+        this.email=username+"@student.ndnu.edu";
         this.username = username;
     }
 
-	public String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-	public void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-	public String getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-	public void setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-	public Integer getActive() {
+    public Integer getActive() {
         return active;
     }
 
-	public void setActive(Integer active) {
-		this.active = active;
+    public void setActive(Integer active) {
+        this.active = active;
     }
 
-	public Calendar getCreated() {
+    public Calendar getCreated() {
         return created;
     }
 
-	public void setCreated(Calendar created) {
+    public void setCreated(Calendar created) {
         this.created = created;
     }
 
-	public String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-	public void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-	public Integer getId() {
+    public Integer getId() {
         return this.id;
     }
 
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-	
-	/*
-	 * We use the two annotations below, PrePersist and PreUpdate,
-	 * to execute the code below before creating/updating a user.
-	 * 
-	 * This code takes the password string and makes a sha-256 hash
-	 * before saving it in the database.
-	 * 
-	 */
-	@PrePersist
-	@PreUpdate
-	public void encryptPassword() 
-	{
-	    String password = this.getPassword();
-	    if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
-	    {
-	        MessageDigest md;
-	        try 
-	        {
-	            md = MessageDigest.getInstance("SHA-256");
-	            md.update(password.getBytes());
-	            byte[] shaDig = md.digest();
-	            String hashedPassword = convertByteArrayToHexString(shaDig);
-	            this.setPassword(hashedPassword);
-	        } 
-	        catch (NoSuchAlgorithmException e) 
-	        {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-	    }
-	}
-	
-	private String convertByteArrayToHexString(byte[] arrayBytes)
-	{
-	    StringBuffer stringBuffer = new StringBuffer();
-	    for (int i = 0; i < arrayBytes.length; i++)
-	    {
-	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(1));
-	    }
-	    return stringBuffer.toString();
-	}
 
-	@PersistenceContext
+    /*
+     * We use the two annotations below, PrePersist and PreUpdate,
+     * to execute the code below before creating/updating a user.
+     * 
+     * This code takes the password string and makes a sha-256 hash
+     * before saving it in the database.
+     * 
+     */
+    @PrePersist
+    @PreUpdate
+    public void encryptPassword() 
+    {
+        String password = this.getPassword();
+        if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
+        {
+            MessageDigest md;
+            try 
+            {
+                md = MessageDigest.getInstance("SHA-256");
+                md.update(password.getBytes());
+                byte[] shaDig = md.digest();
+                String hashedPassword = convertByteArrayToHexString(shaDig);
+                this.setPassword(hashedPassword);
+            } 
+            catch (NoSuchAlgorithmException e) 
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String convertByteArrayToHexString(byte[] arrayBytes)
+    {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < arrayBytes.length; i++)
+        {
+            stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return stringBuffer.toString();
+    }
+
+    @PersistenceContext
     transient EntityManager entityManager;
 
-	public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
 
-	public static final EntityManager entityManager() {
+    public static final EntityManager entityManager() {
         EntityManager em = new User().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countUsers() {
+    public static long countUsers() {
         return entityManager().createQuery("SELECT COUNT(o) FROM User o", Long.class).getSingleResult();
     }
 
-	public static List<User> findAllUsers() {
+    public static List<User> findAllUsers() {
         return entityManager().createQuery("SELECT o FROM User o", User.class).getResultList();
     }
 
-	public static List<User> findAllUsers(String sortFieldName, String sortOrder) {
+    public static List<User> findAllUsers(String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM User o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -262,16 +262,16 @@ public class User
         return entityManager().createQuery(jpaQuery, User.class).getResultList();
     }
 
-	public static User findUser(Integer id) {
+    public static User findUser(Integer id) {
         if (id == null) return null;
         return entityManager().find(User.class, id);
     }
 
-	public static List<User> findUserEntries(int firstResult, int maxResults) {
+    public static List<User> findUserEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM User o", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	public static List<User> findUserEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+    public static List<User> findUserEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
         String jpaQuery = "SELECT o FROM User o";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
@@ -282,13 +282,13 @@ public class User
         return entityManager().createQuery(jpaQuery, User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-	@Transactional
+    @Transactional
     public void persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
 
-	@Transactional
+    @Transactional
     public void remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
@@ -299,19 +299,19 @@ public class User
         }
     }
 
-	@Transactional
+    @Transactional
     public void flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
 
-	@Transactional
+    @Transactional
     public void clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
 
-	@Transactional
+    @Transactional
     public User merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
         User merged = this.entityManager.merge(this);
@@ -319,12 +319,12 @@ public class User
         return merged;
     }
 
-	public String toString() {
+    public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies", "typeId").toString();
     }
 
-	public static User findUserByUsername(String username2) {
-		if (username2 == null) return null;
+    public static User findUserByUsername(String username2) {
+        if (username2 == null) return null;
         return entityManager().createQuery("SELECT o FROM User o WHERE username = '" + username2 + "'", User.class).getSingleResult();
-	}
+    }
 }
