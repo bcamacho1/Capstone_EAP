@@ -20,6 +20,11 @@ color: #a09f48;
    padding: 0;
     margin: 0;
 }
+
+#campus_map
+{
+   padding-bottom: 40px;
+}
 </style>
 
 <br/>
@@ -27,7 +32,7 @@ color: #a09f48;
 </div>
 	<spring:url var="campus_map" value="/resources/images/campus_map.png" />
 
- 	<div class="pull-left hidden-xs">
+ 	<div class="campus_map">
   		<img src="${campus_map}" id="campus_map" />
  	</div>
 </div>
