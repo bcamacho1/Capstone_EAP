@@ -44,7 +44,7 @@
                <menu:item id="i_emergencyalertlog_list" messageCode="global_menu_list" url="/emergencyalertlogs?page=1&amp;size=${empty param.size ? 10 : param.size}" z="zI2Jl4d2GHIbOmboy2mYlyQYfKo="/>
 	        </sec:authorize>
         </menu:category>
-        <sec:authorize ifAllGranted="Admin">
+        <sec:authorize ifAllGranted="First Responder">
         	<menu:category id="c_settings" z="">
      			<menu:item id="i_password_change" url="/passwordChange" z=""/>
         	</menu:category>
