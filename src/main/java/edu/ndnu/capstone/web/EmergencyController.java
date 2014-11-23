@@ -67,19 +67,19 @@ public class EmergencyController {
     
     // The url to get to this method is /emergencys/alert
     // This gets appended to the RequestMapping annotation above
-    @RequestMapping(value="/alert/{param}")
-    public String sendEmailAlert(@PathVariable("param") int param) 
+    @RequestMapping(value="/alert/{emergency_id}")
+    public String sendEmailAlert(@PathVariable("emergency_id") int emergency_id) 
     {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(login);
         
         User user = User.findUserByUsername(login); 
         
-        System.out.printf("%d\n", param);
+        System.out.printf("%d\n", emergency_id);
         System.out.println("You sent an email alert!");
         
         // load the emergency information to populate the email
-        Emergency emergency = Emergency.findEmergency(param);
+        Emergency emergency = Emergency.findEmergency(emergency_id);
         EmergencyType type = emergency.getTypeId();
         EmergencyStatus status = emergency.getStatusId();
         Location location = emergency.getLocationId();

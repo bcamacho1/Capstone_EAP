@@ -15,9 +15,6 @@
 		<field:input field="password" id="c_edu_ndnu_capstone_domain_User_password" required="true" z="kEW4oQdeXWi+JyIwdUJkmMKHYII=" type="password"/>
 		<field:input field="phone" id="c_edu_ndnu_capstone_domain_User_phone"
 			required="true" z="k42Av41wIfhbInJmZhCY/WbW+h4=" />
-		<field:input field="year" id="c_edu_ndnu_capstone_domain_User_year"
-			required="true" validationMessageCode="field_invalid_number" max="4"
-			min="4" z="HL+hSR+nz8/34t6nn2HXLRJaIyA=" validationMessage="Year must be four digits" />
 		<field:select field="active" id="c_edu_ndnu_capstone_domain_User_active" path="" items="${useractivetypes}" itemLabel="name" itemValue="value" required="true"   z="wMEcOQjcrIJKY5RQ7mQ4/Uu9Ago="/>
         <field:input field="description" id="c_edu_ndnu_capstone_domain_User_description" required="true" z="6TJHmWCAvkCtONvKOBHftLCMtso="/>
         <field:simple field="emergencyAlertLogs" id="c_edu_ndnu_capstone_domain_User_emergencyAlertLogs" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency Alert Log" z="DVQOdEx/8k4z9gCnCLnYWYizrbA="/>

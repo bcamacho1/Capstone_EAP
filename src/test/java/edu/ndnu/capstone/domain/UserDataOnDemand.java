@@ -38,7 +38,6 @@ public class UserDataOnDemand {
         setPhone(obj, index);
         setTypeId(obj, index);
         setUsername(obj, index);
-        setYear(obj, index);
         return obj;
     }
 
@@ -100,14 +99,6 @@ public class UserDataOnDemand {
             username = username.substring(0, 256);
         }
         obj.setUsername(username);
-    }
-
-	public void setYear(User obj, int index) {
-        String year = "year_" + index;
-        if (year.length() > 16) {
-            year = year.substring(0, 16);
-        }
-        obj.setYear(year);
     }
 
 	public User getSpecificUser(int index) {

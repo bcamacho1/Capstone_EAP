@@ -162,7 +162,6 @@
         <column name="username" primaryKey="false" required="true" scale="0" size="256" type="12,VARCHAR"/>
         <column name="password" primaryKey="false" required="true" scale="0" size="4000" type="12,VARCHAR"/>
         <column name="phone" primaryKey="false" required="true" scale="0" size="24" type="12,VARCHAR"/>
-        <column name="year" primaryKey="false" required="false" scale="0" size="16" type="12,VARCHAR"/>
         <column name="type_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <column name="active" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
         <column name="created" primaryKey="false" required="true" scale="0" size="19" type="93,TIMESTAMP"/>

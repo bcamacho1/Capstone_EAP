@@ -80,11 +80,6 @@ public class User
     @Pattern(regexp = "^((?![5]{3})(\\d{3}))([. -]*)(\\d{3})([. -]*)\\d{4}$", message="Phone number can be of the form 888-123-4567 or 888.123.4567.")
     private String phone;
 
-	@Column(name = "year", length = 4)
-    @NotNull(message="Year can not be left blank.")
-    @Pattern(regexp = "20[0-9][0-9]", message="Year must be between 2000 and 2099.")
-    private String year;
-
 	@Column(name = "active", length = 1)
     @NotNull(message="Active can not be left blank.")
     @Min(0)
@@ -156,14 +151,6 @@ public class User
 
 	public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-	public String getYear() {
-        return year;
-    }
-
-	public void setYear(String year) {
-        this.year = year;
     }
 
 	public Integer getActive() {

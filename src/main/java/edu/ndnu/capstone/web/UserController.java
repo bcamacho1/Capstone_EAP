@@ -43,6 +43,14 @@ public class UserController {
 	@Autowired
     UserTypeService userTypeService;
 
+	@RequestMapping(value="/passwordChange")
+    public String changePassword() 
+    {
+	    System.out.println("Made it to the passwordChange method");
+	    
+	    return "index";
+    }
+	
 	@RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
