@@ -24,8 +24,10 @@ color: #a09f48;
 
 <br/>
     <h2>NDNU Campus</h2>
-    <br/>
-    <a href="http://www.ndnu.edu/wp-content/uploads/2013/01/ndnu-campus-map.pdf">Click Here</a>
-
 </div>
+	<spring:url var="campus_map" value="/resources/images/campus_map.png" />
+
+ 	<div class="pull-left hidden-xs">
+  		<img src="${campus_map}" id="campus_map" />
+ 	</div>
 </div>
