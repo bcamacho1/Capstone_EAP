@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="well" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/jquery/util" xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" version="2.0">
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+<jsp:output omit-xml-declaration="yes"/>
+
+<spring:url value="/users/dataImport" var="form_url"/>
+<div class="panel-heading">
+    <h3 class="panel-title">Data Import</h3>
+</div>
+<div class="panel-body">
+<form action="${form_url}" method="POST" name="f" class="form-horizontal">
+    <div class="submit">
+        	<script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="proceed"><spring:message code="button_submit"/></button>
+    </div>
+</form>
+</div>
+</div>
+
+

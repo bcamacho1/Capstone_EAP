@@ -34,4 +34,8 @@
     <put-attribute name="body" value="/WEB-INF/views/passwordChange.jspx"/>
   </definition>
   
+  <definition extends="default" name="dataImport">
+    <put-attribute name="body" value="/WEB-INF/views/dataImport.jspx"/>
+  </definition>
+  
 </tiles-definitions>
