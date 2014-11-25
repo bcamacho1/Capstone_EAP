@@ -43,7 +43,7 @@ public class UserController {
     @Autowired
     UserTypeService userTypeService;
 
-    @RequestMapping(value="/passwordChange")
+    @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
     public String changePassword() 
     {
         System.out.println("Made it to the passwordChange method");
