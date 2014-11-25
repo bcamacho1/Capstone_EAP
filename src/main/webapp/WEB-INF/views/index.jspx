@@ -46,19 +46,19 @@ hr
               
               
               
-			    <h3><a href = "/Capstone_Roo/locations?page=1&amp;size=10">Relevant Locations</a></h3>
+			    <h3><a href = "/Capstone_EAP/locations?page=1&amp;size=10">Relevant Locations</a></h3>
 			    We provide locations and areas that are important to know, when there is an emergency on campus.
 			     <br/>
-			    <h3><a href = "/Capstone_Roo/campusMap">Campus Map</a></h3>
+			    <h3><a href = "/Capstone_EAP/campusMap">Campus Map</a></h3>
 			    We provide a link to the campus map you can have access to in order to find the safest evacuation routes.
 			     <br/>
-			    <h3><a href="/Capstone_Roo/emergencystatuses?page=1&amp;size=10">Current Emergencies List</a></h3>
+			    <h3><a href="/Capstone_EAP/emergencystatuses?page=1&amp;size=10">Current Emergencies List</a></h3>
 			    We provide a list of any emergencies that are currently happening on campus that have been reported.
 			     <br/>
-			    <h3><a href="/Capstone_Roo/emergencys?form">Emergency Submission Form</a></h3>
+			    <h3><a href="/Capstone_EAP/emergencys?form">Emergency Submission Form</a></h3>
 			    There will be a form a user can fill out to report emergencies that happen on campus. The emergency will be posted on this app when it has been approved.
 			     <br/>
-			    <h3><a href="/Capstone_Roo/contactUs">List of Contacts</a></h3>
+			    <h3><a href="/Capstone_EAP/contactUs">List of Contacts</a></h3>
 			    We provide a list of relevant personal you can contact that are related to dealing with NDNU emergencies.
             </div>
         </div>
