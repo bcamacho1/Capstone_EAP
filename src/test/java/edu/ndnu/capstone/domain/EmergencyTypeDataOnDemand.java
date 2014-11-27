@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.dod.RooDataOnDemand;
@@ -26,6 +28,7 @@ public class EmergencyTypeDataOnDemand {
     public EmergencyType getNewTransientEmergencyType(int index) {
         EmergencyType obj = new EmergencyType();
         setName(obj, index);
+        setCategory(obj, index);
         return obj;
     }
 
@@ -35,6 +38,11 @@ public class EmergencyTypeDataOnDemand {
             name = name.substring(0, 256);
         }
         obj.setName(name);
+    }
+    
+    public void setCategory(EmergencyType obj, int index) {
+        Integer category = new Integer(index);
+        obj.setCategory(category);
     }
 
     public EmergencyType getSpecificEmergencyType(int index) {

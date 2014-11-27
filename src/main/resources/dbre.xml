@@ -121,6 +121,7 @@
     <table name="emergency_type">
         <column name="id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="name" primaryKey="false" required="true" scale="0" size="256" type="12,VARCHAR"/>
+        <column name="category" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <foreign-key foreignTable="emergency" name="emergency_ibfk_3" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="type_id" local="id"/>
