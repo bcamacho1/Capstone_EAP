@@ -10,7 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+<<<<<<< HEAD
+
+=======
+>>>>>>> parent of ca607f2... Fixing messages and regexs
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -52,6 +58,12 @@ public class EmergencyType {
     @Column(name = "name", length = 256)
     @NotNull(message = "Name can not be left blank.")
     private String name;
+    
+    @Column(name = "category", length = 1)
+    @NotNull(message="Category can not be left blank.")
+    @Min(1)
+    @Max(3)
+    private Integer category;
 
     public Set<Emergency> getEmergencies() {
         return emergencies;
@@ -67,6 +79,14 @@ public class EmergencyType {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
     }
 
     @PersistenceContext
