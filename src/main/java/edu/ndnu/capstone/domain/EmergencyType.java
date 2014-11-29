@@ -1,6 +1,7 @@
 package edu.ndnu.capstone.domain;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -14,9 +15,13 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> parent of ca607f2... Fixing messages and regexs
+=======
+
+>>>>>>> origin/master
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
