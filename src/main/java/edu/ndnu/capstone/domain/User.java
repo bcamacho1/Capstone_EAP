@@ -136,7 +136,7 @@ public class User
     }
 
     public void setUsername(String username) {
-        this.email=username+"@student.ndnu.edu";
+        this.email=username+"@ndnu.edu";
         this.username = username;
     }
 
