@@ -42,14 +42,6 @@ public class UserController {
 
     @Autowired
     UserTypeService userTypeService;
-
-    @RequestMapping(value = "/dataImport", method = RequestMethod.POST)
-    public String dataImport() 
-    {
-        System.out.println("Made it to the dataImport method");
-        
-        return "index";
-    }
     
     @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
     public String changePassword(@RequestParam("old_password") String old_password, 
