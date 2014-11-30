@@ -72,14 +72,14 @@ public class User
 
     @Column(name = "password")
     @NotNull
-    @Size(min=1, message="Password can not be left blank.")
+    @Size(min=5, message="Password can not be left blank.")
     @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="Password must start with a number and be at least 5 characters.")
     private String password;
 
     @Column(name = "phone", length = 10, unique = true)
     @NotNull
     @Size(min=1, message="Phone number can not be left blank.")
-    @Pattern(regexp = "^((?![5]{3})(\\d{3}))([. -]*)(\\d{3})([. -]*)\\d{4}$", message="Phone number can be of the form 888-123-4567 or 888.123.4567.")
+    @Pattern(regexp = "^((?![5]{3})(\\d{3}))([-]*)(\\d{3})([-]*)\\d{4}$", message="Phone number can be of the form 888-123-4567")
     private String phone;
 
     @Column(name = "active", length = 1)
