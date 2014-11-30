@@ -14,11 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-<<<<<<< HEAD
 import javax.validation.constraints.Size;
 
-=======
->>>>>>> 684827f23e7de77909a918cf71047f8c73e2fbe2
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
