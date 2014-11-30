@@ -55,7 +55,7 @@ public class User
 
     @Column(name = "name", length = 256)
     @NotNull
-    @Size(min=2, max=30, message="Size must be between 2 and 30 characters.")
+    @Size(min=1, max=256, message="Must be at least 1 character.")
     @Pattern(regexp = "([A-Z][a-z]*) ([A-za-z]+([ '-][A-Za-z]+)*)", message="Name must contain only letters, apostrophe and dashes. Name must conatin first and last names, and be capitol.")
     private String name;
 
@@ -112,6 +112,7 @@ public class User
     }
 
     public void setTypeId(UserType typeId) {
+    	System.out.println(typeId);
         this.typeId = typeId;
     }
 
