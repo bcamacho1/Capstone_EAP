@@ -56,7 +56,9 @@ public class User
     @Column(name = "name", length = 256)
     @NotNull
     @Size(min=1, max=256, message="Must be at least 1 character.")
-    @Pattern(regexp = "([A-Z][a-z]*) ([A-za-z]+([ '-][A-Za-z]+)*)", message="Name must contain only letters, apostrophe and dashes. Name must conatin first and last names, and be capitol.")
+    //@Pattern(regexp = "(([A-Z][a-z]*)+([ '-][A-Za-z]+)*))", message="Name must contain only letters, apostrophe and dashes. Name must conatin first and last names, and be capitol.")
+    //@Pattern(regexp = "[A-Z]{1}[a-z]{0,}[ a-zA-Z]{0,}[ a-zA-Z]{0,}[ ]{0,1}|[A-Z]{1}[a-z']{0,}[ a-zA-Z]{0,}[ a-zA-Z]{0,}[ ]{0,1}", message="Name must contain only letters, apostrophe and dashes. Name must conatin first and last names, and be capitol.")
+    @Pattern(regexp = "[A-Z]{1}[a-z]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z]{0,}")
     private String name;
 
     @Column(name = "email", length = 100, unique = true)
