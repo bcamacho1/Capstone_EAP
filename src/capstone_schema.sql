@@ -302,8 +302,8 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES 
-(1,'Scott Mantegani','smantegani@student.ndnu.edu','smantegani','54921001a1b93a0e1197f95ee0adb3795162d6340e3de6d988bc11b364ea67bc','123-4567',2,1,'2013-02-28 14:59:32',''),
-(2,'Scott Mantegani','admin2@student','admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','111-1111',1,1,'2014-10-03 06:48:00',''),
+(1,'Scott Mantegani','smantegani@student.ndnu.edu','smantegani','54921001a1b93a0e1197f95ee0adb3795162d6340e3de6d988bc11b364ea67bc','111-222-3333',2,1,'2013-02-28 14:59:32',''),
+(2,'Scott Mantegani','admin2@student','admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','111-222-3333',1,1,'2014-10-03 06:48:00',''),
 (3,'Admin','Administrator@student.ndnu.edu','Administrator','e7d3e769f3f593dadcb8634cc5b09fc90dd3a61c4a06a79cb0923662fe6fae6b','111-222-3333',2,1,'2014-11-27 04:06:25',''),
 (4,'Scott','scott@student.ndnu.edu','scott','12a303c224c250d07c81691de6e0fd74699ce6bd78c234057de70413a58457cf','111-222-3333',1,1,'2014-11-27 04:26:58',''),
 (5,'Admin','Admin@student.ndnu.edu','Admin','c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f','111-222-3333',1,1,'2014-11-27 05:35:59','');
