@@ -1,5 +1,6 @@
 package edu.ndnu.capstone.domain;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -28,7 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class Evacuation {
 
     @Column(name = "area", length = 45)
-    @NotNull(message = "Area can not be left blank.")
+    @NotNull
+    @Size(min = 1, message="Area can not be left blank.")
     private String area;
 
     public String getArea() {

@@ -14,14 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-<<<<<<< HEAD
-<<<<<<< HEAD
+import javax.validation.constraints.Size;
 
-=======
->>>>>>> parent of ca607f2... Fixing messages and regexs
-=======
-
->>>>>>> origin/master
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -61,7 +55,8 @@ public class EmergencyType {
     private Set<Emergency> emergencies;
 
     @Column(name = "name", length = 256)
-    @NotNull(message = "Name can not be left blank.")
+    @NotNull
+    @Size(min = 1, message="Name can not be left blank.")
     private String name;
     
     @Column(name = "category", length = 1)

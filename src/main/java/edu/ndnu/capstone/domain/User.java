@@ -54,29 +54,31 @@ public class User
     private UserType typeId;
 
     @Column(name = "name", length = 256)
-    @NotNull(message="Name can not be left blank.")
-    @Size(min=2, max=30, message="Size must be between 2 and 30 characters.}")
-    @Pattern(regexp = "[A-Za-z]", message="Name must contain only letters.")
+    @NotNull
+    @Size(min=2, max=30, message="Size must be between 2 and 30 characters.")
+    @Pattern(regexp = "([A-Z][a-z]*) ([A-za-z]+([ '-][A-Za-z]+)*)", message="Name must contain only letters, apostrophe and dashes. Name must conatin first and last names, and be capitol.")
     private String name;
 
     @Column(name = "email", length = 100, unique = true)
-    @NotNull(message="Email can not be left blank.")
-    @Pattern(regexp = "[A-Za-z0-9]{3,100}@ndnu.edu", message="Must be of the form staff@ndnu.edu")
+    @NotNull
     private String email;
 
 
     @Column(name = "username", length = 150, unique = true)
-    @NotNull(message="User name can not be left blank.")
+    @NotNull
     @Size(min=5, message="Must be at least 5 characters.")
+    @Pattern(regexp = "[a-z]*[0-9]?", message="User name can only be letters, and can contain one number at the end.")
     private String username;
 
     @Column(name = "password")
-    @NotNull(message="Password can not be left blank.")
+    @NotNull
+    @Size(min=1, message="Password can not be left blank.")
     @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="Password must start with a number and be at least 5 characters.")
     private String password;
 
     @Column(name = "phone", length = 10, unique = true)
-    @NotNull(message="Phone number can not be left blank.")
+    @NotNull
+    @Size(min=1, message="Phone number can not be left blank.")
     @Pattern(regexp = "^((?![5]{3})(\\d{3}))([. -]*)(\\d{3})([. -]*)\\d{4}$", message="Phone number can be of the form 888-123-4567 or 888.123.4567.")
     private String phone;
 
@@ -94,6 +96,7 @@ public class User
 
     @Column(name = "description", length = 1024)
     @NotNull
+    @Size(min=1, message="Description must not be left blank.")
     private String description;
 
     public Set<Emergency> getEmergencies() {

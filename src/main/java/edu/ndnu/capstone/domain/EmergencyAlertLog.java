@@ -46,7 +46,7 @@ public class EmergencyAlertLog {
     private EmergencyMessage emergencyMessageId;
 
     @Column(name = "ts")
-    @NotNull(message = "Date can not be left blank.")
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "MM")
     private Calendar ts;

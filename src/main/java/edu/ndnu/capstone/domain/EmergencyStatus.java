@@ -1,6 +1,7 @@
 package edu.ndnu.capstone.domain;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -11,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -33,7 +36,8 @@ public class EmergencyStatus {
     private Set<Emergency> emergencies;
 
     @Column(name = "name", length = 256)
-    @NotNull(message = "name can not be left null.")
+    @NotNull
+    @Size(min=1, message = "Name can not be left blank.")
     private String name;
 
     public Set<Emergency> getEmergencies() {
