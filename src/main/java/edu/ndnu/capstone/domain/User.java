@@ -29,6 +29,7 @@ import javax.validation.constraints.Max;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.dbre.RooDbManaged;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -97,8 +98,6 @@ public class User
     private Calendar created = java.util.Calendar.getInstance();
 
     @Column(name = "description", length = 1024)
-    @NotNull
-    @Size(min=1, message="Description must not be left blank.")
     private String description;
 
     public Set<Emergency> getEmergencies() {
@@ -331,6 +330,19 @@ public class User
 
     public static User findUserByUsername(String username2) {
         if (username2 == null) return null;
-        return entityManager().createQuery("SELECT o FROM User o WHERE username = '" + username2 + "'", User.class).getSingleResult();
+        try {
+            return entityManager().createQuery("SELECT o FROM User o WHERE username = '" + username2 + "'", User.class).getSingleResult();
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+    
+    public static User findUserByEmail(String email2) {
+        if (email2 == null) return null;
+        try {
+            return entityManager().createQuery("SELECT o FROM User o WHERE email = '" + email2 + "'", User.class).getSingleResult();
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 }

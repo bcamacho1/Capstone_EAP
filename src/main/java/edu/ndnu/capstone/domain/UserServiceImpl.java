@@ -24,6 +24,10 @@ public class UserServiceImpl implements UserService {
     public User findUserByUsername(String username) {
         return User.findUserByUsername(username);
     }
+    
+    public User findUserByEmail(String email) {
+        return User.findUserByEmail(email);
+    }
 
     public List<User> findAllUsers() {
         return User.findAllUsers();

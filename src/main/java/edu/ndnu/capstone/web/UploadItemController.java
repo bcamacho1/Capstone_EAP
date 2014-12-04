@@ -1,11 +1,20 @@
 package edu.ndnu.capstone.web;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Hashtable;
+import java.util.List;
 
 import edu.ndnu.capstone.domain.UploadItem;
+import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.UserType;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -20,6 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping(value = "/dataImport")
 public class UploadItemController
 {
+  @Autowired
+  UserService userService;
+    
   @RequestMapping(method = RequestMethod.GET)
   public String getUploadForm(Model model)
   {
@@ -29,7 +41,7 @@ public class UploadItemController
 
   @RequestMapping(value = "/upload", method = RequestMethod.POST)
   public String create(UploadItem uploadItem, BindingResult result)
-  {   
+  {
     if (result.hasErrors()) 
     {
         for (ObjectError error : result.getAllErrors())
@@ -48,9 +60,9 @@ public class UploadItemController
     try
     {
         MultipartFile file = uploadItem.getFileData();
-        String fileName = null;
+        //String fileName = null;
         InputStream inputStream = null;
-        OutputStream outputStream = null;
+        //OutputStream outputStream = null;
         if (file.getSize() > 0)
         {
             inputStream = file.getInputStream();
@@ -61,16 +73,84 @@ public class UploadItemController
             }
             System.out.println("size::" + file.getSize());
             
-            fileName = file.getOriginalFilename();
-            outputStream = new FileOutputStream(fileName);
+            //fileName = file.getOriginalFilename();
+            //outputStream = new FileOutputStream(fileName);
             System.out.println("fileName:" + file.getOriginalFilename());
-            int readBytes = 0;
-            byte[] buffer = new byte[10000];
-            while ((readBytes = inputStream.read(buffer, 0, 10000)) != -1)
+            //int readBytes = 0;
+            //byte[] buffer = new byte[10000];
+            //while ((readBytes = inputStream.read(buffer, 0, 10000)) != -1)
+            //{
+                //outputStream.write(buffer, 0, readBytes);
+            //}
+            
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder out = new StringBuilder();
+            String line;
+            List<UserType> types = UserType.findAllUserTypes();
+            
+            Hashtable<String, UserType> type_cache = new Hashtable<String, UserType>();
+            
+            for (UserType type : types)
             {
-                outputStream.write(buffer, 0, readBytes);
+                type_cache.put(type.getName(), type);
             }
-            outputStream.close();
+            
+            while ((line = reader.readLine()) != null) {
+                out.append(line);
+                System.out.println(line);
+                
+                // This regex needs to handle quotes better, or readLine needs to be better
+                // Because when specifying quotes around elements in the csv file
+                // The User validations fail because it literally sees the quotes
+                String[] parts = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                System.out.println(parts[0]);
+                System.out.println(parts[1]);
+                System.out.println(parts[2]);
+                System.out.println(parts[3]);
+                System.out.println(parts[4]);
+                System.out.println(parts[5]);
+                Calendar created = java.util.Calendar.getInstance();
+                User newUser = new User();
+                
+                User returnedUser = User.findUserByEmail(parts[1]);
+                
+                if (returnedUser instanceof User)
+                {
+                    continue;
+                }
+                
+                returnedUser = User.findUserByUsername(parts[2]);
+                
+                if (returnedUser instanceof User)
+                {
+                    continue;
+                }
+                
+                try {
+                    newUser.setName(parts[0]);
+                    newUser.setEmail(parts[1]);
+                    newUser.setUsername(parts[2]);
+                    newUser.setPassword(parts[3]);
+                    newUser.setPhone(parts[4]);
+                    newUser.setTypeId(type_cache.get(parts[5]));
+                    newUser.setActive(1);
+                    newUser.setCreated(created);
+                    
+                    if (parts.length >= 7)
+                    {
+                        newUser.setDescription(parts[6]);
+                    }
+                    
+                    userService.updateUser(newUser);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+            }
+            //System.out.println(out.toString());   //Prints the string content read from input stream
+            reader.close();
+            
+            //outputStream.close();
             inputStream.close();
             // ..........................................
         }

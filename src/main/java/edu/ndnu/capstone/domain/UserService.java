@@ -16,7 +16,8 @@ public interface UserService {
 
 
     public abstract User findUserByUsername(String username);
-
+    
+    public abstract User findUserByEmail(String email);
 
     public abstract List<User> findAllUsers();
 
