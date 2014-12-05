@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,25 +41,6 @@ public class UserController {
 
     @Autowired
     UserTypeService userTypeService;
-    
-    @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
-    public String changePassword(@RequestParam("old_password") String old_password, 
-                                 @RequestParam("new_password") String new_password, 
-                                 @RequestParam("new_password_confirm") String new_password_confirm,
-                                 HttpServletRequest httpServletRequest) 
-    {
-        System.out.println("Made it to the passwordChange method");
-        System.out.println("Old password: " + old_password);
-        System.out.println("New password: " + new_password);
-        System.out.println("New password confirmed: " + new_password_confirm);
-        
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = User.findUserByUsername(login);
-        user.setPassword(new_password);
-        userService.updateUser(user);
-        
-        return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
-    }
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
