@@ -75,9 +75,7 @@ color: #7D7A73;
          <ul>
 <li><a href="">EAP Home</a></li>
 <li><a href="http://www.ndnu.edu/">NDNU Home</a></li>
-<li><a href="campusMap">Campus Map</a></li>
 <li><a href="contactUs">Contact Us</a></li>
-<li><a href="login;jsessionid=4511B0682ABFAE125890F154E618D9EA">Login</a></li>
                 </ul>
 </div>
 
@@ -85,10 +83,9 @@ color: #7D7A73;
  <div class="footerBox">
 <h4>Quick Links</h4>
                       <ul>
+                      <li><a href="campusMap">Campus Map</a></li>
 <li><a href="emergencys;jsessionid=0F5393E492C020344282D5FBDD699F05?page=1&amp;size=10">Current Emergencies</a></li>
-<li><a href="emergencys?form">Report Emergency</a></li>
 <li><a href="emergencys;jsessionid=0F5393E492C020344282D5FBDD699F05?page=1&amp;size=10">Locations</a></li>
-<li><a href="evacuations?page=1&amp;size=10">Evacuations</a></li>  
                 </ul>
             
 </div>
