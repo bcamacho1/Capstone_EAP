@@ -62,19 +62,20 @@ public class User
 
     @Column(name = "email", length = 100, unique = true)
     @NotNull
+    @Pattern(regexp = "@[student]*[.]*[ndnu.edu]+", message="Email must end with either @student.ndnu.edu or @ndnu.edu.")
     private String email;
 
 
     @Column(name = "username", length = 150, unique = true)
     @NotNull
-    @Size(min=5, message="Must be at least 5 characters.")
+    @Size(min=4, message="Must be at least 5 characters.")
     @Pattern(regexp = "[a-z]*[0-9]?", message="User name can only be letters, and can contain one number at the end.")
     private String username;
 
     @Column(name = "password")
     @NotNull
-    @Size(min=5, message="Password can not be left blank.")
-    @Pattern(regexp = "[0-9]+[[:alnum:]]*", message="Password must start with a number and be at least 5 characters.")
+    @Size(min=4, message="Password can not be left blank.")
+    @Pattern(regexp = "[a-zA-Z0-9]+", message="Password must be at least 5 characters.")
     private String password;
 
     @Column(name = "phone", length = 10, unique = true)

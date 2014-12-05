@@ -45,8 +45,6 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
-            //bindingResult.addError(new ObjectError("user", "Username is already in the database"));
-            //bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             for(ObjectError obj:list)
             {
