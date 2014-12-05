@@ -153,11 +153,10 @@ CREATE TABLE `emergency_status` (
 LOCK TABLES `emergency_status` WRITE;
 /*!40000 ALTER TABLE `emergency_status` DISABLE KEYS */;
 INSERT INTO `emergency_status` VALUES 
-(1,'New'),
-(2,'Reported'),
-(3,'In Progress'),
-(4,'Responders on Scene'),
-(5,'Complete');
+(1,'Reported'),
+(2,'In Progress'),
+(3,'Responders on Scene'),
+(4,'Complete');
 /*!40000 ALTER TABLE `emergency_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
