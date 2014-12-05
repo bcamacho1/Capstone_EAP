@@ -3,7 +3,6 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_Location" modelAttribute="location" path="/locations" versionField="none" z="HRJXDTnfjQuOBPFxDyY6RYLRlg8=">
-        <field:simple field="emergencies" id="c_edu_ndnu_capstone_domain_Location_emergencies" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency" z="dk37t4aHMRdtuOjpwMYejDvd9p0="/>
         <field:input field="name" id="c_edu_ndnu_capstone_domain_Location_name" required="true" z="gSydue8KAJWTESX9Go8obcYAXks="/>
         <field:input field="address" id="c_edu_ndnu_capstone_domain_Location_address" required="true" z="lQN6wcGxVJxa6dytI9ZrPJgYoWo="/>
         <field:input field="city" id="c_edu_ndnu_capstone_domain_Location_city" required="true" z="CjqwU9LFWcxAOKG3tIlAaUUwdSQ="/>

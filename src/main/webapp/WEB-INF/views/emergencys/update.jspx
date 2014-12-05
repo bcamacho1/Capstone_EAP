@@ -8,6 +8,5 @@
         <field:select field="typeId" id="c_edu_ndnu_capstone_domain_Emergency_typeId" itemValue="id" items="${emergencytypes}" path="/emergencytypes" z="7gezxTTxdBmgI0KzvetySbrs4Zo="/>
         <field:select field="statusId" id="c_edu_ndnu_capstone_domain_Emergency_statusId" itemValue="id" items="${emergencystatuses}" path="/emergencystatuses" z="s7x5HnRKL5P5x+w92FOgY7qnTeI="/>
         <field:input field="description" id="c_edu_ndnu_capstone_domain_Emergency_description" z="2OmzBfXUgF16bMismunQ36ASnUk="/>
-        <field:simple field="emergencyAlertLogs" id="c_edu_ndnu_capstone_domain_Emergency_emergencyAlertLogs" messageCode="entity_reference_not_managed" messageCodeAttribute="Emergency Alert Log" z="GCCQhWVpCAJB5xJoaJ3iwRQ9h2Q="/>
     </form:update>
 </div>
