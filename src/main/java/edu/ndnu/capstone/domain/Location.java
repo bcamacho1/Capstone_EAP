@@ -154,9 +154,6 @@ public class Location {
     @Pattern(regexp = "[0-9]{5}", message="Zipcode can only contain numbers")
     private String zipcode;
 
-    @Column(name = "evacuation_area")
-    private Integer evacuationArea;
-
     @Column(name = "latitude", length = 64)
     @Size(min=8, max=8, message="Latitude must be of the form 66-55-44")
     @Pattern(regexp = "^(\\d{2}-\\d{2}-\\d{2})", message="Latitude must be of the form 66-55-44")
@@ -216,14 +213,6 @@ public class Location {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
-    }
-
-    public Integer getEvacuationArea() {
-        return evacuationArea;
-    }
-
-    public void setEvacuationArea(Integer evacuationArea) {
-        this.evacuationArea = evacuationArea;
     }
 
     public String getLatitude() {

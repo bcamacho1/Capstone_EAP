@@ -130,13 +130,6 @@
             <unique-column name="id"/>
         </unique>
     </table>
-    <table name="evacuation">
-        <column name="id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="area" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
-        <unique name="PRIMARY">
-            <unique-column name="id"/>
-        </unique>
-    </table>
     <table name="location">
         <column name="id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="name" primaryKey="false" required="true" scale="0" size="256" type="12,VARCHAR"/>
@@ -144,7 +137,6 @@
         <column name="city" primaryKey="false" required="true" scale="0" size="1024" type="12,VARCHAR"/>
         <column name="state" primaryKey="false" required="true" scale="0" size="64" type="12,VARCHAR"/>
         <column name="zipcode" primaryKey="false" required="true" scale="0" size="64" type="12,VARCHAR"/>
-        <column name="evacuation_area" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
         <column name="latitude" primaryKey="false" required="false" scale="0" size="64" type="12,VARCHAR"/>
         <column name="longitude" primaryKey="false" required="false" scale="0" size="64" type="12,VARCHAR"/>
         <column name="description" primaryKey="false" required="false" scale="0" size="1024" type="12,VARCHAR"/>

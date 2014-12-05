@@ -22,7 +22,6 @@
 			id="c_edu_ndnu_capstone_domain_Location_zipcode" required="true"
 			z="eHYY3QVaweGxyDFhmR3heqyuEV4=" validationRegex="d{5}"
 			validationMessage="Zipcode must be 5 digits." />
-		<field:input field="evacuationArea" id="c_edu_ndnu_capstone_domain_Location_evacuationArea" validationMessageCode="field_invalid_integer" z="E6uh4RJCcumN3ms7Jqvau//sXaw="/>
         <field:input field="latitude" id="c_edu_ndnu_capstone_domain_Location_latitude" z="fcncHNZZ4rh9Ip2v1t1I2GS3a/Q="/>
         <field:input field="longitude" id="c_edu_ndnu_capstone_domain_Location_longitude" z="VChJ2u4f1aO6UqgZj3Cgf4REyns="/>
         <field:input field="description" id="c_edu_ndnu_capstone_domain_Location_description" z="xyP9Uh29Q5WUsFCU8xQ3dfC6oP0="/>

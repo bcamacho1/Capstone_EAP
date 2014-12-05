@@ -28,7 +28,6 @@ public class LocationDataOnDemand {
         setAddress(obj, index);
         setCity(obj, index);
         setDescription(obj, index);
-        setEvacuationArea(obj, index);
         setLatitude(obj, index);
         setLongitude(obj, index);
         setName(obj, index);
@@ -59,11 +58,6 @@ public class LocationDataOnDemand {
             description = description.substring(0, 1024);
         }
         obj.setDescription(description);
-    }
-
-    public void setEvacuationArea(Location obj, int index) {
-        Integer evacuationArea = new Integer(index);
-        obj.setEvacuationArea(evacuationArea);
     }
 
     public void setLatitude(Location obj, int index) {

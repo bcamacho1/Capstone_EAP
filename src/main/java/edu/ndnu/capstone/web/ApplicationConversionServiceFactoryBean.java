@@ -10,8 +10,6 @@ import edu.ndnu.capstone.domain.EmergencyStatus;
 import edu.ndnu.capstone.domain.EmergencyStatusService;
 import edu.ndnu.capstone.domain.EmergencyType;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
-import edu.ndnu.capstone.domain.Evacuation;
-import edu.ndnu.capstone.domain.EvacuationService;
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.User;
@@ -52,9 +50,6 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 
     @Autowired
     EmergencyTypeService emergencyTypeService;
-
-    @Autowired
-    EvacuationService evacuationService;
 
     @Autowired
     LocationService locationService;
@@ -185,30 +180,6 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         };
     }
 
-    public Converter<Evacuation, String> getEvacuationToStringConverter() {
-        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Evacuation, java.lang.String>() {
-            public String convert(Evacuation evacuation) {
-                return new StringBuilder().append(evacuation.getArea()).toString();
-            }
-        };
-    }
-
-    public Converter<Integer, Evacuation> getIdToEvacuationConverter() {
-        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.Evacuation>() {
-            public edu.ndnu.capstone.domain.Evacuation convert(java.lang.Integer id) {
-                return evacuationService.findEvacuation(id);
-            }
-        };
-    }
-
-    public Converter<String, Evacuation> getStringToEvacuationConverter() {
-        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.Evacuation>() {
-            public edu.ndnu.capstone.domain.Evacuation convert(String id) {
-                return getObject().convert(getObject().convert(id, Integer.class), Evacuation.class);
-            }
-        };
-    }
-
     public Converter<Location, String> getLocationToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.Location, java.lang.String>() {
             public String convert(Location location) {
@@ -297,9 +268,6 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         registry.addConverter(getEmergencyTypeToStringConverter());
         registry.addConverter(getIdToEmergencyTypeConverter());
         registry.addConverter(getStringToEmergencyTypeConverter());
-        registry.addConverter(getEvacuationToStringConverter());
-        registry.addConverter(getIdToEvacuationConverter());
-        registry.addConverter(getStringToEvacuationConverter());
         registry.addConverter(getLocationToStringConverter());
         registry.addConverter(getIdToLocationConverter());
         registry.addConverter(getStringToLocationConverter());
