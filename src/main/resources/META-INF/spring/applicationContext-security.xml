@@ -23,7 +23,7 @@
     	<!-- I'm just restricting access to the UserTypes section to test login/logout capabilities -->
     	<!-- hasRole('Admin') checks the user type, "Admin" needs to match what is exactly in the user_type table -->
     	<intercept-url pattern="/usertypes.*" access="hasRole('Admin')" />
-    	<intercept-url pattern="/users.*" access="hasRole('Admin')" />
+    	<intercept-url pattern="/users.*" access="hasAnyRole('Admin','First Responder')" />
     	<intercept-url pattern="/dataImport" access="hasRole('Admin')" />
     	<intercept-url pattern="/passwordChange.*" access="hasAnyRole('Admin','First Responder')" />
 	    <intercept-url pattern="/emergencymessages.*" access="hasAnyRole('Admin','First Responder')" />
