@@ -57,12 +57,12 @@ public class User
     @Column(name = "name", length = 256)
     @NotNull
     @Size(min=1, max=256, message="Must be at least 1 character.")
-    @Pattern(regexp = "([A-Z][a-z]+) ([A-Za-z']+[ '-]*[A-Za-z]*[ Jr.Sr.]*[I]*)", message="Please use only forst and last name, can be hyphanated, names must be capitol. Includes suffexes: Sr., Jr., I, II, and III. If no last name type NA.")
+    @Pattern(regexp = "([A-Z][a-z]+) ([A-Za-z']+[ '-]*[A-Za-z]*[ Jr.Sr.]*[I]*)", message="Please use only first and last name, can be hyphenated, names must be capital. Includes suffix: Sr., Jr., I, II, and III. If no last name type NA.")
     private String name;
 
     @Column(name = "email", length = 100, unique = true)
     @NotNull
-    @Pattern(regexp = "@[student]*[.]*[ndnu.edu]+", message="Email must end with either @student.ndnu.edu or @ndnu.edu.")
+    @Pattern(regexp = "@[student]*[.]*[ndnu.edu]+", message="Email must end with either @student.ndnu.edu or @ndnu.edu")
     private String email;
 
 
