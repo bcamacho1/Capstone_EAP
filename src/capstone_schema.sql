@@ -204,28 +204,6 @@ INSERT INTO `emergency_type` VALUES
 /*!40000 ALTER TABLE `emergency_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `evacuation`
---
-
-DROP TABLE IF EXISTS `evacuation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `evacuation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `area` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `evacuation`
---
-
-LOCK TABLES `evacuation` WRITE;
-/*!40000 ALTER TABLE `evacuation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `evacuation` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `location`
@@ -241,7 +219,6 @@ CREATE TABLE `location` (
   `city` varchar(1024) NOT NULL,
   `state` varchar(64) NOT NULL,
   `zipcode` varchar(64) NOT NULL,
-  `evacuation_area` int(11) DEFAULT NULL,
   `latitude` varchar(64) DEFAULT NULL,
   `longitude` varchar(64) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
