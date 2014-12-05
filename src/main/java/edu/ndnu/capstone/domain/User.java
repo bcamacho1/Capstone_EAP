@@ -57,9 +57,7 @@ public class User
     @Column(name = "name", length = 256)
     @NotNull
     @Size(min=1, max=256, message="Must be at least 1 character.")
-    //@Pattern(regexp = "(([A-Z][a-z]*)+([ '-][A-Za-z]+)*))", message="Name must contain only letters, apostrophe and dashes. Name must conatin first and last names, and be capitol.")
-    //@Pattern(regexp = "[A-Z]{1}[a-z]{0,}[ a-zA-Z]{0,}[ a-zA-Z]{0,}[ ]{0,1}|[A-Z]{1}[a-z']{0,}[ a-zA-Z]{0,}[ a-zA-Z]{0,}[ ]{0,1}", message="Name must contain only letters, apostrophe and dashes. Name must conatin first and last names, and be capitol.")
-    @Pattern(regexp = "[A-Z]{1}[a-z]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z'-]{0,}[ ]{0,1}[A-Z]{0,1}[a-z]{0,}")
+    @Pattern(regexp = "([A-Z][a-z]+) ([A-Za-z']+[ '-]*[A-Za-z]*[ Jr.Sr.]*[I]*)", message="Please use only forst and last name, can be hyphanated, names must be capitol. Includes suffexes: Sr., Jr., I, II, and III. If no last name type NA.")
     private String name;
 
     @Column(name = "email", length = 100, unique = true)
@@ -76,7 +74,7 @@ public class User
     @Column(name = "password")
     @NotNull
     @Size(min=5, message="Password can not be left blank.")
-    @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="Password must start with a number and be at least 5 characters.")
+    @Pattern(regexp = "[0-9]+[[:alnum:]]*", message="Password must start with a number and be at least 5 characters.")
     private String password;
 
     @Column(name = "phone", length = 10, unique = true)
