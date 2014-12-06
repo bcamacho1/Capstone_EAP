@@ -48,7 +48,8 @@ public class UserController {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             for(ObjectError obj:list)
             {
-                System.out.println("objname"+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+                System.out.println("objname: "+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+                
                 if(obj instanceof FieldError)
                 {
                     System.out.println(((FieldError)obj).getField());

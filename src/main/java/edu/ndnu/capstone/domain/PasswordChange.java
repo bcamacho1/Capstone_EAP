@@ -8,17 +8,17 @@ public class PasswordChange
 {
     @NotNull
     @Size(min=5, message="Old Password can not be left blank.")
-    @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="Old Password must start with a number and be at least 5 characters.")
+    @Pattern(regexp = "[a-zA-Z0-9]+", message="Old Password must start with a number and be at least 5 characters.")
     private String oldPassword;
     
     @NotNull
     @Size(min=5, message="New Password can not be left blank.")
-    @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="New Password must start with a number and be at least 5 characters.")
+    @Pattern(regexp = "[a-zA-Z0-9]+", message="New Password must start with a number and be at least 5 characters.")
     private String newPassword;
     
     @NotNull
     @Size(min=5, message="New Password can not be left blank.")
-    @Pattern(regexp = "^[0-9a-zA-Z]{5,}$", message="New Password must start with a number and be at least 5 characters.")
+    @Pattern(regexp = "[a-zA-Z0-9]+", message="New Password must start with a number and be at least 5 characters.")
     private String newPasswordConfirm;
 
     public String getOldPassword()

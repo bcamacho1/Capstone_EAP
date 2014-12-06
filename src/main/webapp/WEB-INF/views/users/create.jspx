@@ -8,8 +8,7 @@
 			required="true" z="AvB38b/End0hXemXNC8GrbD8SAw=" />
 		<field:input field="username"
 			id="c_edu_ndnu_capstone_domain_User_username" required="true"
-			z="MiEOzhgH466ktY7pKT/tYMLt5S0="
-			validationMessage="Username must be the first part of your school email." />
+			z="MiEOzhgH466ktY7pKT/tYMLt5S0=" />
 		<field:input field="password" id="c_edu_ndnu_capstone_domain_User_password" required="true" z="kEW4oQdeXWi+JyIwdUJkmMKHYII=" type="password"/>
 		<field:input field="phone" id="c_edu_ndnu_capstone_domain_User_phone"
 			required="true" z="k42Av41wIfhbInJmZhCY/WbW+h4=" />

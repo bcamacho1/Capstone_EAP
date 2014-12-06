@@ -62,7 +62,7 @@ public class User
 
     @Column(name = "email", length = 100, unique = true)
     @NotNull
-    @Pattern(regexp = "@[student]*[.]*[ndnu.edu]+", message="Email must end with either @student.ndnu.edu or @ndnu.edu")
+    //@Pattern(regexp = "@[student]*[.]*[ndnu.edu]+", message="Email must end with either @student.ndnu.edu or @ndnu.edu as the extension.")
     private String email;
 
 
