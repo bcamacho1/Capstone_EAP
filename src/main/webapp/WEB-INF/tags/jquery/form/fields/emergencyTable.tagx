@@ -79,15 +79,20 @@
 								var="colCounter" expression="colCounter  + 1" /></th>
 					</c:forTokens>
 					<th></th>
-					<sec:authorize ifAllGranted="Admin">
+					<sec:authorize ifAnyGranted="Admin,First Responder">
 						<c:if test="${update}">
 							<th></th>
 							<spring:eval var="colCounter" expression="colCounter  + 1" />
 						</c:if>
+					</sec:authorize>
+					<sec:authorize ifAllGranted="Admin">
 						<c:if test="${delete}">
 							<th></th>
 							<spring:eval var="colCounter" expression="colCounter  + 1" />
 						</c:if>
+					</sec:authorize>
+					<sec:authorize ifAnyGranted="Admin,First Responder">
+						<th></th>
 					</sec:authorize>
 				</tr>
 			</thead>
@@ -190,10 +195,10 @@
 						</c:if>
 					</sec:authorize>
 					<sec:authorize ifAnyGranted="Admin,First Responder">
-					<td>
-					   <spring:url value="/emergencys/alert/${itemId}" var="alert" />
-					   <a href="${alert}">Send Alert!</a>
-					</td>
+						<td>
+						      <spring:url value="/emergencys/alert/${itemId}" var="alert" />
+						      <a href="${alert}">Send Alert!</a>
+						</td>
 					</sec:authorize>
 				</tr>
 			</c:forEach>
