@@ -23,14 +23,6 @@
 		          <a href="${login}">Login</a>
 		      </li>
 		    </c:if>
-		    <c:if test="${pageContext['request'].userPrincipal != null}">
-		      <li class="dropdown">
-		          <spring:url value="/resources/j_spring_security_logout" var="logout"/>
-		          <a href="${logout}" class="dropdown-toggle">
-		              <spring:message code="security_logout"/>
-		          </a>
-		      </li>
-		    </c:if>
 		</ul>
 	
 	</c:if>
