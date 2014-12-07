@@ -189,10 +189,12 @@
 								</form:form></td>
 						</c:if>
 					</sec:authorize>
-					<td><sec:authorize ifAnyGranted="Admin,First Responder">
-							<spring:url value="/emergencys/alert/${itemId}" var="alert" />
-							<a href="${alert}">Send Alert!</a>
-						</sec:authorize></td>
+					<sec:authorize ifAnyGranted="Admin,First Responder">
+					<td>
+					   <spring:url value="/emergencys/alert/${itemId}" var="alert" />
+					   <a href="${alert}">Send Alert!</a>
+					</td>
+					</sec:authorize>
 				</tr>
 			</c:forEach>
 			<tr class="footer">
