@@ -15,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -146,7 +144,8 @@ public class User
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        String hashedPassword = encryptPassword(password);
+        this.password = hashedPassword;
     }
 
     public String getPhone() {
@@ -195,18 +194,12 @@ public class User
     }
 
     /*
-     * We use the two annotations below, PrePersist and PreUpdate,
-     * to execute the code below before creating/updating a user.
-     * 
      * This code takes the password string and makes a sha-256 hash
      * before saving it in the database.
      * 
      */
-    @PrePersist
-    @PreUpdate
-    public void encryptPassword() 
+    public String encryptPassword(String password) 
     {
-        String password = this.getPassword();
         if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
         {
             MessageDigest md;
@@ -216,7 +209,7 @@ public class User
                 md.update(password.getBytes());
                 byte[] shaDig = md.digest();
                 String hashedPassword = convertByteArrayToHexString(shaDig);
-                this.setPassword(hashedPassword);
+                return hashedPassword;
             } 
             catch (NoSuchAlgorithmException e) 
             {
@@ -224,6 +217,7 @@ public class User
                 e.printStackTrace();
             }
         }
+        return "";
     }
 
     private String convertByteArrayToHexString(byte[] arrayBytes)

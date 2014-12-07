@@ -41,12 +41,10 @@ public class PasswordChangeController
   public String changePassword(@Valid PasswordChange passwordChange, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) 
   {
       if (bindingResult.hasErrors()) {
-          //bindingResult.addError(new ObjectError("user", "Username is already in the database"));
-          //bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
           java.util.List<ObjectError> list=bindingResult.getAllErrors();
           for(ObjectError obj:list)
           {
-              System.out.println("objname"+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+              System.out.println("objname: "+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
               if(obj instanceof FieldError)
               {
                   System.out.println(((FieldError)obj).getField());
@@ -57,13 +55,25 @@ public class PasswordChangeController
       }
       try
       {
-          System.out.println("Made it to the passwordChange method");
-          System.out.println("Old password: " + passwordChange.getOldPassword());
-          System.out.println("New password: " + passwordChange.getNewPassword());
-          System.out.println("New password confirmed: " + passwordChange.getNewPasswordConfirm());
-          
           String login = SecurityContextHolder.getContext().getAuthentication().getName();
           User user = User.findUserByUsername(login);
+          String old_password_confirm = passwordChange.getOldPassword();
+          String hashedOldPassword = user.encryptPassword(old_password_confirm);
+          
+          String old_password = user.getPassword();
+          
+          if (old_password.compareTo(hashedOldPassword) != 0)
+          {
+              bindingResult.addError(new ObjectError("passwordChange", "The old password you entered does not match our records."));
+              return "passwordChange";
+          }
+          
+          if (passwordChange.getNewPassword().compareTo(passwordChange.getNewPasswordConfirm()) != 0)
+          {
+              bindingResult.addError(new ObjectError("passwordChange", "The new password you entered does not match on both input fields."));
+              return "passwordChange";
+          }
+          
           user.setPassword(passwordChange.getNewPassword());
           userService.updateUser(user);
           
