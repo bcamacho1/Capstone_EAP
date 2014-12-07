@@ -825,7 +825,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 .navbar-static-top{border-width:0 0 1px}
 @media(min-width:768px){.navbar-static-top{border-radius:0}
 }
-.navbar-fixed-top,.navbar-fixed-bottom{position:fixed;right:0;left:0;border-width:0 0 1px}
+.navbar-fixed-top,.navbar-fixed-bottom{right:0;left:0;border-width:0 0 1px}
 @media(min-width:768px){.navbar-fixed-top,.navbar-fixed-bottom{border-radius:0}
 }
 .navbar-fixed-top{top:0;z-index:1030}
