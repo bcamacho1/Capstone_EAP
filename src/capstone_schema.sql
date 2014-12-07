@@ -143,10 +143,7 @@ danger.'),
 (15,NULL,15,'For emergencies dial 911 or contact Public Safety at 650-504-0656.'),
 (16,NULL,16,'For emergencies dial 911 or contact Public Safety at 650-504-0656. For counseling services, please call 650-508-3714.'),
 (17,NULL,17,'Please leave the building immediately and assemble in your designated evacuation area. Seal off the leak to prevent contamination if possible.'),
-(18,NULL,18,'Report individuals with mental health issues to Public Safety at 650-504-0656.'),
-(19,1,2,'Emergency message 2'),
-(20,2,2,'Emergency message 3'),
-(21,3,3,'Sending message as a first responder');
+(18,NULL,18,'Report individuals with mental health issues to Public Safety at 650-504-0656.');
 /*!40000 ALTER TABLE `emergency_message` ENABLE KEYS */;
 UNLOCK TABLES;
 
