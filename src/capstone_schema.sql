@@ -125,10 +125,28 @@ CREATE TABLE `emergency_message` (
 LOCK TABLES `emergency_message` WRITE;
 /*!40000 ALTER TABLE `emergency_message` DISABLE KEYS */;
 INSERT INTO `emergency_message` VALUES 
-(1,NULL,1,'Please stay calm and evacuate immediately.'),
-(2,1,2,'Emergency message 2'),
-(3,2,2,'Emergency message 3'),
-(4,3,3,'Sending message as a first responder');
+(1,NULL,1,'Please leave the building immediately and assemble in your designated evacuation area.'),
+(2,NULL,2,'Turn off electrical devices to lessen the electrical load on circuits once the power is restored. Contact the Public Safety Office at 650-508-1860 for more information.'),
+(3,NULL,3,'If you have any information about the missing person, please contact Public Safety at 650-504-0656, and dial 911 for emergencies.'),
+(4,NULL,4,'Please leave the building immediately and assemble in your designated evacuation area.'),
+(5,NULL,5,'Please leave the building immediately and assemble in your designated evacuation area.'),
+(6,NULL,6,'Please remain safely indoors until the weather has passed.'),
+(7,NULL,7,'Please leave the building immediately and assemble in your designated evacuation area.'),
+(8,NULL,8,'If you are able to leave the area or the building, do so without placing yourself in
+danger.'),
+(9,NULL,9,'Contact the Public Safety Office at 650-508-3502 for more information.'),
+(10,NULL,10,'If you know where the Shooter is and can get out safely, then do so as quickly as possible. Otherwise, hide out in the nearest room or office. Close, lock and barricade the door. Cover windows, turn off the lights, silence all noise producing sources, and remain silent as if no one is in the room.'),
+(11,NULL,11,'Please notify Public Safety at 650-504-0656 if you notice someone threatening to hurt or kill themselves, or are not acting as their normal self. The Suicide Prevention hotline is 650-579-0350.'),
+(12,NULL,12,'For counseling services, please call 650-508-3714.'),
+(13,NULL,13,'For emergencies dial 911 or contact Public Safety at 650-504-0656.'),
+(14,NULL,14,'For emergencies dial 911 or contact Public Safety at 650-504-0656.'),
+(15,NULL,15,'For emergencies dial 911 or contact Public Safety at 650-504-0656.'),
+(16,NULL,16,'For emergencies dial 911 or contact Public Safety at 650-504-0656. For counseling services, please call 650-508-3714.'),
+(17,NULL,17,'Please leave the building immediately and assemble in your designated evacuation area. Seal off the leak to prevent contamination if possible.'),
+(18,NULL,18,'Report individuals with mental health issues to Public Safety at 650-504-0656.'),
+(19,1,2,'Emergency message 2'),
+(20,2,2,'Emergency message 3'),
+(21,3,3,'Sending message as a first responder');
 /*!40000 ALTER TABLE `emergency_message` ENABLE KEYS */;
 UNLOCK TABLES;
 
