@@ -84,8 +84,8 @@ color: #7D7A73;
 <h4>Quick Links</h4>
                       <ul>
                       <li><a href="campusMap">Campus Map</a></li>
-<li><a href="emergencys;jsessionid=0F5393E492C020344282D5FBDD699F05?page=1&amp;size=10">Current Emergencies</a></li>
-<li><a href="emergencys;jsessionid=0F5393E492C020344282D5FBDD699F05?page=1&amp;size=10">Locations</a></li>
+<li><a href="Capstone_EAP/emergencys?page=1&size=10">Current Emergencies</a></li>
+<li><a href="/Capstone_EAP/locations?page=1&size=10&sortFieldName=name">Locations</a></li>
                 </ul>
             
 </div>
