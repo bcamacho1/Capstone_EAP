@@ -25,6 +25,7 @@ import org.springframework.roo.addon.dbre.RooDbManaged;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity
@@ -140,15 +141,24 @@ public class Emergency {
     }
 
     public static long countEmergencys() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Emergency o", Long.class).getSingleResult();
+        String jpaQuery = "SELECT COUNT(o) FROM Emergency o";
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        
+        if (login.compareTo("anonymousUser")==0)
+        {
+            jpaQuery = jpaQuery + " JOIN o.statusId p WHERE p.name != 'Complete'";
+        }
+        
+        return entityManager().createQuery(jpaQuery, Long.class).getSingleResult();
     }
 
     public static List<Emergency> findAllEmergencys() {
-        return entityManager().createQuery("SELECT o FROM Emergency o", Emergency.class).getResultList();
+        String jpaQuery = getFindEmergenciesQuery();
+        return entityManager().createQuery(jpaQuery, Emergency.class).getResultList();
     }
 
     public static List<Emergency> findAllEmergencys(String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM Emergency o";
+        String jpaQuery = getFindEmergenciesQuery();
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
@@ -164,11 +174,13 @@ public class Emergency {
     }
 
     public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Emergency o", Emergency.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        String jpaQuery = getFindEmergenciesQuery();
+        return entityManager().createQuery(jpaQuery, Emergency.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM Emergency o";
+        String jpaQuery = getFindEmergenciesQuery();
+
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
@@ -213,5 +225,21 @@ public class Emergency {
         Emergency merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
+    }
+    
+    // New method to load emergencies based on an anonymous user
+    // A logged in user should be able to see all emergencies
+    // An anonymous user should not see any in status "Complete"
+    public static String getFindEmergenciesQuery()
+    {
+        String jpaQuery = "SELECT o FROM Emergency o";
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        
+        if (login.compareTo("anonymousUser")==0)
+        {
+            jpaQuery = jpaQuery + " JOIN o.statusId p WHERE p.name != 'Complete'";
+        }
+        
+        return jpaQuery;
     }
 }
