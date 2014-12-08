@@ -169,11 +169,6 @@ public class EmergencyController {
                     "</tr>" +
                     "<tr>" +
                     "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
-                    "<strong>Status:</strong> " + status.getName() +
-                    "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td bgcolor=\"#eeeeee\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
                     "<strong>Description:</strong> " + emergency.getDescription() +
                     "</td>" +
                     "</tr>" +
@@ -185,9 +180,26 @@ public class EmergencyController {
                     "</table>" +
                     "</td>" +
                     "</tr>" +
-                    "<tr>" +
-                    "<td bgcolor=\"#ee4c50\">" +
-                    "Row 3" +
+                    "<tr>";
+            
+            String color = "";
+            String statusName = status.getName();
+            
+            if (statusName.compareTo("Reported") == 0) {
+                color = "#ee4c50";
+            }
+            else if (statusName.compareTo("In Progress") == 0) {
+                color = "#fc8637";
+            }
+            else if (statusName.compareTo("Responders on Scene") == 0) {
+                color = "#efef0b";
+            }
+            else {
+                color = "#03cc00";
+            }
+            
+            text = text + "<td bgcolor=\"" + color + "\" style=\"font-size: 20px;padding: 10px 10px 10px 10px;\">" +
+                    "<strong>Status:</strong> " + statusName +
                     "</td>" +
                     "</tr>" +
                     "</table>" +
