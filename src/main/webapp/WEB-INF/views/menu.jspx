@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
         <menu:category id="c_home_menu" z="">
-            <menu:item id="i_home_menu" url="/" z=""/>
+            <menu:item id="i_home_menu" url="http://www.ndnu.edu/" z=""/>
             <menu:item id="i_home_map" url="/campusMap" z=""/>
             <menu:item id="i_home_contact" url="/contactUs" z=""/>
         </menu:category>
