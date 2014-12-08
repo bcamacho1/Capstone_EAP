@@ -233,7 +233,7 @@ public class User
     @PersistenceContext
     transient EntityManager entityManager;
 
-    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "email", "username", "password", "phone", "type_id", "active", "created");
 
     public static final EntityManager entityManager() {
         EntityManager em = new User().entityManager;

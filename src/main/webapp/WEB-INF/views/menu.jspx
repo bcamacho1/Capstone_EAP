@@ -12,7 +12,7 @@
             <sec:authorize ifAllGranted="Admin">
 	            <menu:item id="i_location_new" messageCode="global_menu_new" url="/locations?form" z="sW8KSnwNnd9wjssI0lLV1kzOguk="/>
             </sec:authorize> 
-            <menu:item id="i_location_list" messageCode="global_menu_list" url="/locations?page=1&amp;size=${empty param.size ? 10 : param.size}" z="VdKLEljpeTLil2W6A3GdWmSBzXI="/>
+            <menu:item id="i_location_list" messageCode="global_menu_list" url="/locations?page=1&amp;size=${empty param.size ? 10 : param.size}&amp;sortFieldName=name" z="VdKLEljpeTLil2W6A3GdWmSBzXI="/>
         </menu:category>
         <sec:authorize ifAllGranted="Admin">
 	        <menu:category id="c_user" z="uoTSf/uIZ821ZppidzS9aO776yk=">

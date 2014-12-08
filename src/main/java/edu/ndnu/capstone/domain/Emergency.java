@@ -131,7 +131,7 @@ public class Emergency {
     @PersistenceContext
     transient EntityManager entityManager;
 
-    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("user_id", "location_id", "type_id", "status_id", "created");
 
     public static final EntityManager entityManager() {
         EntityManager em = new Emergency().entityManager;

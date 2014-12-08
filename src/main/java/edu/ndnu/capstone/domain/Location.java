@@ -36,7 +36,7 @@ public class Location {
     @PersistenceContext
     transient EntityManager entityManager;
 
-    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "address", "city", "state", "zipcode");
 
     public static final EntityManager entityManager() {
         EntityManager em = new Location().entityManager;
