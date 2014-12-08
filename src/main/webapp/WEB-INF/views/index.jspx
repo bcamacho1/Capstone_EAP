@@ -46,13 +46,13 @@ hr
               
               
               
-			    <h3><a href = "/Capstone_EAP/locations?page=1&amp;size=10">Relevant Locations</a></h3>
+			    <h3><a href = "/Capstone_EAP/locations">Relevant Locations</a></h3>
 			    We provide locations and areas that are important to know, when there is an emergency on campus.
 			     <br/>
 			    <h3><a href = "/Capstone_EAP/campusMap">Campus Map</a></h3>
 			    We provide a link to the campus map you can have access to in order to find the safest evacuation routes.
 			     <br/>
-			    <h3><a href="/Capstone_EAP/emergencystatuses?page=1&amp;size=10">Current Emergencies List</a></h3>
+			    <h3><a href="/Capstone_EAP/emergencys">Current Emergencies List</a></h3>
 			    We provide a list of any emergencies that are currently happening on campus that have been reported.
 			     <br/>
 			   
