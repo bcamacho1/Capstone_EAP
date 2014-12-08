@@ -233,7 +233,7 @@ public class User
     @PersistenceContext
     transient EntityManager entityManager;
 
-    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "email", "username", "password", "phone", "type_id", "active", "created");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "email", "username", "password", "phone", "created");
 
     public static final EntityManager entityManager() {
         EntityManager em = new User().entityManager;
@@ -246,13 +246,13 @@ public class User
     }
 
     public static List<User> findAllUsers() {
-        return entityManager().createQuery("SELECT o FROM User o", User.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM User o ORDER BY active desc, type_id, name", User.class).getResultList();
     }
 
     public static List<User> findAllUsers(String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM User o";
+        String jpaQuery = "SELECT o FROM User o ORDER BY active desc, type_id";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            jpaQuery = jpaQuery + ", " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }
@@ -266,13 +266,13 @@ public class User
     }
 
     public static List<User> findUserEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM User o", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("SELECT o FROM User o ORDER BY active desc, type_id, name", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     public static List<User> findUserEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM User o";
+        String jpaQuery = "SELECT o FROM User o ORDER BY active desc, type_id";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            jpaQuery = jpaQuery + ", " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }

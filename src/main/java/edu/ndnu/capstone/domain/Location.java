@@ -36,7 +36,7 @@ public class Location {
     @PersistenceContext
     transient EntityManager entityManager;
 
-    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "address", "city", "state", "zipcode");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name");
 
     public static final EntityManager entityManager() {
         EntityManager em = new Location().entityManager;
@@ -49,13 +49,13 @@ public class Location {
     }
 
     public static List<Location> findAllLocations() {
-        return entityManager().createQuery("SELECT o FROM Location o", Location.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM Location o ORDER BY state, city, address, name", Location.class).getResultList();
     }
 
     public static List<Location> findAllLocations(String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM Location o";
+        String jpaQuery = "SELECT o FROM Location o ORDER BY state, city, address";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            jpaQuery = jpaQuery + ", " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }
@@ -69,13 +69,13 @@ public class Location {
     }
 
     public static List<Location> findLocationEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Location o", Location.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("SELECT o FROM Location o ORDER BY state, city, address, name", Location.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     public static List<Location> findLocationEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM Location o";
+        String jpaQuery = "SELECT o FROM Location o ORDER BY state, city, address";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            jpaQuery = jpaQuery + ", " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }
