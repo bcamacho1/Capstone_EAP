@@ -6,24 +6,18 @@
 
 <div class="jumbotron">
 <style>
-h1
-{
-color: #e08d19;
-   padding: 0;
-    margin: 0;
-    padding-bottom: 10px;
-}
 
 h2
 {
 color: #a09f48;
-   padding: 0;
-    margin: 0;
+    padding: 0;
+    margin:  0;
 }
 
 #campus_map
 {
-   padding-bottom: 40px;
+	padding-top:    40px;	
+    padding-bottom: 40px;
 }
 </style>
 
