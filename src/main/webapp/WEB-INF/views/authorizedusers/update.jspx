@@ -10,6 +10,8 @@
         <field:input field="password" id="c_edu_ndnu_capstone_domain_User_password" required="true" z="kEW4oQdeXWi+JyIwdUJkmMKHYII=" type="password"/>
         <field:input field="phone" id="c_edu_ndnu_capstone_domain_User_phone" required="true" validationMessageCode="field_invalid_number" max="10" min="10" z="k42Av41wIfhbInJmZhCY/WbW+h4="/>
         <field:input field="active" id="c_edu_ndnu_capstone_domain_User_active" required="true" validationMessageCode="field_invalid_integer" max="1" min="1" z="wMEcOQjcrIJKY5RQ7mQ4/Uu9Ago="/>
+        <field:input field="emergencyContactName" id="c_edu_ndnu_capstone_domain_User_emergency_contact_name" required="true" z="" />
+        <field:input field="emergencyContactPhone" id="c_edu_ndnu_capstone_domain_User_emergency_contact_phone" required="true" z="" />
         <field:input field="description" id="c_edu_ndnu_capstone_domain_User_description" z="6TJHmWCAvkCtONvKOBHftLCMtso="/>
     </form:update>
 </div>

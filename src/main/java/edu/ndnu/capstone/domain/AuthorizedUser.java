@@ -94,6 +94,18 @@ public class AuthorizedUser
     @DateTimeFormat(style = "MM")
     private Calendar created = java.util.Calendar.getInstance();
 
+    @Column(name = "emergency_contact_name", length = 256)
+    @NotNull
+    @Size(min=1, max=256, message="Must be at least 1 character.")
+    @Pattern(regexp = "([A-Z][a-z]+) ([A-Za-z']+[ '-]*[A-Za-z]*[ Jr.Sr.]*[I]*)", message="Please use only first and last name, can be hyphenated, names must be capital. Includes suffix: Sr., Jr., I, II, and III. If no last name type NA.")
+    private String emergencyContactName;
+    
+    @Column(name = "emergency_contact_phone", length = 10, unique = true)
+    @NotNull
+    @Size(min=1, message="Emergency contact phone number can not be left blank.")
+    @Pattern(regexp = "^((?![5]{3})(\\d{3}))([-]*)(\\d{3})([-]*)\\d{4}$", message="Emergency contact phone number can be of the form 888-123-4567")
+    private String emergencyContactPhone;
+    
     @Column(name = "description", length = 1024)
     private String description;
 
@@ -170,6 +182,22 @@ public class AuthorizedUser
 
     public void setCreated(Calendar created) {
         this.created = created;
+    }
+    
+    public String getEmergencyContactName() {
+        return emergencyContactName;
+    }
+
+    public void setEmergencyContactName(String emergencyContactName) {
+        this.emergencyContactName = emergencyContactName;
+    }
+    
+    public String getEmergencyContactPhone() {
+        return emergencyContactPhone;
+    }
+
+    public void setEmergencyContactPhone(String emergencyContactPhone) {
+        this.emergencyContactPhone = emergencyContactPhone;
     }
 
     public String getDescription() {

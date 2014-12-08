@@ -5,10 +5,13 @@
     <page:show id="ps_edu_ndnu_capstone_domain_User" object="${user}" path="/users" z="Osi6LRIMxJjy7Vvury/AdNv0pFQ=">
         <field:display field="typeId" id="s_edu_ndnu_capstone_domain_User_typeId" object="${user}" z="WdxhXoXjyve9oDQvslAf+9p0ZkQ="/>
         <field:display field="name" id="s_edu_ndnu_capstone_domain_User_name" object="${user}" z="W1gyn9cWdfRF4qBJxhDCxrB1sFA="/>
+        <field:display field="idNumber" id="s_edu_ndnu_capstone_domain_User_id_number" object="${user}" z=""/>
         <field:display field="email" id="s_edu_ndnu_capstone_domain_User_email" object="${user}" z="o0WQluo422L/n27YJsOKQwFg8Z8="/>
         <field:display field="phone" id="s_edu_ndnu_capstone_domain_User_phone" object="${user}" z="Mv9x74rx6JXkgDzQBui4lcg7SvY="/>
         <field:display field="active" id="s_edu_ndnu_capstone_domain_User_active" object="${user}" z="CeB1feh6uBcOo3DDb4lR7pax88o="/>
         <field:display calendar="true" dateTimePattern="${user_created_date_format}" field="created" id="s_edu_ndnu_capstone_domain_User_created" object="${user}" z="dS/LjH8RzY/n5Sk7uB/geMqbshs="/>
+        <field:display field="emergencyContactName" id="s_edu_ndnu_capstone_domain_User_emergency_contact_name" object="${user}" z=""/>
+        <field:display field="emergencyContactPhone" id="s_edu_ndnu_capstone_domain_User_emergency_contact_phone" object="${user}" z=""/>
         <field:display field="description" id="s_edu_ndnu_capstone_domain_User_description" object="${user}" z="tYp9Bg0wi9xj9ms/lDBqlmAxQMs="/>
     </page:show>
 </div>
