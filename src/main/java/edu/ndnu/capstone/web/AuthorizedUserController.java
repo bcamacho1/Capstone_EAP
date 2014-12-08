@@ -3,9 +3,11 @@ import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.UserActiveType;
 import edu.ndnu.capstone.domain.AuthorizedUserService;
+import edu.ndnu.capstone.domain.UserType;
 import edu.ndnu.capstone.domain.UserTypeService;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -136,8 +138,20 @@ public class AuthorizedUserController {
         uiModel.addAttribute("user", user);
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
-        uiModel.addAttribute("usertypes", userTypeService.findAllUserTypes());
         uiModel.addAttribute("useractivetypes", UserActiveType.findTypes());
+        
+        List<UserType> types = userTypeService.findAllUserTypes();
+        
+        for (int i = 0; i < types.size(); i++) {
+            UserType element = types.get(i);
+            if (element.getName().compareTo("Student") == 0 ||
+                element.getName().compareTo("Faculty") == 0) {
+                types.remove(i);
+                i--;
+            }
+        }
+        
+        uiModel.addAttribute("usertypes", types);
     }
 
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
