@@ -7,7 +7,6 @@
         <field:display field="name" id="s_edu_ndnu_capstone_domain_User_name" object="${user}" z="W1gyn9cWdfRF4qBJxhDCxrB1sFA="/>
         <field:display field="email" id="s_edu_ndnu_capstone_domain_User_email" object="${user}" z="o0WQluo422L/n27YJsOKQwFg8Z8="/>
         <field:display field="username" id="s_edu_ndnu_capstone_domain_User_username" object="${user}" z="SfLkfHJ3u6zbDdl14S8S7XCGcoo="/>
-        <field:display field="password" id="s_edu_ndnu_capstone_domain_User_password" object="${user}" z="8sy5PsxsyfN7X0m9TfY35UcvSrI="/>
         <field:display field="phone" id="s_edu_ndnu_capstone_domain_User_phone" object="${user}" z="Mv9x74rx6JXkgDzQBui4lcg7SvY="/>
         <field:display field="active" id="s_edu_ndnu_capstone_domain_User_active" object="${user}" z="CeB1feh6uBcOo3DDb4lR7pax88o="/>
         <field:display calendar="true" dateTimePattern="${user_created_date_format}" field="created" id="s_edu_ndnu_capstone_domain_User_created" object="${user}" z="dS/LjH8RzY/n5Sk7uB/geMqbshs="/>
