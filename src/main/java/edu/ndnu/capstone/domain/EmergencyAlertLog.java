@@ -125,7 +125,7 @@ public class EmergencyAlertLog {
     }
 
     public static List<EmergencyAlertLog> findAllEmergencyAlertLogs() {
-        return entityManager().createQuery("SELECT o FROM EmergencyAlertLog o", EmergencyAlertLog.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM EmergencyAlertLog o ORDER BY ts desc", EmergencyAlertLog.class).getResultList();
     }
 
     public static EmergencyAlertLog findEmergencyAlertLog(Integer id) {
@@ -134,7 +134,7 @@ public class EmergencyAlertLog {
     }
 
     public static List<EmergencyAlertLog> findEmergencyAlertLogEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM EmergencyAlertLog o", EmergencyAlertLog.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("SELECT o FROM EmergencyAlertLog o ORDER BY ts desc", EmergencyAlertLog.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     @Transactional

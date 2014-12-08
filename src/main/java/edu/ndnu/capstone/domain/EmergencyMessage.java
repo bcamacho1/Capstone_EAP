@@ -69,7 +69,7 @@ public class EmergencyMessage {
     }
 
     public static List<EmergencyMessage> findAllEmergencyMessages() {
-        return entityManager().createQuery("SELECT o FROM EmergencyMessage o", EmergencyMessage.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM EmergencyMessage o ORDER BY user_id, emergency_type_id", EmergencyMessage.class).getResultList();
     }
 
     public static EmergencyMessage findEmergencyMessage(Integer id) {
@@ -93,7 +93,7 @@ public class EmergencyMessage {
     public static List<EmergencyMessage> findEmergencyMessageByUser(Integer user_id) {
         if (user_id == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id, EmergencyMessage.class).getResultList();
+            return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id + " ORDER BY emergency_type_id", EmergencyMessage.class).getResultList();
         } catch (DataAccessException e) {
             return null;
         }
@@ -109,11 +109,11 @@ public class EmergencyMessage {
     }
 
     public static List<EmergencyMessage> findEmergencyMessageEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM EmergencyMessage o", EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("SELECT o FROM EmergencyMessage o ORDER BY user_id, emergency_type_id", EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     public static List<EmergencyMessage> findEmergencyMessageEntriesByUser(Integer user_id, int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM EmergencyMessage o where user_id = " + user_id, EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("SELECT o FROM EmergencyMessage o where user_id = " + user_id + " ORDER BY emergency_type_id", EmergencyMessage.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     @Transactional
