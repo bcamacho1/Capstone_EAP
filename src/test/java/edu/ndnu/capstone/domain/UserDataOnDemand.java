@@ -34,10 +34,8 @@ public class UserDataOnDemand {
         setDescription(obj, index);
         setEmail(obj, index);
         setName(obj, index);
-        setPassword(obj, index);
         setPhone(obj, index);
         setTypeId(obj, index);
-        setUsername(obj, index);
         return obj;
     }
 
@@ -75,11 +73,6 @@ public class UserDataOnDemand {
         obj.setName(name);
     }
 
-    public void setPassword(User obj, int index) {
-        String password = "password_" + index;
-        obj.setPassword(password);
-    }
-
     public void setPhone(User obj, int index) {
         String phone = "phone_" + index;
         if (phone.length() > 24) {
@@ -91,14 +84,6 @@ public class UserDataOnDemand {
     public void setTypeId(User obj, int index) {
         UserType typeId = userTypeDataOnDemand.getRandomUserType();
         obj.setTypeId(typeId);
-    }
-
-    public void setUsername(User obj, int index) {
-        String username = "username_" + index;
-        if (username.length() > 256) {
-            username = username.substring(0, 256);
-        }
-        obj.setUsername(username);
     }
 
     public User getSpecificUser(int index) {

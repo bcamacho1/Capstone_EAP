@@ -35,7 +35,7 @@ public class EmergencyAlertLog {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User userId;
+    private AuthorizedUser userId;
 
     @ManyToOne
     @JoinColumn(name = "emergency_id", referencedColumnName = "id", nullable = false)
@@ -54,11 +54,11 @@ public class EmergencyAlertLog {
     @Column(name = "sent")
     private Integer sent;
 
-    public User getUserId() {
+    public AuthorizedUser getUserId() {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(AuthorizedUser userId) {
         this.userId = userId;
     }
 

@@ -270,13 +270,16 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
+  `id_number` int(11),
   `email` varchar(256) NOT NULL,
-  `username` varchar(256) NOT NULL,
-  `password` varchar(4000) NOT NULL,
+  `username` varchar(256),
+  `password` varchar(4000),
   `phone` varchar(24) NOT NULL,
   `type_id` int(1) NOT NULL,
   `active` int(1) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `emergency_contact_name` varchar(256),
+  `emergency_contact_phone` varchar(24),
   `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
@@ -293,10 +296,10 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES 
-(1,'Scott Mantegani','smantegani@student.ndnu.edu','smantegani','e08b22aa9529bc85b58a0542bdfd38d6d99309fca5e9164eceacc554963d8678','111-222-3333',2,1,'2013-02-28 14:59:32',''),
-(2,'Bozena Camacho','bcamacho1@student.ndnu.edu','bcamacho1','e5afeeee6e8a86dec3d4aaa87d412ab3c39adb400c60535e784050a1ccc45812','111-222-3333',1,1,'2014-10-03 06:48:00',''),
-(3,'Angelo Rivera','arivera@student.ndnu.edu','arivera','e28ca6b4a399dde7778603497fac13d32892a70654ac0b72ad65f49addf5e6d6','111-222-3333',2,1,'2014-11-27 04:06:25',''),
-(4,'Michael Tempalski','mtempalski@student.ndnu.edu','mtempalski','373cbadc33e4a2cb7dcb7be0cc297d6c852011773ba69d8603613f22ea4ba9e2','111-222-3333',1,1,'2014-11-27 04:26:58','');
+(1,'Scott Mantegani',111111,'smantegani@student.ndnu.edu','smantegani','e08b22aa9529bc85b58a0542bdfd38d6d99309fca5e9164eceacc554963d8678','111-222-3333',2,1,'2013-02-28 14:59:32','John Doe 1','111-222-3333',''),
+(2,'Bozena Camacho',222222,'bcamacho1@student.ndnu.edu','bcamacho1','e5afeeee6e8a86dec3d4aaa87d412ab3c39adb400c60535e784050a1ccc45812','111-222-3333',1,1,'2014-10-03 06:48:00','John Doe 2','111-222-3333',''),
+(3,'Angelo Rivera',333333,'arivera@student.ndnu.edu','arivera','e28ca6b4a399dde7778603497fac13d32892a70654ac0b72ad65f49addf5e6d6','111-222-3333',2,1,'2014-11-27 04:06:25','Jane Doe 1','111-222-3333',''),
+(4,'Michael Tempalski',444444,'mtempalski@student.ndnu.edu','mtempalski','373cbadc33e4a2cb7dcb7be0cc297d6c852011773ba69d8603613f22ea4ba9e2','111-222-3333',1,1,'2014-11-27 04:26:58','Jane Doe 2','111-222-3333','');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +325,9 @@ LOCK TABLES `user_type` WRITE;
 /*!40000 ALTER TABLE `user_type` DISABLE KEYS */;
 INSERT INTO `user_type` VALUES 
 (1,'Admin'),
-(2,'First Responder');
+(2,'First Responder'),
+(3,'Student'),
+(4,'Faculty');
 /*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

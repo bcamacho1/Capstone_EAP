@@ -14,11 +14,10 @@ public interface UserService {
 
     public abstract User findUser(Integer id);
 
-
-    public abstract User findUserByUsername(String username);
     
     public abstract User findUserByEmail(String email);
 
+    
     public abstract List<User> findAllUsers();
 
 

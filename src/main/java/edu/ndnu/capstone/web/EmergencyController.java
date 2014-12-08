@@ -23,6 +23,7 @@ import edu.ndnu.capstone.domain.EmergencyTypeService;
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class EmergencyController {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(login);
 
-        User user = User.findUserByUsername(login); 
+        AuthorizedUser user = AuthorizedUser.findUserByUsername(login); 
 
         System.out.printf("%d\n", emergency_id);
         System.out.println("You sent an email alert!");

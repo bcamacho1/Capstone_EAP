@@ -3,8 +3,8 @@ import edu.ndnu.capstone.domain.EmergencyAlertLogService;
 import edu.ndnu.capstone.domain.EmergencyMessage;
 import edu.ndnu.capstone.domain.EmergencyMessageService;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
-import edu.ndnu.capstone.domain.User;
-import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.AuthorizedUser;
+import edu.ndnu.capstone.domain.AuthorizedUserService;
 import edu.ndnu.capstone.domain.UserType;
 
 import java.io.UnsupportedEncodingException;
@@ -44,7 +44,7 @@ public class EmergencyMessageController {
     EmergencyTypeService emergencyTypeService;
 
     @Autowired
-    UserService userService;
+    AuthorizedUserService userService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -73,7 +73,7 @@ public class EmergencyMessageController {
     @RequestMapping(produces = "text/html")
     public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = User.findUserByUsername(login);
+        AuthorizedUser user = AuthorizedUser.findUserByUsername(login);
         UserType type = user.getTypeId();
 
         if (page != null || size != null) {
@@ -134,7 +134,7 @@ public class EmergencyMessageController {
 
     void populateEditForm(Model uiModel, EmergencyMessage emergencyMessage) {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = User.findUserByUsername(login);
+        AuthorizedUser user = AuthorizedUser.findUserByUsername(login);
         UserType type = user.getTypeId();
 
         if (type.getName().compareTo("Admin")==0)
@@ -143,7 +143,7 @@ public class EmergencyMessageController {
         }
         else
         {
-            List<User> currentUserList = new ArrayList<User>();
+            List<AuthorizedUser> currentUserList = new ArrayList<AuthorizedUser>();
             currentUserList.add(user);
             uiModel.addAttribute("users", currentUserList);
         }

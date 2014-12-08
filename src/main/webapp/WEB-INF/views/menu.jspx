@@ -17,8 +17,10 @@
         <sec:authorize ifAllGranted="Admin">
 	        <menu:category id="c_user" z="uoTSf/uIZ821ZppidzS9aO776yk=">
 	            <menu:item id="i_user_new" messageCode="global_menu_new" url="/users?form" z="Zv1m8u2rG+JFKcvJ+AHVVK0ey24="/>
+	            <menu:item id="i_authorizeduser_new" messageCode="global_menu_new" url="/authorizedusers?form" z="Zv1m8u2rG+JFKcvJ+AHVVK0ey24="/>
 	            <menu:item id="i_usertype_new" messageCode="global_menu_new" url="/usertypes?form" z="1Q08ohh3zBFonIM0U17v/VIcHg0="/>
 	            <menu:item id="i_user_list" messageCode="global_menu_list" url="/users?page=1&amp;size=${empty param.size ? 10 : param.size}&amp;sortFieldName=name" z="4MY4uybxa60Q1G2rlI5bOwg+sm0="/>
+	            <menu:item id="i_authorizeduser_list" messageCode="global_menu_list" url="/authorizedusers?page=1&amp;size=${empty param.size ? 10 : param.size}&amp;sortFieldName=name" z="4MY4uybxa60Q1G2rlI5bOwg+sm0="/>
 	            <menu:item id="i_usertype_list" messageCode="global_menu_list" url="/usertypes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="nIcrk/I4+jUazSFh2x9cjOdwEg8="/>
 	            <menu:item id="i_data_import" url="/dataImport" z=""/>
 	        </menu:category>

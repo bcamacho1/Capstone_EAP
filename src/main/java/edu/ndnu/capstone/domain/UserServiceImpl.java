@@ -20,10 +20,6 @@ public class UserServiceImpl implements UserService {
     public User findUser(Integer id) {
         return User.findUser(id);
     }
-
-    public User findUserByUsername(String username) {
-        return User.findUserByUsername(username);
-    }
     
     public User findUserByEmail(String email) {
         return User.findUserByEmail(email);

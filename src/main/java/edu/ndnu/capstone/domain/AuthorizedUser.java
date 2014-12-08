@@ -1,4 +1,6 @@
 package edu.ndnu.capstone.domain;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RooJpaActiveRecord(versionField = "", table = "user")
 @RooDbManaged(automaticallyDelete = true)
 @RooToString(excludeFields = { "emergencies", "typeId" })
-public class User 
+public class AuthorizedUser 
 {
 
     @OneToMany(mappedBy = "userId")
@@ -60,6 +62,19 @@ public class User
     @NotNull
     //@Pattern(regexp = "@[student]*[.]*[ndnu.edu]+", message="Email must end with either @student.ndnu.edu or @ndnu.edu as the extension.")
     private String email;
+
+
+    @Column(name = "username", length = 150, unique = true)
+    @NotNull
+    @Size(min=4, message="Must be at least 5 characters.")
+    @Pattern(regexp = "[a-z]*[0-9]?", message="User name can only be letters, and can contain one number at the end.")
+    private String username;
+
+    @Column(name = "password")
+    @NotNull
+    @Size(min=4, message="Password can not be left blank.")
+    @Pattern(regexp = "[a-zA-Z0-9]+", message="Password must be at least 5 characters.")
+    private String password;
 
     @Column(name = "phone", length = 10, unique = true)
     @NotNull
@@ -115,6 +130,24 @@ public class User
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.email=username+"@ndnu.edu";
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        String hashedPassword = encryptPassword(password);
+        this.password = hashedPassword;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -160,54 +193,91 @@ public class User
         this.id = id;
     }
 
+    /*
+     * This code takes the password string and makes a sha-256 hash
+     * before saving it in the database.
+     * 
+     */
+    public String encryptPassword(String password) 
+    {
+        if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
+        {
+            MessageDigest md;
+            try 
+            {
+                md = MessageDigest.getInstance("SHA-256");
+                md.update(password.getBytes());
+                byte[] shaDig = md.digest();
+                String hashedPassword = convertByteArrayToHexString(shaDig);
+                return hashedPassword;
+            } 
+            catch (NoSuchAlgorithmException e) 
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return "";
+    }
+
+    private String convertByteArrayToHexString(byte[] arrayBytes)
+    {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < arrayBytes.length; i++)
+        {
+            stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return stringBuffer.toString();
+    }
+
     @PersistenceContext
     transient EntityManager entityManager;
 
-    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "email", "phone", "created");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "email", "username", "password", "phone", "created");
 
     public static final EntityManager entityManager() {
-        EntityManager em = new User().entityManager;
+        EntityManager em = new AuthorizedUser().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
     public static long countUsers() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty')", Long.class).getSingleResult();
+        return entityManager().createQuery("SELECT COUNT(o) FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder')", Long.class).getSingleResult();
     }
 
-    public static List<User> findAllUsers() {
-        return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') ORDER BY active desc, type_id, o.name", User.class).getResultList();
+    public static List<AuthorizedUser> findAllUsers() {
+        return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') ORDER BY active desc, type_id, o.name", AuthorizedUser.class).getResultList();
     }
 
-    public static List<User> findAllUsers(String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') ORDER BY active desc, type_id";
+    public static List<AuthorizedUser> findAllUsers(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') ORDER BY active desc, type_id";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + ", " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }
         }
-        return entityManager().createQuery(jpaQuery, User.class).getResultList();
+        return entityManager().createQuery(jpaQuery, AuthorizedUser.class).getResultList();
     }
 
-    public static User findUser(Integer id) {
+    public static AuthorizedUser findUser(Integer id) {
         if (id == null) return null;
-        return entityManager().find(User.class, id);
+        return entityManager().find(AuthorizedUser.class, id);
     }
 
-    public static List<User> findUserEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') ORDER BY active desc, type_id, o.name", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<AuthorizedUser> findUserEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') ORDER BY active desc, type_id, o.name", AuthorizedUser.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-    public static List<User> findUserEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
-        String jpaQuery = "SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') ORDER BY active desc, type_id";
+    public static List<AuthorizedUser> findUserEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') ORDER BY active desc, type_id";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + ", o." + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }
         }
-        return entityManager().createQuery(jpaQuery, User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery(jpaQuery, AuthorizedUser.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     @Transactional
@@ -222,7 +292,7 @@ public class User
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            User attached = User.findUser(this.id);
+            AuthorizedUser attached = AuthorizedUser.findUser(this.id);
             this.entityManager.remove(attached);
         }
     }
@@ -240,9 +310,9 @@ public class User
     }
 
     @Transactional
-    public User merge() {
+    public AuthorizedUser merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        User merged = this.entityManager.merge(this);
+        AuthorizedUser merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }
@@ -250,11 +320,20 @@ public class User
     public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies", "typeId").toString();
     }
+
+    public static AuthorizedUser findUserByUsername(String username2) {
+        if (username2 == null) return null;
+        try {
+            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') WHERE username = '" + username2 + "'", AuthorizedUser.class).getSingleResult();
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
     
-    public static User findUserByEmail(String email2) {
+    public static AuthorizedUser findUserByEmail(String email2) {
         if (email2 == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') WHERE email = '" + email2 + "'", User.class).getSingleResult();
+            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') WHERE email = '" + email2 + "'", AuthorizedUser.class).getSingleResult();
         } catch (DataAccessException e) {
             return null;
         }

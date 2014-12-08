@@ -7,9 +7,9 @@ import javax.validation.Valid;
 
 import edu.ndnu.capstone.domain.PasswordChange;
 import edu.ndnu.capstone.domain.UploadItem;
-import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.UserActiveType;
-import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.AuthorizedUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +28,7 @@ import org.springframework.web.util.WebUtils;
 public class PasswordChangeController
 {
   @Autowired
-  UserService userService;
+  AuthorizedUserService userService;
     
   @RequestMapping(method = RequestMethod.GET)
   public String getChangePasswordForm(Model model)
@@ -56,7 +56,7 @@ public class PasswordChangeController
       try
       {
           String login = SecurityContextHolder.getContext().getAuthentication().getName();
-          User user = User.findUserByUsername(login);
+          AuthorizedUser user = AuthorizedUser.findUserByUsername(login);
           String old_password_confirm = passwordChange.getOldPassword();
           String hashedOldPassword = user.encryptPassword(old_password_confirm);
           

@@ -119,18 +119,9 @@ public class UploadItemController
                     continue;
                 }
                 
-                returnedUser = User.findUserByUsername(parts[2]);
-                
-                if (returnedUser instanceof User)
-                {
-                    continue;
-                }
-                
                 try {
                     newUser.setName(parts[0]);
                     newUser.setEmail(parts[1]);
-                    newUser.setUsername(parts[2]);
-                    newUser.setPassword(parts[3]);
                     newUser.setPhone(parts[4]);
                     newUser.setTypeId(type_cache.get(parts[5]));
                     newUser.setActive(1);
