@@ -132,19 +132,19 @@ public class Location {
     @Column(name = "address", length = 1024)
     @NotNull
     @Size(min=2, max=30, message = "Address must be between 2 and 30 characters.")
-    @Pattern(regexp = "[0-9]+ [A-Za-z]+ ?[a-z*[A-Za-z]* *[A-Za-z]*", message="Address can be both letters and numbers. Address can be three words.")
+    @Pattern(regexp = "[0-9]+ [A-Za-z]+ ?[a-z]*[A-Za-z]* *[A-Za-z]*", message="Address can be both letters and numbers. Address can be three words.")
     private String address;
 
     @Column(name = "city", length = 1024)
     @NotNull
     @Size(min=2, max=30, message="City must be between 2 and 30 characters.")
-    @Pattern(regexp = "([A-Za-z]+) ?([a-z*[A-Za-z]*) *([A-Za-z]*)", message="City must contain only letters, and can be three words.")
+    @Pattern(regexp = "([A-Za-z]+) ?([a-z]*[A-Za-z]*) *([A-Za-z]*)", message="City must contain only letters, and can be three words.")
     private String city;
 
     @Column(name = "state", length = 64)
     @NotNull
     @Size(min=2, max=30, message="State must be between 2 and 30 characters.")
-    @Pattern(regexp = "([A-Za-z]+) ?([a-z*[A-Za-z]*) *([A-Za-z]*)", message="State must contain only letters, and can be three words.")
+    @Pattern(regexp = "([A-Za-z]+) ?([a-z]*[A-Za-z]*) *([A-Za-z]*)", message="State must contain only letters, and can be three words.")
     private String state;
 
 
@@ -155,13 +155,13 @@ public class Location {
     private String zipcode;
 
     @Column(name = "latitude", length = 64)
-    @Size(min=8, max=8, message="Latitude must be of the form 66-55-44")
-    @Pattern(regexp = "^(\\d{2}-\\d{2}-\\d{2})", message="Latitude must be of the form 66-55-44")
+    //@Size(min=8, max=8, message="Latitude must be of the form 66-55-44")
+    //@Pattern(regexp = "^(\\d{2}-\\d{2}-\\d{2})", message="Latitude must be of the form 66-55-44")
     private String latitude;
 
     @Column(name = "longitude", length = 64)
-    @Size(min=8, max=8, message="Latitude must be of the form 66-55-44")
-    @Pattern(regexp = "^(\\d{2}-\\d{2}-\\d{2})", message="Longitude must be of the form 66-55-44")
+    //@Size(min=8, max=8, message="Latitude must be of the form 66-55-44")
+    //@Pattern(regexp = "^(\\d{2}-\\d{2}-\\d{2})", message="Longitude must be of the form 66-55-44")
     private String longitude;
 
     @Column(name = "description", length = 1024)
