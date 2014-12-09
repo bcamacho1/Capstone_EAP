@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/jquery/util" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/jquery/util" version="2.0" xmlns:sec="http://www.springframework.org/security/tags">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <spring:message code="application_name" htmlEscape="false" var="app_name"/>
@@ -55,7 +55,11 @@ hr
 			    <h3><a href="/Capstone_EAP/emergencys">Current Emergencies List</a></h3>
 			    We provide a list of any emergencies that are currently happening on campus that have been reported.
 			     <br/>
-			   
+			     <sec:authorize ifAllGranted="Admin">
+			    <h3><a href="/Capstone_EAP/emergencys?form">Emergency Submission Form</a></h3>
+			    There will be a form a user can fill out to report emergencies that happen on campus. The emergency will be posted on this app when it has been approved.
+			     <br/>
+			     </sec:authorize> 
 			    <h3><a href="/Capstone_EAP/contactUs">List of Contacts</a></h3>
 			    We provide a list of relevant personal you can contact that are related to dealing with NDNU emergencies.
             </div>
