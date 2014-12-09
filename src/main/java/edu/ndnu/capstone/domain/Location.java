@@ -126,7 +126,7 @@ public class Location {
     @Column(name = "name", length = 256)
     @NotNull()
     @Size(min=2, max=30, message = "Name must be between 2 and 30 characters.")
-    @Pattern(regexp = "([A-Z][a-z]*) ([A-za-z]+([ '-][A-Za-z]+)*)", message="Name must contain only letters, spaces, dashes, and apostraphies.")
+    @Pattern(regexp = "([A-Z][a-z]*).? ([A-za-z]+([ '-][A-Za-z]+)*)", message="Name must contain only letters, spaces, dashes, and apostraphies.")
     private String name;
 
     @Column(name = "address", length = 1024)
