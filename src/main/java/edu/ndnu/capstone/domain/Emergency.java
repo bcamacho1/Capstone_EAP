@@ -54,7 +54,7 @@ public class Emergency {
     private EmergencyStatus statusId;
 
     @Column(name = "created", updatable = false)
-    @NotNull(message = "Date can not be left blank.")
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "MM")
     private Calendar created = java.util.Calendar.getInstance();
