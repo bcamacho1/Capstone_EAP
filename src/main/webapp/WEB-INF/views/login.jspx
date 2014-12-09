@@ -23,7 +23,7 @@
 
 	<form action="${fn:escapeXml(form_url)}" method="POST" name="f" class="form-signin">
 
-    	<h2 class="form-signin-heading"><spring:message code="security_login_title"/></h2>
+        <center><h2 class="form-signin-heading"><spring:message code="security_login_title"/></h2></center>
 
 		<spring:message code="security_login_form_name" var="name" />
 		<spring:message code="security_login_form_name_message" htmlEscape="false" var="name_msg"/>
