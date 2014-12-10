@@ -8,19 +8,6 @@
 		<field:input field="city" id="c_edu_ndnu_capstone_domain_Location_city" required="true" z="CjqwU9LFWcxAOKG3tIlAaUUwdSQ="/>
 		<field:select field="state" id="c_edu_ndnu_capstone_domain_Location_state" path="" items="${locationstates}" itemLabel="name" itemValue="value" required="true" z="H6HAoNpqBBj9DH8taLqBdyn+NKo="/>
 		<field:input field="zipcode" id="c_edu_ndnu_capstone_domain_Location_zipcode" required="true" z="eHYY3QVaweGxyDFhmR3heqyuEV4="/>
-
-		<field:input field="address"
-			id="c_edu_ndnu_capstone_domain_Location_address" required="true"
-			z="lQN6wcGxVJxa6dytI9ZrPJgYoWo=" />
-		<field:input field="city"
-			id="c_edu_ndnu_capstone_domain_Location_city" required="true"
-			z="CjqwU9LFWcxAOKG3tIlAaUUwdSQ=" />
-		<field:input field="state"
-			id="c_edu_ndnu_capstone_domain_Location_state" required="true"
-			z="H6HAoNpqBBj9DH8taLqBdyn+NKo=" />
-		<field:input field="zipcode"
-			id="c_edu_ndnu_capstone_domain_Location_zipcode" required="true"
-			z="eHYY3QVaweGxyDFhmR3heqyuEV4=" />
         <field:input field="latitude" id="c_edu_ndnu_capstone_domain_Location_latitude" z="fcncHNZZ4rh9Ip2v1t1I2GS3a/Q="/>
         <field:input field="longitude" id="c_edu_ndnu_capstone_domain_Location_longitude" z="VChJ2u4f1aO6UqgZj3Cgf4REyns="/>
         <field:input field="description" id="c_edu_ndnu_capstone_domain_Location_description" z="xyP9Uh29Q5WUsFCU8xQ3dfC6oP0="/>

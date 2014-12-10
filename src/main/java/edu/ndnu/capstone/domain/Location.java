@@ -140,11 +140,13 @@ public class Location {
     @Column(name = "city", length = 30)
     @NotNull
     @Size(min=2, max=30, message="City must be between 2 and 30 characters.")
-    @Pattern(regexp = "[A-Za-z]+) ?([a-z]*[A-Za-z]*) *([A-Za-z]*)", message="City must contain only letters, and can be three words.")
+    @Pattern(regexp = "([A-Za-z]+) ?([a-z]*[A-Za-z]*) *([A-Za-z]*)", message="City must contain only letters, and can be three words.")
     private String city;
 
     @Column(name = "state", length = 2)
     @NotNull
+    @Min(1)
+    @Max(50)
     private String state;
 
 
