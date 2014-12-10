@@ -145,8 +145,8 @@ public class Location {
 
     @Column(name = "state", length = 2)
     @NotNull
-    @Min(1)
-    @Max(50)
+    @Size(min=2, max=2, message="State must be 2 characters.")
+    @Pattern(regexp = "[A-Z]{2}", message="State must contain only two capital letters.")
     private String state;
 
 
