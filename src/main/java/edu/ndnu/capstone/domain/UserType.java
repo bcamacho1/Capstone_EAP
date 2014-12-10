@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RooJavaBean
 @RooJpaActiveRecord(versionField = "", table = "user_type")
 @RooDbManaged(automaticallyDelete = true)
-@RooToString(excludeFields = { "users" })
+@RooToString(excludeFields = { "users", "authorizedUsers" })
 public class UserType {
 
     @Id
@@ -133,11 +133,14 @@ public class UserType {
     }
 
     public String toString() {
-        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("users").toString();
+        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("users", "authorizedUsers").toString();
     }
 
     @OneToMany(mappedBy = "typeId")
     private Set<User> users;
+    
+    @OneToMany(mappedBy = "typeId")
+    private Set<AuthorizedUser> authorizedUsers;
 
     @Column(name = "name", length = 256)
     @NotNull
@@ -147,9 +150,17 @@ public class UserType {
     public Set<User> getUsers() {
         return users;
     }
+    
+    public Set<AuthorizedUser> getAuthorizedUsers() {
+        return authorizedUsers;
+    }
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+    
+    public void setAuthorizedUsers(Set<AuthorizedUser> authorizedUsers) {
+        this.authorizedUsers = authorizedUsers;
     }
 
     public String getName() {

@@ -352,7 +352,7 @@ public class AuthorizedUser
     public static AuthorizedUser findUserByUsername(String username2) {
         if (username2 == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') WHERE username = '" + username2 + "'", AuthorizedUser.class).getSingleResult();
+            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND username = '" + username2 + "'", AuthorizedUser.class).getSingleResult();
         } catch (DataAccessException e) {
             return null;
         }
@@ -361,7 +361,7 @@ public class AuthorizedUser
     public static AuthorizedUser findUserByEmail(String email2) {
         if (email2 == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') WHERE email = '" + email2 + "'", AuthorizedUser.class).getSingleResult();
+            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND email = '" + email2 + "'", AuthorizedUser.class).getSingleResult();
         } catch (DataAccessException e) {
             return null;
         }

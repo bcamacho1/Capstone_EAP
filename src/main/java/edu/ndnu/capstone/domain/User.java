@@ -295,7 +295,7 @@ public class User
     public static User findUserByEmail(String email2) {
         if (email2 == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') WHERE email = '" + email2 + "'", User.class).getSingleResult();
+            return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') AND email = '" + email2 + "'", User.class).getSingleResult();
         } catch (DataAccessException e) {
             return null;
         }

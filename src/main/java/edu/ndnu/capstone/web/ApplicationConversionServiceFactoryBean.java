@@ -14,6 +14,8 @@ import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserService;
+import edu.ndnu.capstone.domain.AuthorizedUser;
+import edu.ndnu.capstone.domain.AuthorizedUserService;
 import edu.ndnu.capstone.domain.UserType;
 import edu.ndnu.capstone.domain.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,9 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    AuthorizedUserService authorizedUserService;
 
     @Autowired
     UserTypeService userTypeService;
@@ -251,6 +256,30 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
             }
         };
     }
+    
+    public Converter<AuthorizedUser, String> getAuthorizedUserToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.AuthorizedUser, java.lang.String>() {
+            public String convert(AuthorizedUser user) {
+                return new StringBuilder().append(user.getName()).append(" - ").append(user.getEmail()).toString();
+            }
+        };
+    }
+
+    public Converter<Integer, AuthorizedUser> getIdToAuthorizedUserConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Integer, edu.ndnu.capstone.domain.AuthorizedUser>() {
+            public edu.ndnu.capstone.domain.AuthorizedUser convert(java.lang.Integer id) {
+                return authorizedUserService.findUser(id);
+            }
+        };
+    }
+
+    public Converter<String, AuthorizedUser> getStringToAuthorizedUserConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, edu.ndnu.capstone.domain.AuthorizedUser>() {
+            public edu.ndnu.capstone.domain.AuthorizedUser convert(String id) {
+                return getObject().convert(getObject().convert(id, Integer.class), AuthorizedUser.class);
+            }
+        };
+    }
 
     public void installLabelConverters(FormatterRegistry registry) {
         registry.addConverter(getEmergencyToStringConverter());
@@ -274,6 +303,9 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
         registry.addConverter(getUserToStringConverter());
         registry.addConverter(getIdToUserConverter());
         registry.addConverter(getStringToUserConverter());
+        registry.addConverter(getAuthorizedUserToStringConverter());
+        registry.addConverter(getIdToAuthorizedUserConverter());
+        registry.addConverter(getStringToAuthorizedUserConverter());
         registry.addConverter(getUserTypeToStringConverter());
         registry.addConverter(getIdToUserTypeConverter());
         registry.addConverter(getStringToUserTypeConverter());
