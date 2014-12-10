@@ -6,21 +6,16 @@
         <field:input field="name" id="c_edu_ndnu_capstone_domain_Location_name" required="true" z="gSydue8KAJWTESX9Go8obcYAXks="/>
 		<field:input field="address"
 			id="c_edu_ndnu_capstone_domain_Location_address" required="true"
-			z="lQN6wcGxVJxa6dytI9ZrPJgYoWo="
-			validationRegex="[0-9]+\s+([A-Z][a-z]+)|([A-Z][a-z]+\s[A-Z][a-z]+)|([A-Z][a-z]+\s[A-Z][a-z]+\s[A-Z][a-z]+)"
-			validationMessage="Address is of the form 123 South Bird Lane (up to three words) - no punctuation allowed." />
+			z="lQN6wcGxVJxa6dytI9ZrPJgYoWo=" />
 		<field:input field="city"
 			id="c_edu_ndnu_capstone_domain_Location_city" required="true"
-			z="CjqwU9LFWcxAOKG3tIlAaUUwdSQ=" validationRegex="([A-Z][a-z]+\s[A-Z][a-z]+)|([A-Z][a-z]+\s[A-Z][a-z]+\s[A-Z][a-z]+)|([A-Z][a-z]+)"
-			validationMessage="City name must be capitol and can be three words." />
+			z="CjqwU9LFWcxAOKG3tIlAaUUwdSQ=" />
 		<field:input field="state"
 			id="c_edu_ndnu_capstone_domain_Location_state" required="true"
-			z="H6HAoNpqBBj9DH8taLqBdyn+NKo=" validationMessage="State name must be capitol and can be three words."
-			validationRegex="([A-Z][a-z]+\s[A-Z][a-z]+)|([A-Z][a-z]+\s[A-Z][a-z]+\s[A-Z][a-z]+)|([A-Z][a-z]+)" />
+			z="H6HAoNpqBBj9DH8taLqBdyn+NKo=" />
 		<field:input field="zipcode"
 			id="c_edu_ndnu_capstone_domain_Location_zipcode" required="true"
-			z="eHYY3QVaweGxyDFhmR3heqyuEV4=" validationRegex="d{5}"
-			validationMessage="Zipcode must be 5 digits." />
+			z="eHYY3QVaweGxyDFhmR3heqyuEV4=" />
         <field:input field="latitude" id="c_edu_ndnu_capstone_domain_Location_latitude" z="fcncHNZZ4rh9Ip2v1t1I2GS3a/Q="/>
         <field:input field="longitude" id="c_edu_ndnu_capstone_domain_Location_longitude" z="VChJ2u4f1aO6UqgZj3Cgf4REyns="/>
         <field:input field="description" id="c_edu_ndnu_capstone_domain_Location_description" z="xyP9Uh29Q5WUsFCU8xQ3dfC6oP0="/>
