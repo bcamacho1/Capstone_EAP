@@ -79,6 +79,7 @@ public class PasswordChangeController
           
           return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
       } catch (Exception e) {
+          e.printStackTrace();
           return "passwordChange";
       }
   }
