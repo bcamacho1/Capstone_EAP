@@ -2,14 +2,20 @@ package edu.ndnu.capstone.web;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
+import edu.ndnu.capstone.domain.LocationState;
+
 import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,12 +39,28 @@ public class LocationController {
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid Location location, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
+        	java.util.List<ObjectError> list=bindingResult.getAllErrors();
+        	for(ObjectError obj:list)
+        	{
+        		System.out.println("objname"+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+        		if(obj instanceof FieldError)
+        		{
+        			System.out.println(((FieldError)obj).getField());
+        		}
+        	}
             populateEditForm(uiModel, location);
             return "locations/create";
         }
-        uiModel.asMap().clear();
-        locationService.saveLocation(location);
-        return "redirect:/locations/" + encodeUrlPathSegment(location.getId().toString(), httpServletRequest);
+        
+        try {
+        	locationService.saveLocation(location);
+        	uiModel.asMap().clear();  
+	        return "redirect:/locations/" + encodeUrlPathSegment(location.getId().toString(), httpServletRequest);
+        } catch (Exception e) {
+        	bindingResult.addError(new FieldError("location", "state", "Location is already in the database"));
+        	populateEditForm(uiModel, location);
+            return "locations/create";
+        }
     }
 
     @RequestMapping(params = "form", produces = "text/html")
@@ -98,6 +120,7 @@ public class LocationController {
     void populateEditForm(Model uiModel, Location location) {
         uiModel.addAttribute("location", location);
         uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
+        uiModel.addAttribute("locationstates", LocationState.findState());
     }
 
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

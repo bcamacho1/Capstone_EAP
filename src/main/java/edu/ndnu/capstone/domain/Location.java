@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -126,7 +128,7 @@ public class Location {
     @Column(name = "name", length = 256)
     @NotNull()
     @Size(min=2, max=30, message = "Name must be between 2 and 30 characters.")
-    @Pattern(regexp = "([A-Z][a-z]*).? ([A-za-z]+([ '-][A-Za-z]+)*)", message="Name must contain only letters, spaces, dashes, and apostraphies.")
+    @Pattern(regexp = "([A-Z][a-z]*) ([A-za-z]+([ '-][A-Za-z]+)*)", message="Name must contain only letters, spaces, dashes, and apostraphies.")
     private String name;
 
     @Column(name = "address", length = 1024)
@@ -135,16 +137,14 @@ public class Location {
     @Pattern(regexp = "[0-9]+ [A-Za-z]+ ?[a-z]*[A-Za-z]* *[A-Za-z]*", message="Address can be both letters and numbers. Address can be three words.")
     private String address;
 
-    @Column(name = "city", length = 1024)
+    @Column(name = "city", length = 30)
     @NotNull
     @Size(min=2, max=30, message="City must be between 2 and 30 characters.")
-    @Pattern(regexp = "([A-Za-z]+) ?([a-z]*[A-Za-z]*) *([A-Za-z]*)", message="City must contain only letters, and can be three words.")
+    @Pattern(regexp = "[A-Za-z]+) ?([a-z]*[A-Za-z]*) *([A-Za-z]*)", message="City must contain only letters, and can be three words.")
     private String city;
 
-    @Column(name = "state", length = 64)
+    @Column(name = "state", length = 2)
     @NotNull
-    @Size(min=2, max=30, message="State must be between 2 and 30 characters.")
-    @Pattern(regexp = "([A-Za-z]+) ?([a-z]*[A-Za-z]*) *([A-Za-z]*)", message="State must contain only letters, and can be three words.")
     private String state;
 
 
@@ -204,6 +204,7 @@ public class Location {
     }
 
     public void setState(String state) {
+    	System.out.println("the state is" + state);
         this.state = state;
     }
 

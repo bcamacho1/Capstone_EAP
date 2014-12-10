@@ -4,6 +4,11 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_edu_ndnu_capstone_domain_Location" modelAttribute="location" path="/locations" render="${empty dependencies}" z="6dpLWAdBJsSBZuK4Ir6m9U8JHeE=">
         <field:input field="name" id="c_edu_ndnu_capstone_domain_Location_name" required="true" z="gSydue8KAJWTESX9Go8obcYAXks="/>
+		<field:input field="address" id="c_edu_ndnu_capstone_domain_Location_address" required="true" z="lQN6wcGxVJxa6dytI9ZrPJgYoWo="/>
+		<field:input field="city" id="c_edu_ndnu_capstone_domain_Location_city" required="true" z="CjqwU9LFWcxAOKG3tIlAaUUwdSQ="/>
+		<field:select field="state" id="c_edu_ndnu_capstone_domain_Location_state" path="" items="${locationstates}" itemLabel="name" itemValue="value" required="true" z="H6HAoNpqBBj9DH8taLqBdyn+NKo="/>
+		<field:input field="zipcode" id="c_edu_ndnu_capstone_domain_Location_zipcode" required="true" z="eHYY3QVaweGxyDFhmR3heqyuEV4="/>
+
 		<field:input field="address"
 			id="c_edu_ndnu_capstone_domain_Location_address" required="true"
 			z="lQN6wcGxVJxa6dytI9ZrPJgYoWo=" />
