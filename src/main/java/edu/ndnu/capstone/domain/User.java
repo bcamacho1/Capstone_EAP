@@ -56,9 +56,9 @@ public class User
     @Pattern(regexp = "([A-Z][a-z]+) ([A-Za-z']+[ '-]*[A-Za-z]*[ Jr.Sr.]*[I]*)", message="Please use only first and last name, can be hyphenated, names must be capital. Includes suffix: Sr., Jr., I, II, and III. If no last name type NA.")
     private String name;
     
-    @Column(name = "id_number")
+    @Column(name = "id_number", length = 9)
     @Min(0)
-    @Max(1000000)
+    @Max(1000000000)
     private Integer idNumber;
 
     @Column(name = "email", length = 100, unique = true)

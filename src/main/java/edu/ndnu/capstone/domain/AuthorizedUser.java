@@ -72,7 +72,7 @@ public class AuthorizedUser
 
     @Column(name = "password")
     @NotNull
-    @Size(min=4, message="Password can not be left blank.")
+    @Size(min=5, message="Password can not be left blank.")
     @Pattern(regexp = "[a-zA-Z0-9]+", message="Password must be at least 5 characters.")
     private String password;
 
@@ -156,8 +156,7 @@ public class AuthorizedUser
     }
 
     public void setPassword(String password) {
-        String hashedPassword = encryptPassword(password);
-        this.password = hashedPassword;
+        this.password = password;
     }
 
     public String getPhone() {
@@ -261,7 +260,7 @@ public class AuthorizedUser
     @PersistenceContext
     transient EntityManager entityManager;
 
-    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "email", "username", "password", "phone", "created");
+    public static final List<String> fieldNames4OrderClauseFilter = java.util.Arrays.asList("name", "email", "username", "phone", "created");
 
     public static final EntityManager entityManager() {
         EntityManager em = new AuthorizedUser().entityManager;

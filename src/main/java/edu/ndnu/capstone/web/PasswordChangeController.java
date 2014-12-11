@@ -72,8 +72,8 @@ public class PasswordChangeController
               bindingResult.addError(new ObjectError("passwordChange", "The new password you entered does not match on both input fields."));
               return "passwordChange";
           }
-          
-          user.setPassword(passwordChange.getNewPassword());
+          String hashedPassword = user.encryptPassword(passwordChange.getNewPassword());
+          user.setPassword(hashedPassword);
           userService.updateUser(user);
           redirectAttributes.addFlashAttribute("successMessage", "Your password has been updated successfully.");
           return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);

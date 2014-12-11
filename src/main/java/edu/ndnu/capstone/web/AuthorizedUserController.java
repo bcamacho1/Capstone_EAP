@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +46,7 @@ public class AuthorizedUserController {
     UserTypeService userTypeService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             for(ObjectError obj:list)
@@ -62,6 +63,8 @@ public class AuthorizedUserController {
             return "authorizedusers/create";
         }
         try {
+            String hashedPassword = user.encryptPassword(user.getPassword());
+            user.setPassword(hashedPassword);
             userService.saveUser(user);
             uiModel.asMap().clear();  
             return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
@@ -104,11 +107,34 @@ public class AuthorizedUserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
+            java.util.List<ObjectError> list=bindingResult.getAllErrors();
+            for(ObjectError obj:list)
+            {
+                System.out.println("objname: "+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+                
+                if(obj instanceof FieldError)
+                {
+                    System.out.println(((FieldError)obj).getField());
+                    // the only failure was the password validation, 
+                    // but that's okay because we're not resetting it anyway
+                    // so skip it and process the edits
+                    if ((((FieldError)obj).getField().compareTo("password") == 0) && list.size() == 1)
+                    {
+                        AuthorizedUser oldUser = userService.findUserByUsername(user.getUsername());
+                        user.setPassword(oldUser.getPassword());
+                        uiModel.asMap().clear();
+                        userService.updateUser(user);
+                        return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+                    }
+                }
+            }
+
             populateEditForm(uiModel, user);
             return "authorizedusers/update";
         }
+
         uiModel.asMap().clear();
         userService.updateUser(user);
         return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
