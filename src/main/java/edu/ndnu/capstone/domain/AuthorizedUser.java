@@ -1,6 +1,4 @@
 package edu.ndnu.capstone.domain;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -72,8 +70,8 @@ public class AuthorizedUser
 
     @Column(name = "password")
     @NotNull
-    @Size(min=5, message="Password can not be left blank.")
-    @Pattern(regexp = "[a-zA-Z0-9]+", message="Password must be at least 5 characters.")
+    @Size(min=5, message="Password must be at least 5 characters.")
+    @Pattern(regexp = "[a-zA-Z0-9\\.,_!@#\\$%\\^&\\*\\?\\/~`\\+=<>]+", message="Password must contain valid characters.")
     private String password;
 
     @Column(name = "phone", length = 10, unique = true)
@@ -218,43 +216,6 @@ public class AuthorizedUser
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    /*
-     * This code takes the password string and makes a sha-256 hash
-     * before saving it in the database.
-     * 
-     */
-    public String encryptPassword(String password) 
-    {
-        if (password != null && (! password.matches("^[0-9a-fA-F]+$"))) 
-        {
-            MessageDigest md;
-            try 
-            {
-                md = MessageDigest.getInstance("SHA-256");
-                md.update(password.getBytes());
-                byte[] shaDig = md.digest();
-                String hashedPassword = convertByteArrayToHexString(shaDig);
-                return hashedPassword;
-            } 
-            catch (NoSuchAlgorithmException e) 
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        return "";
-    }
-
-    private String convertByteArrayToHexString(byte[] arrayBytes)
-    {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < arrayBytes.length; i++)
-        {
-            stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        return stringBuffer.toString();
     }
 
     @PersistenceContext

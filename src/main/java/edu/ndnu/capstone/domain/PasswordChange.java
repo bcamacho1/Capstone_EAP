@@ -7,18 +7,18 @@ import javax.validation.constraints.Size;
 public class PasswordChange
 {
     @NotNull
-    @Size(min=5, message="Old Password can not be left blank.")
-    @Pattern(regexp = "[a-zA-Z0-9]+", message="Old Password must be at least 5 characters.")
+    @Size(min=5, message="Old Password must be at least 5 characters.")
+    @Pattern(regexp = "[a-zA-Z0-9\\.,_!@#\\$%\\^&\\*\\?\\/~`\\+=<>]+", message="Old Password must contain valid characters.")
     private String oldPassword;
     
     @NotNull
-    @Size(min=5, message="New Password can not be left blank.")
-    @Pattern(regexp = "[a-zA-Z0-9]+", message="New Password must be at least 5 characters.")
+    @Size(min=5, message="New Password must be at least 5 characters.")
+    @Pattern(regexp = "[a-zA-Z0-9\\.,_!@#\\$%\\^&\\*\\?\\/~`\\+=<>]+", message="New Password must contain valid characters.")
     private String newPassword;
     
     @NotNull
-    @Size(min=5, message="New Password can not be left blank.")
-    @Pattern(regexp = "[a-zA-Z0-9]+", message="New Password must be at least 5 characters.")
+    @Size(min=5, message="New Password must be at least 5 characters.")
+    @Pattern(regexp = "[a-zA-Z0-9\\.,_!@#\\$%\\^&\\*\\?\\/~`\\+=<>]+", message="New Password must contain valid characters.")
     private String newPasswordConfirm;
 
     public String getOldPassword()

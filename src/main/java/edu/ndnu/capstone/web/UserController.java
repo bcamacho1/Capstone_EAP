@@ -66,7 +66,6 @@ public class UserController {
             uiModel.asMap().clear();  
             return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
         } catch (Exception e) {
-            bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
             populateEditForm(uiModel, user);
             return "users/create";
         }

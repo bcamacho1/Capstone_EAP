@@ -15,6 +15,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -63,12 +65,14 @@ public class AuthorizedUserController {
             return "authorizedusers/create";
         }
         try {
-            String hashedPassword = user.encryptPassword(user.getPassword());
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(hashedPassword);
             userService.saveUser(user);
             uiModel.asMap().clear();  
             return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
         } catch (Exception e) {
+            e.printStackTrace();
             bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
             populateEditForm(uiModel, user);
             return "authorizedusers/create";

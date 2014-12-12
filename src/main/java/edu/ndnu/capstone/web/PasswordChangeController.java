@@ -11,6 +11,8 @@ import edu.ndnu.capstone.domain.AuthorizedUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,26 +59,29 @@ public class PasswordChangeController
           String login = SecurityContextHolder.getContext().getAuthentication().getName();
           AuthorizedUser user = AuthorizedUser.findUserByUsername(login);
           String old_password_confirm = passwordChange.getOldPassword();
-          String hashedOldPassword = user.encryptPassword(old_password_confirm);
+          PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
           
-          String old_password = user.getPassword();
-          
-          if (old_password.compareTo(hashedOldPassword) != 0)
+          if (passwordEncoder.matches(old_password_confirm, user.getPassword()))
+          {              
+              if (passwordChange.getNewPassword().compareTo(passwordChange.getNewPasswordConfirm()) != 0)
+              {
+                  bindingResult.addError(new ObjectError("passwordChange", "The new password you entered does not match on both input fields."));
+                  return "passwordChange";
+              }
+              else
+              {
+                  String hashedPassword = passwordEncoder.encode(passwordChange.getNewPassword());
+                  user.setPassword(hashedPassword);
+                  userService.updateUser(user);
+                  redirectAttributes.addFlashAttribute("successMessage", "Your password has been updated successfully.");
+                  return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+              }
+          } 
+          else 
           {
               bindingResult.addError(new ObjectError("passwordChange", "The old password you entered does not match our records."));
               return "passwordChange";
           }
-          
-          if (passwordChange.getNewPassword().compareTo(passwordChange.getNewPasswordConfirm()) != 0)
-          {
-              bindingResult.addError(new ObjectError("passwordChange", "The new password you entered does not match on both input fields."));
-              return "passwordChange";
-          }
-          String hashedPassword = user.encryptPassword(passwordChange.getNewPassword());
-          user.setPassword(hashedPassword);
-          userService.updateUser(user);
-          redirectAttributes.addFlashAttribute("successMessage", "Your password has been updated successfully.");
-          return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
       } catch (Exception e) {
           e.printStackTrace();
           bindingResult.addError(new ObjectError("passwordChange", "An error has occurred, please contact an Administrator."));
