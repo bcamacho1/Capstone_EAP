@@ -25,20 +25,81 @@ import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
 @Controller
-@RequestMapping(value = "/passwordChange")
 public class PasswordChangeController
 {
   @Autowired
   AuthorizedUserService userService;
     
-  @RequestMapping(method = RequestMethod.GET)
+  @RequestMapping(value = "/passwordChange", method = RequestMethod.GET)
   public String getChangePasswordForm(Model model)
   {
     model.addAttribute(new PasswordChange());
     return "passwordChange";
   }
+  
+  @RequestMapping(value = "/resetUserPassword", method = RequestMethod.GET)
+  public String getResetUserPasswordForm(Model model)
+  {
+    model.addAttribute(new PasswordChange());
+    model.addAttribute("authorizedusers", userService.findAllUsers());
+    return "resetUserPassword";
+  }
+  
+  @RequestMapping(value = "/resetUserPassword/reset", method = RequestMethod.POST)
+  public String resetUserPassword(@Valid PasswordChange passwordChange, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) 
+  {
+      if (bindingResult.hasErrors()) {
+          java.util.List<ObjectError> list=bindingResult.getAllErrors();
+          int error_flag = 0;
+          for(ObjectError obj:list)
+          {
+              System.out.println("objname: "+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+              if(obj instanceof FieldError)
+              {
+                  System.out.println(((FieldError)obj).getField());
+                  // if the only failure is the old password validation, 
+                  // skip it and process the reset
+                  if ((((FieldError)obj).getField().compareTo("oldPassword") != 0))
+                  {
+                      error_flag = 1;
+                  }
+              }
+          }
+          
+          if (error_flag != 0)
+          {
+              uiModel.addAttribute("authorizedusers", userService.findAllUsers());
+              return "resetUserPassword";
+          }
+      }
+      try
+      {
+          PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                    
+          if (passwordChange.getNewPassword().compareTo(passwordChange.getNewPasswordConfirm()) != 0)
+          {
+              bindingResult.addError(new ObjectError("passwordChange", "The new password you entered does not match on both input fields."));
+              uiModel.addAttribute("authorizedusers", userService.findAllUsers());
+              return "resetUserPassword";
+          }
+          else
+          {
+              AuthorizedUser user = passwordChange.getUserId();
+              String hashedPassword = passwordEncoder.encode(passwordChange.getNewPassword());
+              user.setPassword(hashedPassword);
+              userService.updateUser(user);
+              redirectAttributes.addFlashAttribute("successMessage", "Your password has been reset successfully.");
+              return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+          }
+      } catch (Exception e) {
+          e.printStackTrace();
+          bindingResult.addError(new ObjectError("passwordChange", "An error has occurred, please contact an Administrator."));
+          uiModel.addAttribute("authorizedusers", userService.findAllUsers());
+          return "resetUserPassword";
+      }
+  }
 
-  @RequestMapping(value = "/process", method = RequestMethod.POST)
+  @RequestMapping(value = "/passwordChange/process", method = RequestMethod.POST)
   public String changePassword(@Valid PasswordChange passwordChange, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) 
   {
       if (bindingResult.hasErrors()) {

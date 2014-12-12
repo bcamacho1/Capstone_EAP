@@ -46,6 +46,9 @@
         <sec:authorize ifAnyGranted="Admin,First Responder">
         	<menu:category id="c_settings" z="">
      			<menu:item id="i_password_change" url="/passwordChange" z=""/>
+     			<sec:authorize ifAllGranted="Admin">
+     			    <menu:item id="i_reset_user_password" url="/resetUserPassword" z=""/>
+     			</sec:authorize>
                 <c:if test="${pageContext['request'].userPrincipal != null}">
                     <menu:logout id="security_logout" url="/resources/j_spring_security_logout" z=""/>
                 </c:if>

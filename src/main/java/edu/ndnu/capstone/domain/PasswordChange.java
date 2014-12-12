@@ -6,6 +6,8 @@ import javax.validation.constraints.Size;
 
 public class PasswordChange
 {
+    private AuthorizedUser userId;
+    
     @NotNull
     @Size(min=5, message="Old Password must be at least 5 characters.")
     @Pattern(regexp = "[a-zA-Z0-9\\.,_!@#\\$%\\^&\\*\\?\\/~`\\+=<>]+", message="Old Password must contain valid characters.")
@@ -21,6 +23,14 @@ public class PasswordChange
     @Pattern(regexp = "[a-zA-Z0-9\\.,_!@#\\$%\\^&\\*\\?\\/~`\\+=<>]+", message="New Password must contain valid characters.")
     private String newPasswordConfirm;
 
+    public AuthorizedUser getUserId() {
+        return userId;
+    }
+
+    public void setUserId(AuthorizedUser userId) {
+        this.userId = userId;
+    }
+    
     public String getOldPassword()
     {
         return oldPassword;

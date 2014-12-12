@@ -23,7 +23,6 @@ import edu.ndnu.capstone.domain.EmergencyType;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
 import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
-import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.User;
 

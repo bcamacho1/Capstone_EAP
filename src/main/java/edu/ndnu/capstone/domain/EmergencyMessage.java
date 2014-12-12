@@ -158,7 +158,7 @@ public class EmergencyMessage {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User userId;
+    private AuthorizedUser userId;
 
     @ManyToOne
     @JoinColumn(name = "emergency_type_id", referencedColumnName = "id")
@@ -176,11 +176,11 @@ public class EmergencyMessage {
         this.emergencyAlertLogs = emergencyAlertLogs;
     }
 
-    public User getUserId() {
+    public AuthorizedUser getUserId() {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(AuthorizedUser userId) {
         this.userId = userId;
     }
 
