@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EmergencyServiceImpl implements EmergencyService {
 
-    public long countAllEmergencys() {
-        return Emergency.countEmergencys();
+    public long countAllEmergencies() {
+        return Emergency.countEmergencies();
     }
 
     public void deleteEmergency(Emergency emergency) {
@@ -20,8 +20,8 @@ public class EmergencyServiceImpl implements EmergencyService {
         return Emergency.findEmergency(id);
     }
 
-    public List<Emergency> findAllEmergencys() {
-        return Emergency.findAllEmergencys();
+    public List<Emergency> findAllEmergencies() {
+        return Emergency.findAllEmergencies();
     }
 
     public List<Emergency> findEmergencyEntries(int firstResult, int maxResults) {

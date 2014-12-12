@@ -44,7 +44,7 @@
           <jsp:doBody />
             <sec:authorize ifAnyGranted="Admin,First Responder">
                 <div style="width: 145px;text-align:right;">
-                    <spring:url value="/emergencys/alert/${itemId}" var="alert" />
+                    <spring:url value="/emergencies/alert/${itemId}" var="alert" />
                     <a href="${alert}">Send an email alert!</a>
                 </div>
                 <br />

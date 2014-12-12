@@ -140,7 +140,7 @@ public class Emergency {
         return em;
     }
 
-    public static long countEmergencys() {
+    public static long countEmergencies() {
         String jpaQuery = "SELECT COUNT(o) FROM Emergency o";
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         
@@ -152,12 +152,12 @@ public class Emergency {
         return entityManager().createQuery(jpaQuery, Long.class).getSingleResult();
     }
 
-    public static List<Emergency> findAllEmergencys() {
+    public static List<Emergency> findAllEmergencies() {
         String jpaQuery = getFindEmergenciesQuery();
         return entityManager().createQuery(jpaQuery, Emergency.class).getResultList();
     }
 
-    public static List<Emergency> findAllEmergencys(String sortFieldName, String sortOrder) {
+    public static List<Emergency> findAllEmergencies(String sortFieldName, String sortOrder) {
         String jpaQuery = getFindEmergenciesQuery();
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
             jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;

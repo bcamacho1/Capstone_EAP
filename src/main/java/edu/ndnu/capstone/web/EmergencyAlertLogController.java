@@ -114,7 +114,7 @@ public class EmergencyAlertLogController {
     void populateEditForm(Model uiModel, EmergencyAlertLog emergencyAlertLog) {
         uiModel.addAttribute("emergencyAlertLog", emergencyAlertLog);
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
+        uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
         uiModel.addAttribute("emergencymessages", emergencyMessageService.findAllEmergencyMessages());
         uiModel.addAttribute("users", userService.findAllUsers());
     }

@@ -27,7 +27,7 @@
         </sec:authorize>
         <menu:category id="c_emergency" z="EvcleDVn/Ax6O1Z0kTtuR5hdFd0=">
             <sec:authorize ifAllGranted="Admin">
-                <menu:item id="i_emergency_new" messageCode="global_menu_new" url="/emergencys?form" z="mGXCwuVp3Mdj2E5CCsKKddpdOhY="/>
+                <menu:item id="i_emergency_new" messageCode="global_menu_new" url="/emergencies?form" z="mGXCwuVp3Mdj2E5CCsKKddpdOhY="/>
                 <menu:item id="i_emergencytype_new" messageCode="global_menu_new" url="/emergencytypes?form" z="0sPQ0PIVhSDaVG7xoDqnh4TaAPk="/>
                 <menu:item id="i_emergencystatus_new" messageCode="global_menu_new" url="/emergencystatuses?form" z="61XmrZj0wOOyp0SjyLeXfDTymKo="/>
                 <!--menu:item id="i_emergencyalertlog_new" messageCode="global_menu_new" url="/emergencyalertlogs?form" z="Y5f0oCc6DONokUCBLiTqb5vVtMY="/-->
@@ -35,7 +35,7 @@
             <sec:authorize ifAnyGranted="Admin,First Responder">
 	            <menu:item id="i_emergencymessage_new" messageCode="global_menu_new" url="/emergencymessages?form" z="RNxtsB/8/u+HagQOpooShHaUXHQ="/>
 	        </sec:authorize> 
-	        <menu:item id="i_emergency_list" messageCode="global_menu_list" url="/emergencys?page=1&amp;size=${empty param.size ? 10 : param.size}" z="xfvnWuc5P9PXplkSpR3JT9ZpGv4="/>
+	        <menu:item id="i_emergency_list" messageCode="global_menu_list" url="/emergencies?page=1&amp;size=${empty param.size ? 10 : param.size}" z="xfvnWuc5P9PXplkSpR3JT9ZpGv4="/>
             <menu:item id="i_emergencytype_list" messageCode="global_menu_list" url="/emergencytypes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="hu6idqfwOUrvlQi7B2PnLnuLoSI="/>
             <menu:item id="i_emergencystatus_list" messageCode="global_menu_list" url="/emergencystatuses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="yZJ73zR21oYjuERgeahKYtpwNYI="/>
 	        <sec:authorize ifAnyGranted="Admin,First Responder">

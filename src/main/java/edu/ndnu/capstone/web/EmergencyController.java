@@ -42,9 +42,9 @@ import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
 import org.joda.time.format.DateTimeFormat;
 
-@RequestMapping("/emergencys")
+@RequestMapping("/emergencies")
 @Controller
-@RooWebScaffold(path = "emergencys", formBackingObject = Emergency.class)
+@RooWebScaffold(path = "emergencies", formBackingObject = Emergency.class)
 @GvNIXWebJQuery
 public class EmergencyController {
 
@@ -66,7 +66,7 @@ public class EmergencyController {
     @Autowired
     UserService userService;
 
-    // The url to get to this method is /emergencys/alert
+    // The url to get to this method is /emergencies/alert
     // This gets appended to the RequestMapping annotation above
     @RequestMapping(value="/alert/{emergency_id}")
     public String sendEmailAlert(@PathVariable("emergency_id") int emergency_id) 
@@ -242,17 +242,17 @@ public class EmergencyController {
     public String create(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergency);
-            return "emergencys/create";
+            return "emergencies/create";
         }
         uiModel.asMap().clear();
         emergencyService.saveEmergency(emergency);
-        return "redirect:/emergencys/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
+        return "redirect:/emergencies/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
     }
 
     @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
         populateEditForm(uiModel, new Emergency());
-        return "emergencys/create";
+        return "emergencies/create";
     }
 
     @RequestMapping(value = "/{id}", produces = "text/html")
@@ -260,7 +260,7 @@ public class EmergencyController {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergency", emergencyService.findEmergency(id));
         uiModel.addAttribute("itemId", id);
-        return "emergencys/show";
+        return "emergencies/show";
     }
 
     @RequestMapping(produces = "text/html")
@@ -268,31 +268,31 @@ public class EmergencyController {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("emergencys", emergencyService.findEmergencyEntries(firstResult, sizeNo));
-            float nrOfPages = (float) emergencyService.countAllEmergencys() / sizeNo;
+            uiModel.addAttribute("emergencies", emergencyService.findEmergencyEntries(firstResult, sizeNo));
+            float nrOfPages = (float) emergencyService.countAllEmergencies() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
+            uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
         }
         addDateTimeFormatPatterns(uiModel);
-        return "emergencys/list";
+        return "emergencies/list";
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
     public String update(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergency);
-            return "emergencys/update";
+            return "emergencies/update";
         }
         uiModel.asMap().clear();
         emergencyService.updateEmergency(emergency);
-        return "redirect:/emergencys/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
+        return "redirect:/emergencies/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
     }
 
     @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
         populateEditForm(uiModel, emergencyService.findEmergency(id));
-        return "emergencys/update";
+        return "emergencies/update";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
@@ -302,7 +302,7 @@ public class EmergencyController {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/emergencys";
+        return "redirect:/emergencies";
     }
 
     void addDateTimeFormatPatterns(Model uiModel) {

@@ -52,11 +52,11 @@ hr
 			    <h3><a href = "/Capstone_EAP/campusMap">Campus Map</a></h3>
 			    We provide a link to the campus map you can have access to in order to find the safest evacuation routes.
 			     <br/>
-			    <h3><a href="/Capstone_EAP/emergencys">Current Emergencies List</a></h3>
+			    <h3><a href="/Capstone_EAP/emergencies">Current Emergencies List</a></h3>
 			    We provide a list of any emergencies that are currently happening on campus that have been reported.
 			     <br/>
 			     <sec:authorize ifAllGranted="Admin">
-			    <h3><a href="/Capstone_EAP/emergencys?form">Emergency Submission Form</a></h3>
+			    <h3><a href="/Capstone_EAP/emergencies?form">Emergency Submission Form</a></h3>
 			    There will be a form a user can fill out to report emergencies that happen on campus. The emergency will be posted on this app when it has been approved.
 			     <br/>
 			     </sec:authorize> 

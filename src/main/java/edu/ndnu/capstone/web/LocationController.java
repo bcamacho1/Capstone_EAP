@@ -119,7 +119,7 @@ public class LocationController {
 
     void populateEditForm(Model uiModel, Location location) {
         uiModel.addAttribute("location", location);
-        uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
+        uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
         uiModel.addAttribute("locationstates", LocationState.findState());
     }
 

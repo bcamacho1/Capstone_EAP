@@ -196,7 +196,7 @@
 					</sec:authorize>
 					<sec:authorize ifAnyGranted="Admin,First Responder">
 						<td>
-						      <spring:url value="/emergencys/alert/${itemId}" var="alert" />
+						      <spring:url value="/emergencies/alert/${itemId}" var="alert" />
 						      <a href="${alert}">Send Alert!</a>
 						</td>
 					</sec:authorize>

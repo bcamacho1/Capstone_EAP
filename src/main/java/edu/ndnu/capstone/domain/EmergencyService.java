@@ -5,7 +5,7 @@ import org.springframework.roo.addon.layers.service.RooService;
 @RooService(domainTypes = { edu.ndnu.capstone.domain.Emergency.class })
 public interface EmergencyService {
 
-    public abstract long countAllEmergencys();
+    public abstract long countAllEmergencies();
 
 
     public abstract void deleteEmergency(Emergency emergency);
@@ -14,7 +14,7 @@ public interface EmergencyService {
     public abstract Emergency findEmergency(Integer id);
 
 
-    public abstract List<Emergency> findAllEmergencys();
+    public abstract List<Emergency> findAllEmergencies();
 
 
     public abstract List<Emergency> findEmergencyEntries(int firstResult, int maxResults);

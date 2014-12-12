@@ -97,7 +97,7 @@ public class EmergencyStatusController {
 
     void populateEditForm(Model uiModel, EmergencyStatus emergencyStatus) {
         uiModel.addAttribute("emergencyStatus", emergencyStatus);
-        uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
+        uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
     }
 
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

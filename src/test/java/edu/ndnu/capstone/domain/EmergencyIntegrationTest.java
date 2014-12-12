@@ -33,7 +33,7 @@ public class EmergencyIntegrationTest {
     @Test
     public void testCountAllEmergencys() {
         Assert.assertNotNull("Data on demand for 'Emergency' failed to initialize correctly", dod.getRandomEmergency());
-        long count = emergencyService.countAllEmergencys();
+        long count = emergencyService.countAllEmergencies();
         Assert.assertTrue("Counter for 'Emergency' incorrectly reported there were no entries", count > 0);
     }
 
@@ -51,9 +51,9 @@ public class EmergencyIntegrationTest {
     @Test
     public void testFindAllEmergencys() {
         Assert.assertNotNull("Data on demand for 'Emergency' failed to initialize correctly", dod.getRandomEmergency());
-        long count = emergencyService.countAllEmergencys();
+        long count = emergencyService.countAllEmergencies();
         Assert.assertTrue("Too expensive to perform a find all test for 'Emergency', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
-        List<Emergency> result = emergencyService.findAllEmergencys();
+        List<Emergency> result = emergencyService.findAllEmergencies();
         Assert.assertNotNull("Find all method for 'Emergency' illegally returned null", result);
         Assert.assertTrue("Find all method for 'Emergency' failed to return any data", result.size() > 0);
     }
@@ -61,7 +61,7 @@ public class EmergencyIntegrationTest {
     @Test
     public void testFindEmergencyEntries() {
         Assert.assertNotNull("Data on demand for 'Emergency' failed to initialize correctly", dod.getRandomEmergency());
-        long count = emergencyService.countAllEmergencys();
+        long count = emergencyService.countAllEmergencies();
         if (count > 20) count = 20;
         int firstResult = 0;
         int maxResults = (int) count;

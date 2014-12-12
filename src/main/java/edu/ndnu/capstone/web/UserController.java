@@ -136,7 +136,7 @@ public class UserController {
     void populateEditForm(Model uiModel, User user) {
         uiModel.addAttribute("user", user);
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("emergencys", emergencyService.findAllEmergencys());
+        uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
         uiModel.addAttribute("useractivetypes", UserActiveType.findTypes());
         
         List<UserType> types = userTypeService.findAllUserTypes();
