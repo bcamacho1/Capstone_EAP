@@ -4,5 +4,6 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_UserType" modelAttribute="userType" path="/usertypes" versionField="none" z="ppfyihw9MLqfTrs6VSWZES6B5Pk=">
         <field:input field="name" id="c_edu_ndnu_capstone_domain_UserType_name" required="true" z="s2Eh7YOUV3OYbvkzikKOBiTr7Ps="/>
+   		<button type="reset" class="btn btn-default btn-sm btn-block" id="reset"><spring:message code="button_reset"/></button>
     </form:update>
 </div>

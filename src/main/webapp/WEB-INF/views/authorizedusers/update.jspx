@@ -13,5 +13,6 @@
         <field:input field="emergencyContactName" id="c_edu_ndnu_capstone_domain_User_emergency_contact_name" required="true" z="" />
         <field:input field="emergencyContactPhone" id="c_edu_ndnu_capstone_domain_User_emergency_contact_phone" required="true" z="" />
         <field:input field="description" id="c_edu_ndnu_capstone_domain_User_description" z="6TJHmWCAvkCtONvKOBHftLCMtso="/>
+    	<button type="reset" class="btn btn-default btn-sm btn-block" id="reset"><spring:message code="button_reset"/></button>
     </form:update>
 </div>
