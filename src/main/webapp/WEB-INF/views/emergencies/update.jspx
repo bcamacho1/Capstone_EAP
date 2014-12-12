@@ -3,7 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_Emergency" modelAttribute="emergency" path="/emergencies" versionField="none" z="A0HnOk5SIY/1+fxOr/D5Ji0180s=">
-        <field:select field="userId" id="c_edu_ndnu_capstone_domain_Emergency_userId" itemValue="id" items="${users}" path="/users" z="Gl+MA5hIm1FdoqZbVRFVzNKX9ak="/>
+        <field:select field="userId" id="c_edu_ndnu_capstone_domain_Emergency_userId" itemValue="id" items="${authorizedusers}" path="/authorizedusers" z="Gl+MA5hIm1FdoqZbVRFVzNKX9ak="/>
         <field:select field="locationId" id="c_edu_ndnu_capstone_domain_Emergency_locationId" itemValue="id" items="${locations}" path="/locations" z="5988QFfdOv2cx/l0tLC5abknE54="/>
         <field:select field="typeId" id="c_edu_ndnu_capstone_domain_Emergency_typeId" itemValue="id" items="${emergencytypes}" path="/emergencytypes" z="7gezxTTxdBmgI0KzvetySbrs4Zo="/>
         <field:select field="statusId" id="c_edu_ndnu_capstone_domain_Emergency_statusId" itemValue="id" items="${emergencystatuses}" path="/emergencystatuses" z="s7x5HnRKL5P5x+w92FOgY7qnTeI="/>

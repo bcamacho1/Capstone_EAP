@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import edu.ndnu.capstone.domain.AuthorizedUserService;
 import edu.ndnu.capstone.domain.Emergency;
 import edu.ndnu.capstone.domain.EmergencyAlertLog;
 import edu.ndnu.capstone.domain.EmergencyAlertLogService;
@@ -64,7 +65,7 @@ public class EmergencyController {
     LocationService locationService;
 
     @Autowired
-    UserService userService;
+    AuthorizedUserService authorizedUserService;
 
     // The url to get to this method is /emergencies/alert
     // This gets appended to the RequestMapping annotation above
@@ -105,20 +106,12 @@ public class EmergencyController {
         // email credentials
         final String username = "capstone.eap.ndnu@gmail.com";
         final String password = "capstone_eap";
-        final String from = "capstone.eap.ndnu@gmail.com";
-        String to = "smantegani@student.ndnu.edu";
-        //String to = "samantegani@gmail.com";
 
         new User();
         EntityManager em = User.entityManager();
         // User is the class name in the query, not lower case "user" which is the actual name of the table
         @SuppressWarnings("unchecked")
         List<String> rs = em.createQuery("SELECT u.email FROM User u where u.active = 1").getResultList();
-
-        Iterator<String> iterator = rs.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
-        }
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -210,15 +203,17 @@ public class EmergencyController {
                     "</body>" +
                     "</html>";
 
-            MimeMessage email = new MimeMessage(session);
-            email.setFrom(new InternetAddress(from));
-            email.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            email.setSubject("NDNU Emergency Alert: " + type.getName());
-            email.setContent(text, "text/html");
-
-            Transport.send(email);
-            System.out.println("Sent message successfully....");
-
+            final String from = "capstone.eap.ndnu@gmail.com";
+            
+            // This is NOT an efficient way to send emails
+            // This is just to verify it works, but for a real situation
+            // the emails should be sent to an alias like allstudents@ndnu.edu
+            Iterator<String> iterator = rs.iterator();
+            while (iterator.hasNext()) {
+                //System.out.println(iterator.next());
+                sendEmail(iterator.next(), from, text, session, type);
+            }
+            
             EmergencyAlertLog eml = new EmergencyAlertLog();
             eml.setUserId(user);
             eml.setEmergencyId(emergency);
@@ -227,7 +222,7 @@ public class EmergencyController {
             eml.setSent(1);
             emergencyAlertLogService.saveEmergencyAlertLog(eml);
         }
-        catch (MessagingException mex) 
+        catch (Exception mex) 
         {
             mex.printStackTrace();
         }
@@ -236,6 +231,24 @@ public class EmergencyController {
         // we will navigate to this page
         // examples like campusMap, index, resourceNotFound
         return "index";
+    }
+    
+    public void sendEmail(String to, String from, String text, Session session, EmergencyType type)
+    {
+        try
+        {
+            MimeMessage email = new MimeMessage(session);
+            email.setFrom(new InternetAddress(from));
+            email.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            email.setSubject("NDNU Emergency Alert: " + type.getName());
+            email.setContent(text, "text/html");
+            Transport.send(email);
+            System.out.println("Sent message successfully to " + to);
+        }
+        catch (MessagingException mex) 
+        {
+            mex.printStackTrace();
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
@@ -316,7 +329,7 @@ public class EmergencyController {
         uiModel.addAttribute("emergencystatuses", emergencyStatusService.findAllEmergencyStatuses());
         uiModel.addAttribute("emergencytypes", emergencyTypeService.findAllEmergencyTypes());
         uiModel.addAttribute("locations", locationService.findAllLocations());
-        uiModel.addAttribute("users", userService.findAllUsers());
+        uiModel.addAttribute("authorizedusers", authorizedUserService.findAllUsers());
     }
 
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
