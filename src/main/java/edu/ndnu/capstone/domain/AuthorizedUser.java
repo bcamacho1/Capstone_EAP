@@ -24,6 +24,7 @@ import javax.validation.constraints.Max;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -58,9 +59,9 @@ public class AuthorizedUser
 
     @Column(name = "email", length = 100, unique = true)
     @NotNull
-    //@Pattern(regexp = "@[student]*[.]*[ndnu.edu]+", message="Email must end with either @student.ndnu.edu or @ndnu.edu as the extension.")
+    @Email
+    @Pattern(regexp = "^.*@(student\\.)?ndnu\\.edu$", message="Email must end with either @student.ndnu.edu or @ndnu.edu as the extension.")
     private String email;
-
 
     @Column(name = "username", length = 150, unique = true)
     @NotNull
@@ -120,7 +121,6 @@ public class AuthorizedUser
     }
 
     public void setTypeId(UserType typeId) {
-    	System.out.println(typeId);
         this.typeId = typeId;
     }
 
@@ -145,7 +145,6 @@ public class AuthorizedUser
     }
 
     public void setUsername(String username) {
-        this.email=username+"@ndnu.edu";
         this.username = username;
     }
 
