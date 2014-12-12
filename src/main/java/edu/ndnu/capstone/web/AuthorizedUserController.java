@@ -114,6 +114,7 @@ public class AuthorizedUserController {
     public String update(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
+            int error_flag = 0;
             for(ObjectError obj:list)
             {
                 System.out.println("objname: "+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
@@ -121,24 +122,30 @@ public class AuthorizedUserController {
                 if(obj instanceof FieldError)
                 {
                     System.out.println(((FieldError)obj).getField());
-                    // the only failure was the password validation, 
-                    // but that's okay because we're not resetting it anyway
-                    // so skip it and process the edits
-                    if ((((FieldError)obj).getField().compareTo("password") == 0) && list.size() == 1)
+                    // if the only failure is the password validation, 
+                    // skip it and process the edits
+                    if ((((FieldError)obj).getField().compareTo("password") != 0))
                     {
-                        AuthorizedUser oldUser = userService.findUserByUsername(user.getUsername());
-                        user.setPassword(oldUser.getPassword());
-                        uiModel.asMap().clear();
-                        userService.updateUser(user);
-                        return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+                        error_flag = 1;
                     }
                 }
             }
-
-            populateEditForm(uiModel, user);
-            return "authorizedusers/update";
+            
+            if (error_flag == 0)
+            {
+                AuthorizedUser oldUser = userService.findUser(user.getId());
+                user.setPassword(oldUser.getPassword());
+                uiModel.asMap().clear();
+                userService.updateUser(user);
+                return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
+            }
+            else
+            {
+                populateEditForm(uiModel, user);
+                return "authorizedusers/update";
+            }
         }
-
+        
         uiModel.asMap().clear();
         userService.updateUser(user);
         return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
