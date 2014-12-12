@@ -4,6 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_edu_ndnu_capstone_domain_EmergencyStatus" modelAttribute="emergencyStatus" path="/emergencystatuses" render="${empty dependencies}" z="rCt8QrY5KxTGx9Up3/N+HAfujDc=">
         <field:input field="name" id="c_edu_ndnu_capstone_domain_EmergencyStatus_name" required="true" z="NRn71QFjNAuKcyBj+/wp8CsdUJQ="/>
+    	<button type="reset" class="btn btn-default btn-sm btn-block" id="reset"><spring:message code="button_reset"/></button>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_ndnu_capstone_domain_EmergencyStatus" render="${not empty dependencies}" z="Tf5/Sqj/1Q24j7cltm5sInnTPz0="/>
 </div>

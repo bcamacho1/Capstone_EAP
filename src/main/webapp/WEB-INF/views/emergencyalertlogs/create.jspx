@@ -8,6 +8,7 @@
         <field:select field="emergencyMessageId" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyMessageId" itemValue="id" items="${emergencymessages}" path="/emergencymessages" z="5/dc0Zo6bR4VH9+G+/bVqrJxkwU="/>
         <!--field:datetime dateTimePattern="${emergencyAlertLog_ts_date_format}" field="ts" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_ts" required="true" z="WdYkAM39x8/veIs9B658ED//I2w="/-->
         <field:input field="sent" id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_sent" validationMessageCode="field_invalid_integer" z="iMrBQp51lkVIA1yjGWzzLQFZ6tY="/>
-    </form:create>
+   		<button type="reset" class="btn btn-default btn-sm btn-block" id="reset"><spring:message code="button_reset"/></button>
+   </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_ndnu_capstone_domain_EmergencyAlertLog" render="${not empty dependencies}" z="+NNXZCcus0ymnFAJhaQL+yTHbnA="/>
 </div>
