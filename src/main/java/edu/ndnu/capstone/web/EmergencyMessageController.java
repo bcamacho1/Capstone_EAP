@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
@@ -47,13 +48,14 @@ public class EmergencyMessageController {
     AuthorizedUserService userService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyMessage);
             return "emergencymessages/create";
         }
         uiModel.asMap().clear();
         emergencyMessageService.saveEmergencyMessage(emergencyMessage);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency message has been created successfully.");
         return "redirect:/emergencymessages/" + encodeUrlPathSegment(emergencyMessage.getId().toString(), httpServletRequest);
     }
 
@@ -106,13 +108,14 @@ public class EmergencyMessageController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyMessage);
             return "emergencymessages/update";
         }
         uiModel.asMap().clear();
         emergencyMessageService.updateEmergencyMessage(emergencyMessage);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency message has been updated successfully.");
         return "redirect:/emergencymessages/" + encodeUrlPathSegment(emergencyMessage.getId().toString(), httpServletRequest);
     }
 

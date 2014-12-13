@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" version="2.0">
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:show id="ps_edu_ndnu_capstone_domain_EmergencyType" object="${emergencytype}" path="/emergencytypes" z="s/eDO+8bdI+rC7K819zlpHC1N8A=">
+        <c:if test="${not empty successMessage}">
+            <span class="errors alert alert-success">${successMessage}</span>
+        </c:if>
         <field:display field="name" id="s_edu_ndnu_capstone_domain_EmergencyType_name" object="${emergencytype}" z="lTK7ZMgRziF93TxOlm5/WidD0Oo="/>
         <field:display field="category" id="s_edu_ndnu_capstone_domain_EmergencyType_category" object="${emergencytype}" z=""/>
     </page:show>

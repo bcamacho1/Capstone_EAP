@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
@@ -37,7 +38,7 @@ public class LocationController {
     EmergencyService emergencyService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@Valid Location location, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@Valid Location location, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
         	java.util.List<ObjectError> list=bindingResult.getAllErrors();
         	for(ObjectError obj:list)
@@ -54,7 +55,8 @@ public class LocationController {
         
         try {
         	locationService.saveLocation(location);
-        	uiModel.asMap().clear();  
+        	uiModel.asMap().clear();
+        	redirectAttributes.addFlashAttribute("successMessage", "The location has been created successfully.");
 	        return "redirect:/locations/" + encodeUrlPathSegment(location.getId().toString(), httpServletRequest);
         } catch (Exception e) {
         	bindingResult.addError(new FieldError("location", "state", "Location is already in the database"));
@@ -91,13 +93,14 @@ public class LocationController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@Valid Location location, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@Valid Location location, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, location);
             return "locations/update";
         }
         uiModel.asMap().clear();
         locationService.updateLocation(location);
+        redirectAttributes.addFlashAttribute("successMessage", "The location has been updated successfully.");
         return "redirect:/locations/" + encodeUrlPathSegment(location.getId().toString(), httpServletRequest);
     }
 

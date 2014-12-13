@@ -88,7 +88,7 @@ public class PasswordChangeController
               String hashedPassword = passwordEncoder.encode(passwordChange.getNewPassword());
               user.setPassword(hashedPassword);
               userService.updateUser(user);
-              redirectAttributes.addFlashAttribute("successMessage", "Your password has been reset successfully.");
+              redirectAttributes.addFlashAttribute("successMessage", "This user's password has been reset successfully.");
               return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
           }
       } catch (Exception e) {

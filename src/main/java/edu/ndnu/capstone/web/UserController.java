@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
@@ -45,7 +46,7 @@ public class UserController {
     UserTypeService userTypeService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@Valid User user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             for(ObjectError obj:list)
@@ -64,6 +65,7 @@ public class UserController {
         try {
             userService.saveUser(user);
             uiModel.asMap().clear();  
+            redirectAttributes.addFlashAttribute("successMessage", "The user has been created successfully.");
             return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
         } catch (Exception e) {
             populateEditForm(uiModel, user);
@@ -103,13 +105,14 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@Valid User user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@Valid User user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, user);
             return "users/update";
         }
         uiModel.asMap().clear();
         userService.updateUser(user);
+        redirectAttributes.addFlashAttribute("successMessage", "The user has been updated successfully.");
         return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
     }
 

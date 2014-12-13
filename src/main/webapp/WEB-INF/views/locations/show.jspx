@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" version="2.0">
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:show id="ps_edu_ndnu_capstone_domain_Location" object="${location}" path="/locations" z="8QtyC+b3O82NH9rjYyfH5CkXSOE=">
+        <c:if test="${not empty successMessage}">
+            <span class="errors alert alert-success">${successMessage}</span>
+        </c:if>
         <field:display field="name" id="s_edu_ndnu_capstone_domain_Location_name" object="${location}" z="B5KJUzfqXOGptU33wOiOvJ6nGXs="/>
         <field:display field="address" id="s_edu_ndnu_capstone_domain_Location_address" object="${location}" z="LRy5+LMZizhfqLCyrjifd9FYhRk="/>
         <field:display field="city" id="s_edu_ndnu_capstone_domain_Location_city" object="${location}" z="Zgpwj79eiZq/NwMNUHnriULahxc="/>

@@ -2,9 +2,12 @@ package edu.ndnu.capstone.web;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.EmergencyType;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
+
 import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
@@ -31,13 +35,14 @@ public class EmergencyTypeController {
     EmergencyService emergencyService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@Valid EmergencyType emergencyType, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@Valid EmergencyType emergencyType, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyType);
             return "emergencytypes/create";
         }
         uiModel.asMap().clear();
         emergencyTypeService.saveEmergencyType(emergencyType);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency type has been created successfully.");
         return "redirect:/emergencytypes/" + encodeUrlPathSegment(emergencyType.getId().toString(), httpServletRequest);
     }
 
@@ -69,13 +74,14 @@ public class EmergencyTypeController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@Valid EmergencyType emergencyType, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@Valid EmergencyType emergencyType, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyType);
             return "emergencytypes/update";
         }
         uiModel.asMap().clear();
         emergencyTypeService.updateEmergencyType(emergencyType);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency type has been updated successfully.");
         return "redirect:/emergencytypes/" + encodeUrlPathSegment(emergencyType.getId().toString(), httpServletRequest);
     }
 

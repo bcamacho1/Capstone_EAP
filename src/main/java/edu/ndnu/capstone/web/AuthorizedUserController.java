@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
@@ -48,7 +49,7 @@ public class AuthorizedUserController {
     UserTypeService userTypeService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             for(ObjectError obj:list)
@@ -70,6 +71,7 @@ public class AuthorizedUserController {
             user.setPassword(hashedPassword);
             userService.saveUser(user);
             uiModel.asMap().clear();  
+            redirectAttributes.addFlashAttribute("successMessage", "The user has been created successfully.");
             return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,7 +113,7 @@ public class AuthorizedUserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             int error_flag = 0;
@@ -137,6 +139,7 @@ public class AuthorizedUserController {
                 user.setPassword(oldUser.getPassword());
                 uiModel.asMap().clear();
                 userService.updateUser(user);
+                redirectAttributes.addFlashAttribute("successMessage", "The user has been updated successfully.");
                 return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
             }
             else
@@ -148,6 +151,7 @@ public class AuthorizedUserController {
         
         uiModel.asMap().clear();
         userService.updateUser(user);
+        redirectAttributes.addFlashAttribute("successMessage", "The user has been updated successfully.");
         return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
     }
 

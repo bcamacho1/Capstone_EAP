@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
@@ -251,13 +252,14 @@ public class EmergencyController {
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergency);
             return "emergencies/create";
         }
         uiModel.asMap().clear();
         emergencyService.saveEmergency(emergency);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency has been created successfully.");
         return "redirect:/emergencies/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
     }
 
@@ -291,13 +293,14 @@ public class EmergencyController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergency);
             return "emergencies/update";
         }
         uiModel.asMap().clear();
         emergencyService.updateEmergency(emergency);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency has been updated successfully.");
         return "redirect:/emergencies/" + encodeUrlPathSegment(emergency.getId().toString(), httpServletRequest);
     }
 

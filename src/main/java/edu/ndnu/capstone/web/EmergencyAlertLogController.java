@@ -4,9 +4,12 @@ import edu.ndnu.capstone.domain.EmergencyAlertLogService;
 import edu.ndnu.capstone.domain.EmergencyMessageService;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.UserService;
+
 import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.scaffold.RooWebScaffold;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 import org.gvnix.addon.web.mvc.jquery.GvNIXWebJQuery;
@@ -41,13 +45,14 @@ public class EmergencyAlertLogController {
     UserService userService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@Valid EmergencyAlertLog emergencyAlertLog, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String create(@Valid EmergencyAlertLog emergencyAlertLog, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyAlertLog);
             return "emergencyalertlogs/create";
         }
         uiModel.asMap().clear();
         emergencyAlertLogService.saveEmergencyAlertLog(emergencyAlertLog);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency log has been created successfully.");
         return "redirect:/emergencyalertlogs/" + encodeUrlPathSegment(emergencyAlertLog.getId().toString(), httpServletRequest);
     }
 
@@ -81,13 +86,14 @@ public class EmergencyAlertLogController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@Valid EmergencyAlertLog emergencyAlertLog, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+    public String update(@Valid EmergencyAlertLog emergencyAlertLog, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             populateEditForm(uiModel, emergencyAlertLog);
             return "emergencyalertlogs/update";
         }
         uiModel.asMap().clear();
         emergencyAlertLogService.updateEmergencyAlertLog(emergencyAlertLog);
+        redirectAttributes.addFlashAttribute("successMessage", "The emergency log has been updated successfully.");
         return "redirect:/emergencyalertlogs/" + encodeUrlPathSegment(emergencyAlertLog.getId().toString(), httpServletRequest);
     }
 
