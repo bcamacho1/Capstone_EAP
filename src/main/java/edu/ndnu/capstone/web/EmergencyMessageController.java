@@ -113,6 +113,7 @@ public class EmergencyMessageController {
             populateEditForm(uiModel, emergencyMessage);
             return "emergencymessages/update";
         }
+        
         uiModel.asMap().clear();
         emergencyMessageService.updateEmergencyMessage(emergencyMessage);
         redirectAttributes.addFlashAttribute("successMessage", "The emergency message has been updated successfully.");
@@ -142,13 +143,17 @@ public class EmergencyMessageController {
 
         if (type.getName().compareTo("Admin")==0)
         {
-            uiModel.addAttribute("users", userService.findAllUsers());
+            List<AuthorizedUser> currentUserList = userService.findAllUsers();
+            AuthorizedUser emptyUser = new AuthorizedUser();
+            emptyUser.setId(0);
+            currentUserList.add(0, emptyUser);
+            uiModel.addAttribute("authorizedusers", currentUserList);
         }
         else
         {
             List<AuthorizedUser> currentUserList = new ArrayList<AuthorizedUser>();
             currentUserList.add(user);
-            uiModel.addAttribute("users", currentUserList);
+            uiModel.addAttribute("authorizedusers", currentUserList);
         }
 
         uiModel.addAttribute("emergencyMessage", emergencyMessage);

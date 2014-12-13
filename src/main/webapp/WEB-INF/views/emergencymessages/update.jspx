@@ -3,7 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_EmergencyMessage" modelAttribute="emergencyMessage" path="/emergencymessages" versionField="none" z="+ylD9VuE4U56uU1emd1n1+aElI0=">
-        <field:select field="userId" id="c_edu_ndnu_capstone_domain_EmergencyMessage_userId" itemValue="id" items="${users}" path="/users" z="6abU5ldUzCw0oKGBLzn7gTjzTHM="/>
+        <field:select field="userId" id="c_edu_ndnu_capstone_domain_EmergencyMessage_userId" itemValue="id" items="${authorizedusers}" path="/authorizedusers" z="6abU5ldUzCw0oKGBLzn7gTjzTHM="/>
         <field:input field="message" id="c_edu_ndnu_capstone_domain_EmergencyMessage_message" z="RQmV2Vsh+iH2+SrtoPJzXDxesHQ="/>
         <field:select field="emergencyTypeId" id="c_edu_ndnu_capstone_domain_EmergencyMessage_emergencyTypeId" itemValue="id" items="${emergencytypes}" path="/emergencytypes" z="4YecXHbdxn51Y5zzBJtm9Jjhq8o="/>
    	<button type="reset" class="btn btn-default btn-sm btn-block" id="reset"><spring:message code="button_reset"/></button>

@@ -260,7 +260,10 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
     public Converter<AuthorizedUser, String> getAuthorizedUserToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<edu.ndnu.capstone.domain.AuthorizedUser, java.lang.String>() {
             public String convert(AuthorizedUser user) {
-                return new StringBuilder().append(user.getName()).append(" - ").append(user.getEmail()).toString();
+                if (user.getId() == 0)
+                    return new StringBuilder().append("---NULL---").toString();
+                
+                return new StringBuilder().append(user.getName()).append(" - ").append(user.getEmail()).append(" - ").append(user.getTypeId().getName()).toString();
             }
         };
     }

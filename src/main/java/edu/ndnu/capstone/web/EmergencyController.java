@@ -1,5 +1,6 @@
 package edu.ndnu.capstone.web;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.User;
+import edu.ndnu.capstone.domain.UserType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -254,7 +256,7 @@ public class EmergencyController {
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid Emergency emergency, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
-            populateEditForm(uiModel, emergency);
+            populateCreateForm(uiModel, emergency);
             return "emergencies/create";
         }
         uiModel.asMap().clear();
@@ -265,7 +267,7 @@ public class EmergencyController {
 
     @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
-        populateEditForm(uiModel, new Emergency());
+        populateCreateForm(uiModel, new Emergency());
         return "emergencies/create";
     }
 
@@ -332,6 +334,21 @@ public class EmergencyController {
         uiModel.addAttribute("emergencytypes", emergencyTypeService.findAllEmergencyTypes());
         uiModel.addAttribute("locations", locationService.findAllLocations());
         uiModel.addAttribute("authorizedusers", authorizedUserService.findAllUsers());
+    }
+    
+    void populateCreateForm(Model uiModel, Emergency emergency) {
+        uiModel.addAttribute("emergency", emergency);
+        addDateTimeFormatPatterns(uiModel);
+        uiModel.addAttribute("emergencyalertlogs", emergencyAlertLogService.findAllEmergencyAlertLogs());
+        uiModel.addAttribute("emergencystatuses", emergencyStatusService.findAllEmergencyStatuses());
+        uiModel.addAttribute("emergencytypes", emergencyTypeService.findAllEmergencyTypes());
+        uiModel.addAttribute("locations", locationService.findAllLocations());
+        
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        AuthorizedUser user = AuthorizedUser.findUserByUsername(login);
+        List<AuthorizedUser> currentUserList = new ArrayList<AuthorizedUser>();
+        currentUserList.add(user);
+        uiModel.addAttribute("authorizedusers", currentUserList);
     }
 
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

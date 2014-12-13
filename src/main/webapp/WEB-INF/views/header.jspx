@@ -9,7 +9,9 @@
 	<spring:url var="logo_ndnu" value="/resources/images/NDNU_logo.png" />
 
 	<div class="pull-left hidden-xs">
-		<img src="${logo_ndnu}" id="ndnu_logo" />
+	   <a href="/Capstone_EAP/">
+	       <img src="${logo_ndnu}" id="ndnu_logo" />
+	   </a>
 	</div>
 </div>
 

@@ -204,7 +204,6 @@ public class Location {
     }
 
     public void setState(String state) {
-    	System.out.println("the state is" + state);
         this.state = state;
     }
 
