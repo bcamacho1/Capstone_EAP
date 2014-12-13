@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" xmlns:spring="http://www.springframework.org/tags">
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_Location" modelAttribute="location" path="/locations" versionField="none" z="HRJXDTnfjQuOBPFxDyY6RYLRlg8=">
@@ -11,6 +11,5 @@
         <field:input field="latitude" id="c_edu_ndnu_capstone_domain_Location_latitude" z="fcncHNZZ4rh9Ip2v1t1I2GS3a/Q="/>
         <field:input field="longitude" id="c_edu_ndnu_capstone_domain_Location_longitude" z="VChJ2u4f1aO6UqgZj3Cgf4REyns="/>
         <field:input field="description" id="c_edu_ndnu_capstone_domain_Location_description" z="xyP9Uh29Q5WUsFCU8xQ3dfC6oP0="/>
-    	<button type="reset" class="btn btn-default btn-sm btn-block" id="reset"><spring:message code="button_reset"/></button>
     </form:update>
 </div>

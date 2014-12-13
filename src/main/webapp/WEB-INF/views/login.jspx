@@ -32,12 +32,20 @@
        	<spring:message code="security_login_form_password_message" htmlEscape="false" var="pwd_msg"/>
         <input type="password" class="form-control" placeholder="${pass}" id="j_password" name="j_password" data-required="true" data-minlength="3" data-maxlength="30" data-original-title="${pwd_msg}" />
 
-        <div class="submit">
-        	<script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" id="proceed"><spring:message code="button_submit"/></button>
-			<button type="reset" class="btn btn-default btn-sm btn-block" id="reset"><spring:message code="button_reset"/></button>
-      	</div>
-
+        <table border="0" width="100%">
+            <tr>
+                <td align="center" style="width:100%">
+                    <button type="reset" class="btn btn-default btn-sm" id="reset" style="display:block;width:100%;padding-right:0;padding-left:0"><spring:message code="button_reset"/></button>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="width:100%">
+                    <div class="submit">
+                        <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
+                        <button type="submit" class="btn btn-primary btn-lg" id="proceed" style="display:block;width:100%;padding-right:0;padding-left:0"><spring:message code="button_submit"/></button>
+                    </div>
+                </td>
+            </tr>
+        </table>
      </form>
-
 </div>
