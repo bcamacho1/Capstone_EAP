@@ -34,15 +34,13 @@
 
         <table border="0" width="100%">
             <tr>
-                <td align="center" style="width:100%">
-                    <button type="reset" class="btn btn-default btn-sm" id="reset" style="display:block;width:100%;padding-right:0;padding-left:0"><spring:message code="button_reset"/></button>
+                <td align="right" style="width:50%;padding-right:10px">
+                    <button type="reset" class="btn btn-primary btn-block" id="reset" style="display:block;width:100%;padding-right:0;padding-left:0"><spring:message code="button_reset"/></button>
                 </td>
-            </tr>
-            <tr>
-                <td align="center" style="width:100%">
+                <td align="left" style="width:50%;padding-left:10px">
                     <div class="submit">
                         <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
-                        <button type="submit" class="btn btn-primary btn-lg" id="proceed" style="display:block;width:100%;padding-right:0;padding-left:0"><spring:message code="button_submit"/></button>
+                        <button type="submit" class="btn btn-success btn-block" id="proceed" style="display:block;width:100%;padding-right:0;padding-left:0"><spring:message code="button_submit"/></button>
                     </div>
                 </td>
             </tr>
