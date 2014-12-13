@@ -71,7 +71,7 @@ public class EmergencyController {
     // The url to get to this method is /emergencies/alert
     // This gets appended to the RequestMapping annotation above
     @RequestMapping(value="/alert/{emergency_id}")
-    public String sendEmailAlert(@PathVariable("emergency_id") int emergency_id) 
+    public String sendEmailAlert(@PathVariable("emergency_id") int emergency_id,  final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) 
     {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         AuthorizedUser user = AuthorizedUser.findUserByUsername(login); 
@@ -217,16 +217,18 @@ public class EmergencyController {
             eml.setTs(Calendar.getInstance());
             eml.setSent(1);
             emergencyAlertLogService.saveEmergencyAlertLog(eml);
+            // return the name of one of the mappings in the view.xml file
+            // we will navigate to this page
+            // examples like campusMap, index, resourceNotFound
+            redirectAttributes.addFlashAttribute("successMessage", "The emergency alert has been sent successfully.");
+            return "redirect:/emergencies/" + encodeUrlPathSegment(Integer.toString(emergency_id), httpServletRequest);
         }
         catch (Exception mex) 
         {
             mex.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "A failure occurred while sending the alert.");
+            return "redirect:/emergencies/" + encodeUrlPathSegment(Integer.toString(emergency_id), httpServletRequest);
         }
-
-        // return the name of one of the mappings in the view.xml file
-        // we will navigate to this page
-        // examples like campusMap, index, resourceNotFound
-        return "index";
     }
     
     public void sendEmail(String to, String from, String text, Session session, EmergencyType type)

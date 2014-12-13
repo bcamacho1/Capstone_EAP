@@ -6,6 +6,9 @@
         <c:if test="${not empty successMessage}">
             <span class="errors alert alert-success">${successMessage}</span>
         </c:if>
+        <c:if test="${not empty errorMessage}">
+            <span class="errors alert alert-danger">${errorMessage}</span>
+        </c:if>
         <sec:authorize ifAnyGranted="Admin,First Responder">
             <field:display field="userId" id="s_edu_ndnu_capstone_domain_Emergency_userId" object="${emergency}" z="ZvWK3Ql3nFVs/e265EU0XStwX8g="/>
         </sec:authorize>
