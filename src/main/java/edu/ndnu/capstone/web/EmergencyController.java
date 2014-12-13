@@ -26,7 +26,6 @@ import edu.ndnu.capstone.domain.Location;
 import edu.ndnu.capstone.domain.LocationService;
 import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.User;
-import edu.ndnu.capstone.domain.UserType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;

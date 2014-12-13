@@ -78,7 +78,8 @@ public class PasswordChangeController
                     
           if (passwordChange.getNewPassword().compareTo(passwordChange.getNewPasswordConfirm()) != 0)
           {
-              bindingResult.addError(new ObjectError("passwordChange", "The new password you entered does not match on both input fields."));
+              bindingResult.addError(new FieldError("passwordChange", "newPassword","The new password you entered does not match on both input fields."));
+              bindingResult.addError(new FieldError("passwordChange", "newPasswordConfirm","The new password you entered does not match on both input fields."));
               uiModel.addAttribute("authorizedusers", userService.findAllUsers());
               return "resetUserPassword";
           }
@@ -126,7 +127,8 @@ public class PasswordChangeController
           {              
               if (passwordChange.getNewPassword().compareTo(passwordChange.getNewPasswordConfirm()) != 0)
               {
-                  bindingResult.addError(new ObjectError("passwordChange", "The new password you entered does not match on both input fields."));
+                  bindingResult.addError(new FieldError("passwordChange", "newPassword","The new password you entered does not match on both input fields."));
+                  bindingResult.addError(new FieldError("passwordChange", "newPasswordConfirm","The new password you entered does not match on both input fields."));
                   return "passwordChange";
               }
               else
@@ -140,7 +142,7 @@ public class PasswordChangeController
           } 
           else 
           {
-              bindingResult.addError(new ObjectError("passwordChange", "The old password you entered does not match our records."));
+              bindingResult.addError(new FieldError("passwordChange", "oldPassword","The old password you entered does not match our records."));
               return "passwordChange";
           }
       } catch (Exception e) {

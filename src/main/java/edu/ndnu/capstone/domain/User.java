@@ -293,10 +293,10 @@ public class User
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies", "typeId").toString();
     }
     
-    public static User findUserByEmail(String email2) {
-        if (email2 == null) return null;
+    public static User findUserByEmail(String email) {
+        if (email == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') AND email = '" + email2 + "'", User.class).getSingleResult();
+            return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') AND email = '" + email + "'", User.class).getSingleResult();
         } catch (DataAccessException e) {
             e.printStackTrace();
             return null;

@@ -1,8 +1,10 @@
 package edu.ndnu.capstone.web;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.AuthorizedUser;
+import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserActiveType;
 import edu.ndnu.capstone.domain.AuthorizedUserService;
+import edu.ndnu.capstone.domain.UserService;
 import edu.ndnu.capstone.domain.UserType;
 import edu.ndnu.capstone.domain.UserTypeService;
 
@@ -40,7 +42,10 @@ import org.joda.time.format.DateTimeFormat;
 public class AuthorizedUserController {
 
     @Autowired
-    AuthorizedUserService userService;
+    AuthorizedUserService authorizedUserService;
+    
+    @Autowired
+    UserService userService;
 
     @Autowired
     EmergencyService emergencyService;
@@ -49,7 +54,7 @@ public class AuthorizedUserController {
     UserTypeService userTypeService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
-    public String create(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+    public String create(@ModelAttribute("authorizeduser") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             for(ObjectError obj:list)
@@ -65,22 +70,47 @@ public class AuthorizedUserController {
             populateEditForm(uiModel, user);
             return "authorizedusers/create";
         }
-        try {
+        try
+        {
+            AuthorizedUser existingAuthUser = authorizedUserService.findUserByEmail(user.getEmail());
+            if (existingAuthUser != null)
+            {
+                bindingResult.addError(new FieldError("authorizeduser", "email", "That email address already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "authorizedusers/create";
+            }
+            
+            User existingUser = userService.findUserByEmail(user.getEmail());
+            if (existingUser != null)
+            {
+                bindingResult.addError(new FieldError("authorizeduser", "email", "That email address already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "authorizedusers/create";
+            }
+            
+            existingAuthUser = authorizedUserService.findUserByUsername(user.getUsername());
+            if (existingAuthUser != null)
+            {
+                bindingResult.addError(new FieldError("authorizeduser", "username", "That username already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "authorizedusers/create";
+            }
+            
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String hashedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(hashedPassword);
-            userService.saveUser(user);
+            authorizedUserService.saveUser(user);
             uiModel.asMap().clear();  
             redirectAttributes.addFlashAttribute("successMessage", "The user has been created successfully.");
             return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
-        } catch (Exception e) {
+        } 
+        catch (Exception e)
+        {
             e.printStackTrace();
-            bindingResult.addError(new FieldError("user", "username","Username is already in the database"));
+            bindingResult.addError(new ObjectError("authorizeduser", "An error has occurred, please contact an Administrator."));
             populateEditForm(uiModel, user);
             return "authorizedusers/create";
         }
-
-
     }
 
     @RequestMapping(params = "form", produces = "text/html")
@@ -92,7 +122,7 @@ public class AuthorizedUserController {
     @RequestMapping(value = "/{id}", produces = "text/html")
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("user", userService.findUser(id));
+        uiModel.addAttribute("authorizeduser", authorizedUserService.findUser(id));
         uiModel.addAttribute("itemId", id);
         return "authorizedusers/show";
     }
@@ -102,8 +132,8 @@ public class AuthorizedUserController {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("users", AuthorizedUser.findUserEntries(firstResult, sizeNo, sortFieldName, sortOrder));
-            float nrOfPages = (float) userService.countAllUsers() / sizeNo;
+            uiModel.addAttribute("authorizedusers", AuthorizedUser.findUserEntries(firstResult, sizeNo, sortFieldName, sortOrder));
+            float nrOfPages = (float) authorizedUserService.countAllUsers() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
             uiModel.addAttribute("users", AuthorizedUser.findAllUsers(sortFieldName, sortOrder));
@@ -113,7 +143,7 @@ public class AuthorizedUserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
-    public String update(@ModelAttribute("user") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+    public String update(@ModelAttribute("authorizeduser") @Valid AuthorizedUser user, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             java.util.List<ObjectError> list=bindingResult.getAllErrors();
             int error_flag = 0;
@@ -133,12 +163,36 @@ public class AuthorizedUserController {
                 }
             }
             
+            AuthorizedUser existingAuthUser = authorizedUserService.findUserByEmail(user.getEmail());
+            if (existingAuthUser != null && existingAuthUser.getId() != user.getId())
+            {
+                bindingResult.addError(new FieldError("authorizeduser", "email", "That email address already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "authorizedusers/update";
+            }
+            
+            User existingUser = userService.findUserByEmail(user.getEmail());
+            if (existingUser != null && existingUser.getId() != user.getId())
+            {
+                bindingResult.addError(new FieldError("authorizeduser", "email", "That email address already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "authorizedusers/update";
+            }
+            
+            existingAuthUser = authorizedUserService.findUserByUsername(user.getUsername());
+            if (existingAuthUser != null && existingUser.getId() != user.getId())
+            {
+                bindingResult.addError(new FieldError("authorizeduser", "username", "That username already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "authorizedusers/update";
+            }
+            
             if (error_flag == 0)
             {
-                AuthorizedUser oldUser = userService.findUser(user.getId());
+                AuthorizedUser oldUser = authorizedUserService.findUser(user.getId());
                 user.setPassword(oldUser.getPassword());
                 uiModel.asMap().clear();
-                userService.updateUser(user);
+                authorizedUserService.updateUser(user);
                 redirectAttributes.addFlashAttribute("successMessage", "The user has been updated successfully.");
                 return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
             }
@@ -150,21 +204,21 @@ public class AuthorizedUserController {
         }
         
         uiModel.asMap().clear();
-        userService.updateUser(user);
+        authorizedUserService.updateUser(user);
         redirectAttributes.addFlashAttribute("successMessage", "The user has been updated successfully.");
         return "redirect:/authorizedusers/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
     }
 
     @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
-        populateEditForm(uiModel, userService.findUser(id));
+        populateEditForm(uiModel, authorizedUserService.findUser(id));
         return "authorizedusers/update";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        AuthorizedUser user = userService.findUser(id);
-        userService.deleteUser(user);
+        AuthorizedUser user = authorizedUserService.findUser(id);
+        authorizedUserService.deleteUser(user);
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
@@ -176,7 +230,7 @@ public class AuthorizedUserController {
     }
 
     void populateEditForm(Model uiModel, AuthorizedUser user) {
-        uiModel.addAttribute("user", user);
+        uiModel.addAttribute("authorizeduser", user);
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
         uiModel.addAttribute("useractivetypes", UserActiveType.findTypes());

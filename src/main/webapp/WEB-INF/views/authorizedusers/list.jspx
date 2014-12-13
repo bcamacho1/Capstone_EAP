@@ -2,8 +2,8 @@
 <div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <page:list id="pl_edu_ndnu_capstone_domain_AuthorizedUser" items="${users}" z="o7prmOuHsNGVEIfCPSLSCPlribM=">
-        <table:table data="${users}" id="l_edu_ndnu_capstone_domain_User" path="/authorizedusers" z="qxm/uOC9tW6FVn5I23accBER3sQ=">
+    <page:list id="pl_edu_ndnu_capstone_domain_AuthorizedUser" items="${authorizedusers}" z="o7prmOuHsNGVEIfCPSLSCPlribM=">
+        <table:table data="${authorizedusers}" id="l_edu_ndnu_capstone_domain_User" path="/authorizedusers" z="qxm/uOC9tW6FVn5I23accBER3sQ=">
             <table:column id="c_edu_ndnu_capstone_domain_User_typeId" property="typeId" z="DM1abuSEhONNNmfDa/5LUGrPumU="/>
             <table:column id="c_edu_ndnu_capstone_domain_User_name" property="name" z="mK9kvNv/6pWAoU7Oz++8bh7w83E="/>
             <table:column id="c_edu_ndnu_capstone_domain_User_email" property="email" z="TQ1jb5vxGUiReXi3Hn0D7gyQFQg="/>

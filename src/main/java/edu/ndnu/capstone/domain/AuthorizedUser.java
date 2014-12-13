@@ -308,20 +308,20 @@ public class AuthorizedUser
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("emergencies", "typeId").toString();
     }
 
-    public static AuthorizedUser findUserByUsername(String username2) {
-        if (username2 == null) return null;
+    public static AuthorizedUser findUserByUsername(String username) {
+        if (username == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND username = '" + username2 + "'", AuthorizedUser.class).getSingleResult();
+            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND username = '" + username + "'", AuthorizedUser.class).getSingleResult();
         } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
     }
     
-    public static AuthorizedUser findUserByEmail(String email2) {
-        if (email2 == null) return null;
+    public static AuthorizedUser findUserByEmail(String email) {
+        if (email == null) return null;
         try {
-            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND email = '" + email2 + "'", AuthorizedUser.class).getSingleResult();
+            return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND email = '" + email + "'", AuthorizedUser.class).getSingleResult();
         } catch (DataAccessException e) {
             e.printStackTrace();
             return null;

@@ -1,4 +1,6 @@
 package edu.ndnu.capstone.web;
+import edu.ndnu.capstone.domain.AuthorizedUser;
+import edu.ndnu.capstone.domain.AuthorizedUserService;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserActiveType;
@@ -38,6 +40,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    AuthorizedUserService authorizedUserService;
 
     @Autowired
     EmergencyService emergencyService;
@@ -62,12 +67,31 @@ public class UserController {
             populateEditForm(uiModel, user);
             return "users/create";
         }
-        try {
+        try 
+        {
+            User existingUser = userService.findUserByEmail(user.getEmail());
+            if (existingUser != null)
+            {
+                bindingResult.addError(new FieldError("user", "email", "That email address already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "users/create";
+            }
+            
+            AuthorizedUser existingAuthUser = authorizedUserService.findUserByEmail(user.getEmail());
+            if (existingAuthUser != null)
+            {
+                bindingResult.addError(new FieldError("user", "email", "That email address already exists in the database."));
+                populateEditForm(uiModel, user);
+                return "users/create";
+            }
+            
             userService.saveUser(user);
             uiModel.asMap().clear();  
             redirectAttributes.addFlashAttribute("successMessage", "The user has been created successfully.");
             return "redirect:/users/" + encodeUrlPathSegment(user.getId().toString(), httpServletRequest);
         } catch (Exception e) {
+            e.printStackTrace();
+            bindingResult.addError(new ObjectError("user", "An error has occurred, please contact an Administrator."));
             populateEditForm(uiModel, user);
             return "users/create";
         }
@@ -110,6 +134,23 @@ public class UserController {
             populateEditForm(uiModel, user);
             return "users/update";
         }
+        
+        User existingUser = userService.findUserByEmail(user.getEmail());
+        if (existingUser != null && existingUser.getId() != user.getId())
+        {
+            bindingResult.addError(new FieldError("user", "email", "That email address already exists in the database."));
+            populateEditForm(uiModel, user);
+            return "users/update";
+        }
+        
+        AuthorizedUser existingAuthUser = authorizedUserService.findUserByEmail(user.getEmail());
+        if (existingAuthUser != null && existingAuthUser.getId() != user.getId())
+        {
+            bindingResult.addError(new FieldError("user", "email", "That email address already exists in the database."));
+            populateEditForm(uiModel, user);
+            return "users/update";
+        }
+        
         uiModel.asMap().clear();
         userService.updateUser(user);
         redirectAttributes.addFlashAttribute("successMessage", "The user has been updated successfully.");
