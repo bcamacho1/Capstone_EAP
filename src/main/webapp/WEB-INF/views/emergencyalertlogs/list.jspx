@@ -3,7 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_edu_ndnu_capstone_domain_EmergencyAlertLog" items="${emergencyalertlogs}" z="oklC1DA17tlI3GI4HuP9Ajk03wg=">
-        <table:table data="${emergencyalertlogs}" id="l_edu_ndnu_capstone_domain_EmergencyAlertLog" path="/emergencyalertlogs" z="WxDINXzhj4g563G5v/s+mo7CgT0=">
+        <table:table data="${emergencyalertlogs}" create="false" update="false" delete="false" id="l_edu_ndnu_capstone_domain_EmergencyAlertLog" path="/emergencyalertlogs" z="WxDINXzhj4g563G5v/s+mo7CgT0=">
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_userId" property="userId" z="E9SDVFghLRpi62NLLNsCpKoTLNM="/>
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyId" property="emergencyId" z="dexob2HKi+frNf/RHr1poY1Qd6M="/>
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyAlertLog_emergencyMessageId" property="emergencyMessageId" z="JMiDLN3xMmPhBupV/hKou88tLtQ="/>

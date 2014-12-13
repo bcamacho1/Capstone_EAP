@@ -7,10 +7,4 @@
 <definition extends="default" name="emergencyalertlogs/show">
         <put-attribute name="body" value="/WEB-INF/views/emergencyalertlogs/show.jspx"/>
     </definition>
-<definition extends="default" name="emergencyalertlogs/create">
-        <put-attribute name="body" value="/WEB-INF/views/emergencyalertlogs/create.jspx"/>
-    </definition>
-<definition extends="default" name="emergencyalertlogs/update">
-        <put-attribute name="body" value="/WEB-INF/views/emergencyalertlogs/update.jspx"/>
-    </definition>
 </tiles-definitions>

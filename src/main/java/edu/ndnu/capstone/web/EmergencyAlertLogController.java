@@ -1,9 +1,9 @@
 package edu.ndnu.capstone.web;
+import edu.ndnu.capstone.domain.AuthorizedUserService;
 import edu.ndnu.capstone.domain.EmergencyAlertLog;
 import edu.ndnu.capstone.domain.EmergencyAlertLogService;
 import edu.ndnu.capstone.domain.EmergencyMessageService;
 import edu.ndnu.capstone.domain.EmergencyService;
-import edu.ndnu.capstone.domain.UserService;
 
 import java.io.UnsupportedEncodingException;
 
@@ -42,7 +42,7 @@ public class EmergencyAlertLogController {
     EmergencyMessageService emergencyMessageService;
 
     @Autowired
-    UserService userService;
+    AuthorizedUserService userService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid EmergencyAlertLog emergencyAlertLog, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
@@ -122,7 +122,7 @@ public class EmergencyAlertLogController {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
         uiModel.addAttribute("emergencymessages", emergencyMessageService.findAllEmergencyMessages());
-        uiModel.addAttribute("users", userService.findAllUsers());
+        uiModel.addAttribute("authorizedusers", userService.findAllUsers());
     }
 
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

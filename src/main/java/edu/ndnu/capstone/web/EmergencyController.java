@@ -75,12 +75,7 @@ public class EmergencyController {
     public String sendEmailAlert(@PathVariable("emergency_id") int emergency_id) 
     {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(login);
-
         AuthorizedUser user = AuthorizedUser.findUserByUsername(login); 
-
-        System.out.printf("%d\n", emergency_id);
-        System.out.println("You sent an email alert!");
 
         // load the emergency information to populate the email
         Emergency emergency = Emergency.findEmergency(emergency_id);
@@ -333,7 +328,11 @@ public class EmergencyController {
         uiModel.addAttribute("emergencystatuses", emergencyStatusService.findAllEmergencyStatuses());
         uiModel.addAttribute("emergencytypes", emergencyTypeService.findAllEmergencyTypes());
         uiModel.addAttribute("locations", locationService.findAllLocations());
-        uiModel.addAttribute("authorizedusers", authorizedUserService.findAllUsers());
+        
+        AuthorizedUser user = AuthorizedUser.findUser(emergency.getUserId().getId());
+        List<AuthorizedUser> currentUserList = new ArrayList<AuthorizedUser>();
+        currentUserList.add(user);
+        uiModel.addAttribute("authorizedusers", currentUserList);
     }
     
     void populateCreateForm(Model uiModel, Emergency emergency) {

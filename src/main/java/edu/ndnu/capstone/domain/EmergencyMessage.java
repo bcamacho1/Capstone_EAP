@@ -86,6 +86,7 @@ public class EmergencyMessage {
         try {
             return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id + " and emergency_type_id = " + type_id, EmergencyMessage.class).getSingleResult();
         } catch (DataAccessException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -95,6 +96,7 @@ public class EmergencyMessage {
         try {
             return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id = " + user_id + " ORDER BY emergency_type_id", EmergencyMessage.class).getResultList();
         } catch (DataAccessException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -104,6 +106,7 @@ public class EmergencyMessage {
         try {
             return entityManager().createQuery("SELECT o FROM EmergencyMessage o WHERE user_id is null and emergency_type_id = " + type_id, EmergencyMessage.class).getSingleResult();
         } catch (DataAccessException e) {
+            e.printStackTrace();
             return null;
         }
     }

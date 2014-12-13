@@ -2,6 +2,7 @@ package edu.ndnu.capstone.web;
 import edu.ndnu.capstone.domain.EmergencyAlertLogService;
 import edu.ndnu.capstone.domain.EmergencyMessage;
 import edu.ndnu.capstone.domain.EmergencyMessageService;
+import edu.ndnu.capstone.domain.EmergencyType;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
 import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.AuthorizedUserService;
@@ -20,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,9 +52,34 @@ public class EmergencyMessageController {
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String create(@Valid EmergencyMessage emergencyMessage, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
-            populateEditForm(uiModel, emergencyMessage);
+            populateCreateForm(uiModel, emergencyMessage);
             return "emergencymessages/create";
         }
+
+        Integer type_id = emergencyMessage.getEmergencyTypeId().getId();
+        // if they selected Null make sure we're not duplicating a message
+        if (emergencyMessage.getUserId() == null)
+        {
+            EmergencyMessage existingMessage = emergencyMessageService.findDefaultEmergencyMessageByType(type_id);
+            if (existingMessage != null)
+            {
+                bindingResult.addError(new ObjectError("emergencyMessage", "An existing default emergency message was found for this emergency type."));
+                populateCreateForm(uiModel, emergencyMessage);
+                return "emergencymessages/create";
+            }
+        }
+        else
+        {
+            Integer user_id = emergencyMessage.getUserId().getId();
+            EmergencyMessage existingMessage = emergencyMessageService.findEmergencyMessageByUserAndType(user_id, type_id);
+            if (existingMessage != null)
+            {
+                bindingResult.addError(new ObjectError("emergencyMessage", "An existing emergency message was found for this user and emergency type."));
+                populateCreateForm(uiModel, emergencyMessage);
+                return "emergencymessages/create";
+            }
+        }
+        
         uiModel.asMap().clear();
         emergencyMessageService.saveEmergencyMessage(emergencyMessage);
         redirectAttributes.addFlashAttribute("successMessage", "The emergency message has been created successfully.");
@@ -61,7 +88,7 @@ public class EmergencyMessageController {
 
     @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
-        populateEditForm(uiModel, new EmergencyMessage());
+        populateCreateForm(uiModel, new EmergencyMessage());
         return "emergencymessages/create";
     }
 
@@ -137,6 +164,24 @@ public class EmergencyMessageController {
     }
 
     void populateEditForm(Model uiModel, EmergencyMessage emergencyMessage) {
+        AuthorizedUser user = new AuthorizedUser();
+        if (emergencyMessage.getUserId() == null)
+            user.setId(0);
+        else 
+            user = AuthorizedUser.findUser(emergencyMessage.getUserId().getId());
+        
+        List<AuthorizedUser> currentUserList = new ArrayList<AuthorizedUser>();
+        currentUserList.add(user);
+        uiModel.addAttribute("authorizedusers", currentUserList);
+            
+        EmergencyType type = emergencyTypeService.findEmergencyType(emergencyMessage.getId());
+        List<EmergencyType> currentTypeList = new ArrayList<EmergencyType>();
+        currentTypeList.add(type);
+        uiModel.addAttribute("emergencytypes", currentTypeList);
+        uiModel.addAttribute("emergencyMessage", emergencyMessage);
+    }
+    
+    void populateCreateForm(Model uiModel, EmergencyMessage emergencyMessage) {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         AuthorizedUser user = AuthorizedUser.findUserByUsername(login);
         UserType type = user.getTypeId();

@@ -313,6 +313,7 @@ public class AuthorizedUser
         try {
             return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND username = '" + username2 + "'", AuthorizedUser.class).getSingleResult();
         } catch (DataAccessException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -322,6 +323,7 @@ public class AuthorizedUser
         try {
             return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND email = '" + email2 + "'", AuthorizedUser.class).getSingleResult();
         } catch (DataAccessException e) {
+            e.printStackTrace();
             return null;
         }
     }

@@ -298,6 +298,7 @@ public class User
         try {
             return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') AND email = '" + email2 + "'", User.class).getSingleResult();
         } catch (DataAccessException e) {
+            e.printStackTrace();
             return null;
         }
     }
