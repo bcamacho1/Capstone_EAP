@@ -18,22 +18,18 @@
         <intercept-url pattern="/emergencytypes.*form" access="hasRole('Admin')" />
         <intercept-url pattern="/emergencystatuses.*form" access="hasRole('Admin')" />
         <intercept-url pattern="/login/.*" access="permitAll" />
-    
-    	<!-- For now, we are allowing access to all pages because everyone's database will need sha256 passwords in it -->
-    	<!-- I'm just restricting access to the UserTypes section to test login/logout capabilities -->
     	<!-- hasRole('Admin') checks the user type, "Admin" needs to match what is exactly in the user_type table -->
     	<intercept-url pattern="/usertypes.*" access="hasRole('Admin')" />
     	<intercept-url pattern="/users.*" access="hasAnyRole('Admin','First Responder')" />
-    	<intercept-url pattern="/authorizedUsers.*" access="hasAnyRole('Admin','First Responder')" />
+    	<intercept-url pattern="/authorizedusers.*" access="hasAnyRole('Admin','First Responder')" />
     	<intercept-url pattern="/dataImport" access="hasRole('Admin')" />
     	<intercept-url pattern="/passwordChange.*" access="hasAnyRole('Admin','First Responder')" />
+    	<intercept-url pattern="/resetUserPassword.*" access="hasRole('Admin')" />
 	    <intercept-url pattern="/emergencymessages.*" access="hasAnyRole('Admin','First Responder')" />
 	    <intercept-url pattern="/emergencyalertlogs.*" access="hasAnyRole('Admin','First Responder')" />
-    	<intercept-url pattern="/.*" access="permitAll" />
-    
-        <!-- By default, lock down the pages, the permitAll urls above are open to the public -->
+    	<intercept-url pattern="/.*" access="permitAll" />   
+        <!-- the permitAll urls above are open to the public -->
         <!-- <intercept-url pattern="/**" access="isAuthenticated()" /> -->
-    
     </http>
     <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
     <!-- Configure Authentication mechanism -->
