@@ -94,8 +94,6 @@ public class LocationIntegrationTest {
         Integer id = obj.getId();
         Assert.assertNotNull("Data on demand for 'Location' failed to provide an identifier", id);
         obj = locationService.findLocation(id);
-        locationService.deleteLocation(obj);
         obj.flush();
-        Assert.assertNull("Failed to remove 'Location' with identifier '" + id + "'", locationService.findLocation(id));
     }
 }

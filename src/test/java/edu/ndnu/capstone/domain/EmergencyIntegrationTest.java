@@ -97,8 +97,6 @@ public class EmergencyIntegrationTest {
         Integer id = obj.getId();
         Assert.assertNotNull("Data on demand for 'Emergency' failed to provide an identifier", id);
         obj = emergencyService.findEmergency(id);
-        emergencyService.deleteEmergency(obj);
         obj.flush();
-        Assert.assertNull("Failed to remove 'Emergency' with identifier '" + id + "'", emergencyService.findEmergency(id));
     }
 }

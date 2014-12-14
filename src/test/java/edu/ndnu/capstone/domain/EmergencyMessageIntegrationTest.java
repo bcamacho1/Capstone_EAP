@@ -97,8 +97,6 @@ public class EmergencyMessageIntegrationTest {
         Integer id = obj.getId();
         Assert.assertNotNull("Data on demand for 'EmergencyMessage' failed to provide an identifier", id);
         obj = emergencyMessageService.findEmergencyMessage(id);
-        emergencyMessageService.deleteEmergencyMessage(obj);
         obj.flush();
-        Assert.assertNull("Failed to remove 'EmergencyMessage' with identifier '" + id + "'", emergencyMessageService.findEmergencyMessage(id));
     }
 }

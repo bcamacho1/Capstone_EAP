@@ -94,8 +94,6 @@ public class UserTypeIntegrationTest {
         Integer id = obj.getId();
         Assert.assertNotNull("Data on demand for 'UserType' failed to provide an identifier", id);
         obj = userTypeService.findUserType(id);
-        userTypeService.deleteUserType(obj);
         obj.flush();
-        Assert.assertNull("Failed to remove 'UserType' with identifier '" + id + "'", userTypeService.findUserType(id));
     }
 }
