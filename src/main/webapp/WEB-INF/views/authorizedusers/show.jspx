@@ -7,6 +7,7 @@
             <span class="errors alert alert-success">${successMessage}</span>
         </c:if>
         <field:display field="typeId" id="s_edu_ndnu_capstone_domain_User_typeId" object="${authorizeduser}" z="WdxhXoXjyve9oDQvslAf+9p0ZkQ="/>
+        <field:display field="idNumber" id="s_edu_ndnu_capstone_domain_User_id_number" object="${authorizeduser}" z=""/>
         <field:display field="name" id="s_edu_ndnu_capstone_domain_User_name" object="${authorizeduser}" z="W1gyn9cWdfRF4qBJxhDCxrB1sFA="/>
         <field:display field="email" id="s_edu_ndnu_capstone_domain_User_email" object="${authorizeduser}" z="o0WQluo422L/n27YJsOKQwFg8Z8="/>
         <field:display field="username" id="s_edu_ndnu_capstone_domain_User_username" object="${authorizeduser}" z="SfLkfHJ3u6zbDdl14S8S7XCGcoo="/>

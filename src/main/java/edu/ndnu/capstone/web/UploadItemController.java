@@ -143,7 +143,6 @@ public class UploadItemController
             
             //outputStream.close();
             inputStream.close();
-            // ..........................................
         }
     } 
     catch (Exception e) 

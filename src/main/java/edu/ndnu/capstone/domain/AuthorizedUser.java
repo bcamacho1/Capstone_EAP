@@ -56,6 +56,11 @@ public class AuthorizedUser
     @Size(min=1, max=256, message="Must be at least 1 character.")
     @Pattern(regexp = "([A-Z][a-z]+) ([A-Za-z']+[ '-]*[A-Za-z]*[ Jr.Sr.]*[I]*)", message="Please use only first and last name, can be hyphenated, names must be capital. Includes suffix: Sr., Jr., I, II, and III. If no last name type NA.")
     private String name;
+    
+    @Column(name = "id_number", length = 9)
+    @Min(0)
+    @Max(1000000000)
+    private Integer idNumber;
 
     @Column(name = "email", length = 100, unique = true)
     @NotNull
@@ -130,6 +135,14 @@ public class AuthorizedUser
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public Integer getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(Integer idNumber) {
+        this.idNumber = idNumber;
     }
 
     public String getEmail() {

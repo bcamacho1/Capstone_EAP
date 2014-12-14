@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_User" modelAttribute="user" path="/users" versionField="none" z="dAgSSO1OAUEJHLMB+unvY50hI00=">
         <field:select field="typeId" id="c_edu_ndnu_capstone_domain_User_typeId" itemValue="id" items="${usertypes}" path="/usertypes" z="cuXEuKQFS8VdksWWbETwOj+Ps4k="/>
-        <field:input field="idNumber" id="c_edu_ndnu_capstone_domain_User_id_number" required="true" validationMessageCode="field_invalid_integer" max="1" min="1000000" z=""/>
+        <field:input field="idNumber" id="c_edu_ndnu_capstone_domain_User_id_number" validationMessageCode="field_invalid_integer" max="1" min="1000000" z=""/>
         <field:input field="name" id="c_edu_ndnu_capstone_domain_User_name" required="true" z="AvB38b/End0hXemXNC8GrbD8SAw="/>
         <field:input field="email" id="c_edu_ndnu_capstone_domain_User_email" required="true" validationMessageCode="field_invalid_email" z="OGADRfESfWyp/4F216swLnNdyoQ="/>
         <field:input field="phone" id="c_edu_ndnu_capstone_domain_User_phone" required="true" z="k42Av41wIfhbInJmZhCY/WbW+h4="/>
