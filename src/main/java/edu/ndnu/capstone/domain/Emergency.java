@@ -233,13 +233,15 @@ public class Emergency {
     public static String getFindEmergenciesQuery()
     {
         String jpaQuery = "SELECT o FROM Emergency o";
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
         
-        if (login.compareTo("anonymousUser")==0)
+        if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null)
         {
-            jpaQuery = jpaQuery + " JOIN o.statusId p WHERE p.name != 'Complete'";
+            String login = SecurityContextHolder.getContext().getAuthentication().getName();
+            if (login.compareTo("anonymousUser")==0)
+            {
+                jpaQuery = jpaQuery + " JOIN o.statusId p WHERE p.name != 'Complete'";
+            }
         }
-        
         return jpaQuery;
     }
 }
