@@ -153,14 +153,14 @@ public class Emergency {
     }
 
     public static List<Emergency> findAllEmergencies() {
-        String jpaQuery = getFindEmergenciesQuery();
+        String jpaQuery = getFindEmergenciesQuery() + " ORDER BY created desc";
         return entityManager().createQuery(jpaQuery, Emergency.class).getResultList();
     }
 
     public static List<Emergency> findAllEmergencies(String sortFieldName, String sortOrder) {
-        String jpaQuery = getFindEmergenciesQuery();
+        String jpaQuery = getFindEmergenciesQuery() + " ORDER BY created desc";
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            jpaQuery = jpaQuery + ", " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }
@@ -174,15 +174,15 @@ public class Emergency {
     }
 
     public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults) {
-        String jpaQuery = getFindEmergenciesQuery();
+        String jpaQuery = getFindEmergenciesQuery() + " ORDER BY created desc";
         return entityManager().createQuery(jpaQuery, Emergency.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     public static List<Emergency> findEmergencyEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
-        String jpaQuery = getFindEmergenciesQuery();
+        String jpaQuery = getFindEmergenciesQuery() + " ORDER BY created desc";
 
         if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
-            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            jpaQuery = jpaQuery + ", " + sortFieldName;
             if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
                 jpaQuery = jpaQuery + " " + sortOrder;
             }
