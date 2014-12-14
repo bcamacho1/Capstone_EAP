@@ -13,4 +13,7 @@
 <definition extends="default" name="authorizedusers/update">
         <put-attribute name="body" value="/WEB-INF/views/authorizedusers/update.jspx"/>
     </definition>
+<definition extends="default" name="search/authorizedUsers">
+        <put-attribute name="body" value="/WEB-INF/views/authorizedusers/search.jspx"/>
+    </definition>
 </tiles-definitions>

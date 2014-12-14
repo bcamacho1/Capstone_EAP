@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Min;
@@ -335,6 +336,18 @@ public class AuthorizedUser
         if (email == null) return null;
         try {
             return entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND email = '" + email + "'", AuthorizedUser.class).getSingleResult();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static List<AuthorizedUser> searchUsers(String name) {
+        if (name == null) return null;
+        try {
+            TypedQuery<AuthorizedUser> query = entityManager().createQuery("SELECT o FROM AuthorizedUser o JOIN o.typeId p WHERE p.name in ('Admin','First Responder') AND o.name LIKE :keyword ORDER BY active desc, type_id, o.name", AuthorizedUser.class);
+            query.setParameter("keyword", "%" + name + "%");
+            return query.getResultList();
         } catch (DataAccessException e) {
             e.printStackTrace();
             return null;

@@ -36,6 +36,10 @@ public class AuthorizedUserServiceImpl implements AuthorizedUserService {
     public List<AuthorizedUser> findUserEntries(int firstResult, int maxResults) {
         return AuthorizedUser.findUserEntries(firstResult, maxResults);
     }
+    
+    public List<AuthorizedUser> searchUsers(String name) {
+        return AuthorizedUser.searchUsers(name);
+    }
 
     public void saveUser(AuthorizedUser user) {
         user.persist();

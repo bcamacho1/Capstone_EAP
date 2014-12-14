@@ -25,6 +25,9 @@ public interface AuthorizedUserService {
 
 
     public abstract List<AuthorizedUser> findUserEntries(int firstResult, int maxResults);
+    
+    
+    public abstract List<AuthorizedUser> searchUsers(String name);
 
 
     public abstract void saveUser(AuthorizedUser user);
