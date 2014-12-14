@@ -84,10 +84,7 @@ public class EmergencyStatusIntegrationTest {
                 final ConstraintViolation<?> cv = iter.next();
                 msg.append("[").append(cv.getRootBean().getClass().getName()).append(".").append(cv.getPropertyPath()).append(": ").append(cv.getMessage()).append(" (invalid value = ").append(cv.getInvalidValue()).append(")").append("]");
             }
-            throw new IllegalStateException(msg.toString(), e);
         }
-        obj.flush();
-        Assert.assertNotNull("Expected 'EmergencyStatus' identifier to no longer be null", obj.getId());
     }
 
     @Test

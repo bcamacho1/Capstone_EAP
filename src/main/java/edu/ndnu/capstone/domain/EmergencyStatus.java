@@ -1,7 +1,6 @@
 package edu.ndnu.capstone.domain;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -14,7 +13,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -38,8 +36,8 @@ public class EmergencyStatus {
 
     @Column(name = "name", length = 256)
     @NotNull
-    @Size(min=1, message = "Name can not be left blank.")
-    @Pattern(regexp="[A-Za-z0-9\\. -,]*",message="Name can be both letters, numbers and puntuation. Please Verify You Input.")
+    @Size(min = 1, message = "Name can not be left blank.")
+    @Pattern(regexp = "[A-Za-z0-9\\. -,]*", message = "Name can be both letters, numbers and puntuation. Please Verify You Input.")
     private String name;
 
     public Set<Emergency> getEmergencies() {
