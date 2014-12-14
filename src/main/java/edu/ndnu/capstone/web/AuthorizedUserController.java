@@ -136,7 +136,7 @@ public class AuthorizedUserController {
             float nrOfPages = (float) authorizedUserService.countAllUsers() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("users", AuthorizedUser.findAllUsers(sortFieldName, sortOrder));
+            uiModel.addAttribute("authorizedusers", AuthorizedUser.findAllUsers(sortFieldName, sortOrder));
         }
         addDateTimeFormatPatterns(uiModel);
         return "authorizedusers/list";
