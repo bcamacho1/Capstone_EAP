@@ -93,13 +93,21 @@ public class EmergencyTypeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        EmergencyType emergencyType = emergencyTypeService.findEmergencyType(id);
-        emergencyTypeService.deleteEmergencyType(emergencyType);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/emergencytypes";
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
+            EmergencyType emergencyType = emergencyTypeService.findEmergencyType(id);
+            emergencyTypeService.deleteEmergencyType(emergencyType);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            redirectAttributes.addFlashAttribute("successMessage", "The type was deleted successfully.");
+            return "redirect:/emergencytypes";
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "This type cannot be deleted because it is used in an emergency record.");
+            return "redirect:/emergencytypes/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void populateEditForm(Model uiModel, EmergencyType emergencyType) {

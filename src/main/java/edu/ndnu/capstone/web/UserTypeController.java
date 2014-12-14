@@ -92,13 +92,21 @@ public class UserTypeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        UserType userType = userTypeService.findUserType(id);
-        userTypeService.deleteUserType(userType);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/usertypes";
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
+            UserType userType = userTypeService.findUserType(id);
+            userTypeService.deleteUserType(userType);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            redirectAttributes.addFlashAttribute("successMessage", "The type was deleted successfully.");
+            return "redirect:/usertypes";
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "The type cannot be deleted because it is used in a user record.");
+            return "redirect:/usertypes/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void populateEditForm(Model uiModel, UserType userType) {

@@ -104,13 +104,21 @@ public class EmergencyAlertLogController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        EmergencyAlertLog emergencyAlertLog = emergencyAlertLogService.findEmergencyAlertLog(id);
-        emergencyAlertLogService.deleteEmergencyAlertLog(emergencyAlertLog);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/emergencyalertlogs";
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
+            EmergencyAlertLog emergencyAlertLog = emergencyAlertLogService.findEmergencyAlertLog(id);
+            emergencyAlertLogService.deleteEmergencyAlertLog(emergencyAlertLog);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            redirectAttributes.addFlashAttribute("successMessage", "The alert log was deleted successfully.");
+            return "redirect:/emergencyalertlogs";
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred. The alert log cannot be deleted.");
+            return "redirect:/emergencyalertlogs/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void addDateTimeFormatPatterns(Model uiModel) {

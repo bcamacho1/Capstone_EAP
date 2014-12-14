@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_edu_ndnu_capstone_domain_AuthorizedUser" items="${authorizedusers}" z="o7prmOuHsNGVEIfCPSLSCPlribM=">
+        <c:if test="${not empty successMessage}">
+            <span class="errors alert alert-success">${successMessage}</span>
+        </c:if>
         <table:table data="${authorizedusers}" id="l_edu_ndnu_capstone_domain_User" path="/authorizedusers" z="qxm/uOC9tW6FVn5I23accBER3sQ=">
             <table:column id="c_edu_ndnu_capstone_domain_User_typeId" property="typeId" z="DM1abuSEhONNNmfDa/5LUGrPumU="/>
             <table:column id="c_edu_ndnu_capstone_domain_User_id_number" property="idNumber" z=""/>

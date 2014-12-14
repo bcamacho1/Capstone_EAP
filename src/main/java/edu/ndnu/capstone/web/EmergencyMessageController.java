@@ -154,13 +154,21 @@ public class EmergencyMessageController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        EmergencyMessage emergencyMessage = emergencyMessageService.findEmergencyMessage(id);
-        emergencyMessageService.deleteEmergencyMessage(emergencyMessage);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/emergencymessages";
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
+            EmergencyMessage emergencyMessage = emergencyMessageService.findEmergencyMessage(id);
+            emergencyMessageService.deleteEmergencyMessage(emergencyMessage);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            redirectAttributes.addFlashAttribute("successMessage", "The message was deleted successfully.");
+            return "redirect:/emergencymessages";
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "This message cannot be deleted because it is used in an alert log record.");
+            return "redirect:/emergencymessages/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void populateEditForm(Model uiModel, EmergencyMessage emergencyMessage) {

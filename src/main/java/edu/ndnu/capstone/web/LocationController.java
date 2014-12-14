@@ -111,13 +111,21 @@ public class LocationController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        Location location = locationService.findLocation(id);
-        locationService.deleteLocation(location);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/locations";
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
+            Location location = locationService.findLocation(id);
+            locationService.deleteLocation(location);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            redirectAttributes.addFlashAttribute("successMessage", "The location was deleted successfully.");
+            return "redirect:/locations";
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "The location cannot be deleted because it is used in an emergency record.");
+            return "redirect:/locations/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void populateEditForm(Model uiModel, Location location) {

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/jquery/form" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:table="urn:jsptagdir:/WEB-INF/tags/jquery/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_edu_ndnu_capstone_domain_EmergencyType" items="${emergencytypes}" z="ALOCXHC0yGx1mNRI5tgSCKA/7Og=">
+        <c:if test="${not empty successMessage}">
+            <span class="errors alert alert-success">${successMessage}</span>
+        </c:if>
         <table:table data="${emergencytypes}" id="l_edu_ndnu_capstone_domain_EmergencyType" path="/emergencytypes" z="efCOmcZSsDXNStTmAiGsrEky7nY=">
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyType_name" property="name" z="PfpkVlnyOVl4bFV/PDeFf4Y6MJs="/>
             <table:column id="c_edu_ndnu_capstone_domain_EmergencyType_category" property="category" z=""/>

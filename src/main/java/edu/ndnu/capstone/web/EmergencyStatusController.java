@@ -92,13 +92,21 @@ public class EmergencyStatusController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        EmergencyStatus emergencyStatus = emergencyStatusService.findEmergencyStatus(id);
-        emergencyStatusService.deleteEmergencyStatus(emergencyStatus);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/emergencystatuses";
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
+            EmergencyStatus emergencyStatus = emergencyStatusService.findEmergencyStatus(id);
+            emergencyStatusService.deleteEmergencyStatus(emergencyStatus);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            redirectAttributes.addFlashAttribute("successMessage", "The status was deleted successfully.");
+            return "redirect:/emergencystatuses";
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "This status cannot be deleted because it is used in an emergency record.");
+            return "redirect:/emergencystatuses/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void populateEditForm(Model uiModel, EmergencyStatus emergencyStatus) {

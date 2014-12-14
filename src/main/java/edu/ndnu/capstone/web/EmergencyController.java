@@ -309,13 +309,21 @@ public class EmergencyController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        Emergency emergency = emergencyService.findEmergency(id);
-        emergencyService.deleteEmergency(emergency);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/emergencies";
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
+            Emergency emergency = emergencyService.findEmergency(id);
+            emergencyService.deleteEmergency(emergency);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            redirectAttributes.addFlashAttribute("successMessage", "The emergency was deleted successfully.");
+            return "redirect:/emergencies";
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred. This emergency cannot be deleted.");
+            return "redirect:/emergencies/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void addDateTimeFormatPatterns(Model uiModel) {
