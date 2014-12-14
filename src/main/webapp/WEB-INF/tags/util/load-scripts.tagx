@@ -88,36 +88,4 @@
     <script src="${jquery_validate_i18n_js_url}" type="text/javascript">
         <!--required for FF3 and Opera-->
     </script>
-<spring:url value="/resources/styles/datatables/jquery.dataTables.css" var="css_jquery_datatables_url"/>
-    <link href="${css_jquery_datatables_url}" media="screen" rel="stylesheet" type="text/css"/>
-    <spring:url value="/resources/styles/datatables/gvnix.dataTables.css" var="css_gvnix_datatables_url"/>
-    <link href="${css_gvnix_datatables_url}" media="screen" rel="stylesheet" type="text/css"/>
-    <spring:url value="/resources/scripts/datatables/jquery.dataTables.min.js" var="js_jquery_datatables_url"/>
-    <script src="${js_jquery_datatables_url}" type="text/javascript">
-        <!--required for FF3 and Opera-->
-    </script>
-    <spring:url value="/resources/scripts/datatables/jquery.dataTables.ext.gvnix.selection.js" var="js_jquery_datatables_selection_url"/>
-    <script src="${js_jquery_datatables_selection_url}" type="text/javascript">
-        <!--required for FF3 and Opera-->
-    </script>
-    <spring:url value="/resources/scripts/datatables/jquery.dataTables.ext.gvnix.editing.js" var="js_jquery_datatables_edit_url"/>
-    <script src="${js_jquery_datatables_edit_url}" type="text/javascript">
-        <!--required for FF3 and Opera-->
-    </script>
-    <spring:url value="/resources/scripts/datatables/jquery.dataTables.ext.gvnix.rowclick.js" var="js_jquery_datatables_rowclik_url"/>
-    <script src="${js_jquery_datatables_rowclik_url}" type="text/javascript">
-        <!--required for FF3 and Opera-->
-    </script>
-    <spring:url value="/resources/scripts/datatables/jquery.dataTables.ext.gvnix.rowontop.js" var="js_jquery_datatables_rowontop_url"/>
-    <script src="${js_jquery_datatables_rowontop_url}" type="text/javascript">
-        <!--required for FF3 and Opera-->
-    </script>
-    <spring:url value="/resources/scripts/datatables/jquery.dataTables.ext.gvnix.detail.js" var="js_jquery_datatables_detail_url"/>
-    <script src="${js_jquery_datatables_detail_url}" type="text/javascript">
-        <!--required for FF3 and Opera-->
-    </script>
-    <spring:url value="/resources/scripts/datatables/jquery.dataTables.ext.gvnix.js" var="js_jquery_datatables_custom_api_url"/>
-    <script src="${js_jquery_datatables_custom_api_url}" type="text/javascript">
-        <!--required for FF3 and Opera-->
-    </script>
 </jsp:root>
