@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 
+import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.UploadItem;
 import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserService;
@@ -24,6 +25,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/dataImport")
@@ -40,7 +42,7 @@ public class UploadItemController
   }
 
   @RequestMapping(value = "/upload", method = RequestMethod.POST)
-  public String create(UploadItem uploadItem, BindingResult result)
+  public String create(UploadItem uploadItem, BindingResult result, final RedirectAttributes redirectAttributes)
   {
     if (result.hasErrors()) 
     {
@@ -51,10 +53,8 @@ public class UploadItemController
         return "/uncaughtException";
     }
     
-    // Some type of file processing...
     System.out.println("-------------------------------------------");
-    //System.out.println("Test upload: " + uploadItem.getName());
-    System.out.println("Test upload: " + uploadItem.getFileData().getOriginalFilename());
+    System.out.println("Upload: " + uploadItem.getFileData().getOriginalFilename());
     System.out.println("-------------------------------------------");
     
     try
@@ -69,7 +69,8 @@ public class UploadItemController
             if (file.getSize() > 10000000)
             {
                 System.out.println("File Size exceeded:::" + file.getSize());
-                return "/uncaughtException";
+                redirectAttributes.addFlashAttribute("errorMessage", "The file size cannot exceed 10MB.");
+                return "redirect:/dataImport/";
             }
             System.out.println("size::" + file.getSize());
             
@@ -95,60 +96,88 @@ public class UploadItemController
                 type_cache.put(type.getName(), type);
             }
             
+            String errors = "";
+            
             while ((line = reader.readLine()) != null) {
                 out.append(line);
-                System.out.println(line);
                 
-                // This regex needs to handle quotes better, or readLine needs to be better
-                // Because when specifying quotes around elements in the csv file
-                // The User validations fail because it literally sees the quotes
+                // skip the header line
+                if (line.indexOf("Emergency Contact Name") != -1)
+                {
+                    continue;
+                }
+                
+                // Split the line, then strip any quotes
                 String[] parts = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                System.out.println(parts[0]);
-                System.out.println(parts[1]);
-                System.out.println(parts[2]);
-                System.out.println(parts[3]);
-                System.out.println(parts[4]);
-                System.out.println(parts[5]);
+                for (int i=0; i<parts.length; i++)
+                {
+                    parts[i] = parts[i].replaceAll("\"", "");
+                }
+                
                 Calendar created = java.util.Calendar.getInstance();
                 User newUser = new User();
-                
-                User returnedUser = User.findUserByEmail(parts[1]);
-                
+
+                User returnedUser = User.findUserByEmail(parts[2]);
                 if (returnedUser instanceof User)
                 {
+                    errors = errors + returnedUser.getEmail() + ", already exists<br />";
+                    continue;
+                }
+                
+                AuthorizedUser returnedAuthorizedUser = AuthorizedUser.findUserByEmail(parts[2]);
+                if (returnedAuthorizedUser instanceof AuthorizedUser)
+                {
+                    errors = errors + returnedAuthorizedUser.getEmail() + ", already exists<br />";
                     continue;
                 }
                 
                 try {
                     newUser.setName(parts[0]);
-                    newUser.setEmail(parts[1]);
-                    newUser.setPhone(parts[4]);
-                    newUser.setTypeId(type_cache.get(parts[5]));
-                    newUser.setActive(1);
-                    newUser.setCreated(created);
                     
-                    if (parts.length >= 7)
+                    if (parts[1].length() > 0)
                     {
-                        newUser.setDescription(parts[6]);
+                        newUser.setIdNumber(Integer.parseInt(parts[1]));
+                    }
+
+                    newUser.setEmail(parts[2]);
+                    newUser.setPhone(parts[3]);
+                    newUser.setTypeId(type_cache.get(parts[4]));
+                    newUser.setActive(Integer.parseInt(parts[5]));
+                    newUser.setEmergencyContactName(parts[6]);
+                    newUser.setEmergencyContactPhone(parts[7]);
+                    newUser.setCreated(created);
+                    if (parts.length >= 9)
+                    {
+                        newUser.setDescription(parts[8]);
                     }
                     
                     userService.updateUser(newUser);
                 } catch (Exception e) {
+                    errors = errors + newUser.getEmail() + ", did not pass validation<br />";
                     e.printStackTrace();
                 }
-                
+
             }
             //System.out.println(out.toString());   //Prints the string content read from input stream
             reader.close();
             
             //outputStream.close();
             inputStream.close();
+            
+            if (errors.length() > 0)
+            {
+                redirectAttributes.addFlashAttribute("errorMessage", "The following users could not be imported:<br />" + errors);
+            }
         }
-    } 
+        
+        redirectAttributes.addFlashAttribute("successMessage", "The data import completed successfully.");
+        return "redirect:/users";
+    }
     catch (Exception e) 
     {
         e.printStackTrace();
+        redirectAttributes.addFlashAttribute("errorMessage", "An error occurred. Check your input file format.");
+        return "redirect:/dataImport/";
     }
-    return "index";
   }
 }

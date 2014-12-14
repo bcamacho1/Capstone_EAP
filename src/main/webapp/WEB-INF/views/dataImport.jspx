@@ -7,6 +7,14 @@
     <h3 class="panel-title">Data Import</h3>
 </div>
 <div class="panel-body">
+    <span class="errors alert alert-info">The file must be in the following format:
+        <br />Name,Number,Email,Phone,Type,Active,Emergency Contact Name,Emergency Contact Phone,Description
+        <br /><br />The following fields are not required, and must be left blank in the file if not included:
+        <br />Number,Description
+    </span>
+    <c:if test="${not empty errorMessage}">
+        <span class="errors alert alert-danger">${errorMessage}</span>
+    </c:if>
     <form:create id="fc_edu_ndnu_capstone_domain_UploadItem" modelAttribute="uploadItem" path="/dataImport/upload" render="${empty dependencies}" z="" multipart="true">
         <field:input field="fileData" id="c_edu_ndnu_capstone_domain_UploadItem_file" required="true" z="" type="file" />
     </form:create>

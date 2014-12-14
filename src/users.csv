@@ -1,3 +1,5 @@
-Bozena Comacho,bcomacho@student.ndnu.edu,bcomacho,bcomacho,111-222-3333,Admin,
-Angelo Rivera,arivera@student.ndnu.edu,arivera,arivera,111-222-3333,Admin,
-Michael Tempalski,mtempalski@student.ndnu.edu,mtempalski,mtempalski,111-222-3333,Admin,
+"Name","Number","Email","Phone","Type","Active","Emergency Contact Name","Emergency Contact Phone","Description"
+"Scott Mantegani","1234","smantegani@student.ndnu.edu","111-222-3333","Student","1","John Doe","111-222-3333",""
+"Bozena Comacho","1235","bcomacho@student.ndnu.edu","4111-222-3333","Student","1","John Doe","111-222-3333","This is a description."
+"Angelo Rivera","1236","arivera1@student.ndnu.edu","111-222-3333","Student","1","John Doe","111-222-3333","This is a description."
+"Michael Tempalski","","mtempalski1@student.ndnu.edu","111-222-3333","Student","1","John Doe","111-222-3333",""
