@@ -1,6 +1,7 @@
 package edu.ndnu.capstone.web;
 import edu.ndnu.capstone.domain.EmergencyService;
 import edu.ndnu.capstone.domain.EmergencyType;
+import edu.ndnu.capstone.domain.EmergencyTypeCategory;
 import edu.ndnu.capstone.domain.EmergencyTypeService;
 
 import java.io.UnsupportedEncodingException;
@@ -102,6 +103,7 @@ public class EmergencyTypeController {
     }
 
     void populateEditForm(Model uiModel, EmergencyType emergencyType) {
+        uiModel.addAttribute("categories", EmergencyTypeCategory.findTypes());
         uiModel.addAttribute("emergencyType", emergencyType);
         uiModel.addAttribute("emergencies", emergencyService.findAllEmergencies());
     }

@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_edu_ndnu_capstone_domain_EmergencyType" modelAttribute="emergencyType" path="/emergencytypes" render="${empty dependencies}" z="S/POUnQszMMBxi9+W/2Jm/Y1RNU=">
         <field:input field="name" id="c_edu_ndnu_capstone_domain_EmergencyType_name" required="true" z="kzsZ71Fo4446pf9ITm9xeW/cHzU="/>
-        <field:input field="category" id="c_edu_ndnu_capstone_domain_EmergencyType_category" required="true" z=""/>
+        <field:select field="category" id="c_edu_ndnu_capstone_domain_EmergencyType_category" items="${categories}" path="" itemLabel="name" itemValue="value" required="true" z=""/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_edu_ndnu_capstone_domain_EmergencyType" render="${not empty dependencies}" z="iRPkpp5g9XuHBwI7V1H6oxGRJ30="/>
 </div>

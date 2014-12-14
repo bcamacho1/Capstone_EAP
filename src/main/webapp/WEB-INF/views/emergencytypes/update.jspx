@@ -4,6 +4,6 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_edu_ndnu_capstone_domain_EmergencyType" modelAttribute="emergencyType" path="/emergencytypes" versionField="none" z="vHrn1V3ijKxIOc2nGXdGmQ4QQEY=">
         <field:input field="name" id="c_edu_ndnu_capstone_domain_EmergencyType_name" required="true" z="kzsZ71Fo4446pf9ITm9xeW/cHzU="/>
-        <field:input field="category" id="c_edu_ndnu_capstone_domain_EmergencyType_category" required="true" z=""/>
+        <field:select field="category" id="c_edu_ndnu_capstone_domain_EmergencyType_category" items="${categories}" path="" itemLabel="name" itemValue="value" required="true" z=""/>
     </form:update>
 </div>
