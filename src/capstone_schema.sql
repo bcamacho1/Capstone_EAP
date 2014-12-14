@@ -57,9 +57,9 @@ CREATE TABLE `emergency` (
 LOCK TABLES `emergency` WRITE;
 /*!40000 ALTER TABLE `emergency` DISABLE KEYS */;
 INSERT INTO `emergency` VALUES 
-(1,1,1,1,2,'2013-02-28 15:09:01',NULL),
-(2,3,7,7,3,'2013-02-28 15:09:01',NULL),
-(3,3,8,1,1,'2014-09-03 06:04:35',NULL);
+(1,1,1,1,2,'2013-02-28 15:09:01','A fire has started in St. Mary\'s Hall, emergency services are already en route.'),
+(2,3,7,7,3,'2013-02-28 15:09:01','A suspicious bag was left at St. Joseph\'s Hall, police are already on scene.'),
+(3,3,8,2,1,'2014-09-03 06:04:35','A power outage has occurred in the Dining Hall.');
 /*!40000 ALTER TABLE `emergency` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +299,10 @@ INSERT INTO `user` VALUES
 (1,'Scott Mantegani',111111,'smantegani@student.ndnu.edu','smantegani','$2a$10$XS3kaGKCOt2MxUZDGjq7.eSkjPR2MX.1znFk99UNvD24zxqmPQRlC','111-222-3333',2,1,'2013-02-28 14:59:32','John Doe','111-222-3333',''),
 (2,'Bozena Camacho',222222,'bcamacho1@student.ndnu.edu','bcamacho1','$2a$10$j5OAK3MuKEnKIUrh4FBpqeA/qi52aUXhWXI2yKYgdMxZ/o8ZzzDAa','111-222-3333',1,1,'2014-10-03 06:48:00','John Doe','111-222-3333',''),
 (3,'Angelo Rivera',333333,'arivera@student.ndnu.edu','arivera','$2a$10$xXIRIq9qkoFqR99qpX9Rf.yP5uMZ3lXpbblSCJwhwoMPoug6x7KP.','111-222-3333',2,1,'2014-11-27 04:06:25','Jane Doe','111-222-3333',''),
-(4,'Michael Tempalski',444444,'mtempalski@student.ndnu.edu','mtempalski','$2a$10$0IotnzmQa5Q0Fy0RaxnFFuX21Lx8S4LSWHNxbBu1NM1Uxe1TaNOcu','111-222-3333',1,1,'2014-11-27 04:26:58','Jane Doe','111-222-3333','');
+(4,'Michael Tempalski',444444,'mtempalski@student.ndnu.edu','mtempalski','$2a$10$0IotnzmQa5Q0Fy0RaxnFFuX21Lx8S4LSWHNxbBu1NM1Uxe1TaNOcu','111-222-3333',1,1,'2014-11-27 04:26:58','Jane Doe','111-222-3333',''),
+(5,'Emese Bari',null,'ebari@ndnu.edu','ebari','$2a$10$MyTfyXep6IcDcu16mhhfteFwxQhHPxbJK6oWQQbny1Uew12ULs6ru','650-222-3333',1,1,CURRENT_TIMESTAMP,'John Doe','650-222-3333','CIS faculty member'),
+(6,'John Youssefi',null,'jyoussefi@ndnu.edu','jyoussefi','$2a$10$CfGlpCLYtC3scGMZzJfFdeWBEiKYgVtz1ynUb0z7cc5jfMmCdaYXy','415-222-3333',1,1,CURRENT_TIMESTAMP,'John Doe','415-222-3333','CIS faculty member'),
+(7,'Bahram Mahbod',null,'bmahbod@ndnu.edu','bmahbod','$2a$10$faRxZoQqrK6FgWPf3iXiCetNceGODaSQYAn95tvuYo7Sm0trtlFIi','650-222-3333',1,1,CURRENT_TIMESTAMP,'John Doe','650-222-3333','CIS faculty member');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
