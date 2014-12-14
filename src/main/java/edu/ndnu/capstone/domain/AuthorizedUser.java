@@ -71,7 +71,7 @@ public class AuthorizedUser
     @Column(name = "username", length = 150, unique = true)
     @NotNull
     @Size(min=4, message="Must be at least 5 characters.")
-    @Pattern(regexp = "[a-z]*[0-9]?", message="User name can only be letters, and can contain one number at the end.")
+    @Pattern(regexp = "[a-z]*[0-9]?", message="User name needs to start with low case letter, can only be letters, and can contain one number at the end.")
     private String username;
 
     @Column(name = "password")
