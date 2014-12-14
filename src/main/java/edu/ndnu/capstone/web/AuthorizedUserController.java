@@ -180,7 +180,7 @@ public class AuthorizedUserController {
             }
             
             existingAuthUser = authorizedUserService.findUserByUsername(user.getUsername());
-            if (existingAuthUser != null && existingUser.getId() != user.getId())
+            if (existingAuthUser != null && existingAuthUser.getId() != user.getId())
             {
                 bindingResult.addError(new FieldError("authorizeduser", "username", "That username already exists in the database."));
                 populateEditForm(uiModel, user);
