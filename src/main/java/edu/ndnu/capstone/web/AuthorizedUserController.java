@@ -216,13 +216,19 @@ public class AuthorizedUserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String delete(@PathVariable("id") Integer id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel, final RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest) {
+        try {
         AuthorizedUser user = authorizedUserService.findUser(id);
         authorizedUserService.deleteUser(user);
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/authorizedusers";
+            return "redirect:/authorizedusers";
+        }
+        catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "This user cannot be deleted because it owns other objects.");
+            return "redirect:/authorizedusers/" + encodeUrlPathSegment(id.toString(), httpServletRequest);
+        }
     }
 
     void addDateTimeFormatPatterns(Model uiModel) {
