@@ -132,7 +132,7 @@ public class Location {
     @Column(name = "address", length = 1024)
     @NotNull
     @Size(min=2, max=30, message = "Address must be between 2 and 30 characters.")
-    @Pattern(regexp = "[0-9]+ [A-Za-z]+ ?[a-z]*[A-Za-z]* *[A-Za-z]*", message="Address can be both letters and numbers. Address can be three words.")
+    @Pattern(regexp = "[A-Za-z0-9 \\.'-,]*", message="Address can be both letters, numbers and puntuation. Please Verify You Input.")
     private String address;
 
     @Column(name = "city", length = 30)
