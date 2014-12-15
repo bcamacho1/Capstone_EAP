@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Min;
@@ -297,6 +298,18 @@ public class User
         if (email == null) return null;
         try {
             return entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') AND email = '" + email + "'", User.class).getSingleResult();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static List<User> searchUsers(String name) {
+        if (name == null) return null;
+        try {
+            TypedQuery<User> query = entityManager().createQuery("SELECT o FROM User o JOIN o.typeId p WHERE p.name in ('Student','Faculty') AND o.name LIKE :keyword ORDER BY active desc, type_id, o.name", User.class);
+            query.setParameter("keyword", "%" + name + "%");
+            return query.getResultList();
         } catch (DataAccessException e) {
             e.printStackTrace();
             return null;

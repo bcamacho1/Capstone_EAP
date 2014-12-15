@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import edu.ndnu.capstone.domain.AuthorizedUser;
 import edu.ndnu.capstone.domain.AuthorizedUserService;
 import edu.ndnu.capstone.domain.Search;
+import edu.ndnu.capstone.domain.User;
 import edu.ndnu.capstone.domain.UserActiveType;
 import edu.ndnu.capstone.domain.UserType;
 import edu.ndnu.capstone.domain.UserTypeService;
@@ -37,13 +38,13 @@ public class SearchController
   UserTypeService userTypeService;
     
   @RequestMapping(value="/authorizedUsers", params = "form", produces = "text/html")
-  public String searchForm(Model uiModel) {
+  public String searchFormAuthorizedUser(Model uiModel) {
       populateEditForm(uiModel, new Search());
       return "search/authorizedUsers";
   }
   
   @RequestMapping(value = "/searchAuthorizedUser", method = RequestMethod.POST, produces = "text/html")
-  public String search(@ModelAttribute("search") @Valid Search search, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes) {
+  public String searchAuthorizedUser(@ModelAttribute("search") @Valid Search search, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes) {
       if (bindingResult.hasErrors()) {
           java.util.List<ObjectError> list=bindingResult.getAllErrors();
           for(ObjectError obj:list)
@@ -64,6 +65,36 @@ public class SearchController
       redirectAttributes.addFlashAttribute("successMessage", "Found the following users:");
       uiModel.asMap().clear();  
       return "redirect:/authorizedusers/result";
+  }
+  
+  @RequestMapping(value="/users", params = "form", produces = "text/html")
+  public String searchFormUser(Model uiModel) {
+      populateEditForm(uiModel, new Search());
+      return "search/users";
+  }
+  
+  @RequestMapping(value = "/searchUser", method = RequestMethod.POST, produces = "text/html")
+  public String searchUser(@ModelAttribute("search") @Valid Search search, BindingResult bindingResult, Model uiModel, final RedirectAttributes redirectAttributes) {
+      if (bindingResult.hasErrors()) {
+          java.util.List<ObjectError> list=bindingResult.getAllErrors();
+          for(ObjectError obj:list)
+          {
+              System.out.println("objname: "+obj.getObjectName()+";"+obj.getCode()+";"+obj.getDefaultMessage());
+              
+              if(obj instanceof FieldError)
+              {
+                  System.out.println(((FieldError)obj).getField());
+              }
+          }
+
+          populateEditForm(uiModel, search);
+          return "search/users";
+      }
+      List<User> list = User.searchUsers(search.getName());
+      redirectAttributes.addFlashAttribute("users", list);
+      redirectAttributes.addFlashAttribute("successMessage", "Found the following users:");
+      uiModel.asMap().clear();  
+      return "redirect:/users/result";
   }
   
   void populateEditForm(Model uiModel, Search search) {

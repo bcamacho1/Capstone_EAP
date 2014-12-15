@@ -22,6 +22,9 @@ public interface UserService {
 
 
     public abstract List<User> findUserEntries(int firstResult, int maxResults);
+    
+    
+    public abstract List<User> searchUsers(String name);
 
 
     public abstract void saveUser(User user);

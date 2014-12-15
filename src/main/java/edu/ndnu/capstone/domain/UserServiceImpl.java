@@ -32,6 +32,10 @@ public class UserServiceImpl implements UserService {
     public List<User> findUserEntries(int firstResult, int maxResults) {
         return User.findUserEntries(firstResult, maxResults);
     }
+    
+    public List<User> searchUsers(String name) {
+        return User.searchUsers(name);
+    }
 
     public void saveUser(User user) {
         user.persist();
