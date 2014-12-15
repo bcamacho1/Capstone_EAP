@@ -73,7 +73,7 @@ color: #7D7A73;
  
 <h4>Quick Links</h4>
          <ul>
-<li><a href="/Capstone_EAP/">EAP Home</a></li>
+<li><a href="${home}">EAP Home</a></li>
 <li><a href="http://www.ndnu.edu/">NDNU Home</a></li>
 <li><a href="contactUs">Contact Us</a></li>
                 </ul>

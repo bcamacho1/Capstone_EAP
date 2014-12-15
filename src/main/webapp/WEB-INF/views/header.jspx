@@ -4,12 +4,12 @@
 	xmlns:spring="http://www.springframework.org/tags" version="2.0">
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
-
+    <spring:url value="/" var="home"/>
 	<!-- <spring:url var="banner" value="/resources/images/banner-graphic.png" /> -->
 	<spring:url var="logo_ndnu" value="/resources/images/NDNU_logo.png" />
 
 	<div class="pull-left hidden-xs">
-	   <a href="/Capstone_EAP/">
+	   <a href="${home}">
 	       <img src="${logo_ndnu}" id="ndnu_logo" />
 	   </a>
 	</div>
